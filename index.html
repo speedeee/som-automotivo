@@ -43,7 +43,6 @@
       text-shadow: 0 0 10px var(--led-color1);
     }
 
-    /* BARRA DE NAVEGAÇÃO FIXA */
     .tab-bar {
       position: fixed;
       bottom: 0;
@@ -110,7 +109,6 @@
       justify-content: space-between;
     }
 
-    /* PALCO & CAIXA ACÚSTICA */
     .palco-container {
       background: #000;
       border: 3px solid var(--led-color1);
@@ -156,7 +154,6 @@
       box-shadow: inset 0 0 25px #000;
     }
 
-    /* VOLTÍMETRO EMBUTIDO DIGITAL REALISTA */
     .voltimetro-embutido {
       position: absolute;
       top: 8px;
@@ -188,7 +185,6 @@
       width: 100%;
     }
 
-    /* DUTOS */
     .duto-redondo {
       width: 40px;
       height: 40px;
@@ -216,7 +212,6 @@
       filter: drop-shadow(0 0 4px var(--led-color1));
     }
 
-    /* WOOFERS */
     .real-woofer {
       width: 80px;
       height: 80px;
@@ -246,7 +241,6 @@
       border: 1px solid #71717a;
     }
 
-    /* CORNETAS */
     .real-driver {
       width: 55px;
       height: 55px;
@@ -265,6 +259,9 @@
       box-shadow: inset -4px -4px 8px #000, 0 0 8px var(--led-color1);
     }
 
+    .real-driver.round { border-radius: 50%; }
+    .real-driver.guia { width: 90%; height: 30px; border-radius: 4px; }
+
     .real-driver-led-throat {
       width: 18px;
       height: 18px;
@@ -275,7 +272,6 @@
       margin-bottom: 2px;
     }
 
-    /* HARDWARE PLAYERS */
     .player-hardware-case {
       background: linear-gradient(180deg, #18181b 0%, #09090b 100%);
       border: 3px solid #3f3f46;
@@ -286,8 +282,6 @@
       box-sizing: border-box;
       position: relative;
     }
-
-    .player-hardware-case.player-led-rainbow { animation: rotateRainbow 3s linear infinite; }
 
     .pioneer-face { display: flex; flex-direction: column; gap: 8px; }
 
@@ -364,8 +358,6 @@
       font-size: 18px;
     }
 
-    .pioneer-controls-row { display: flex; justify-content: space-between; gap: 4px; }
-
     .btn-hw {
       background: linear-gradient(180deg, #27272a 0%, #0f0f11 100%);
       border: 1px solid #52525b;
@@ -387,7 +379,6 @@
       color: #000;
     }
 
-    /* MESA DE VINHETAS / EFEITOS */
     .grid-pads {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -396,7 +387,7 @@
     }
     .pad {
       padding: 15px 8px;
-      font-size: 12px;
+      font-size: 11px;
       font-weight: bold;
       border: 1px solid #334155;
       border-radius: 8px;
@@ -410,6 +401,7 @@
     .pad-blue { background: linear-gradient(180deg, #00b4d8, #0077b6); }
     .pad-yellow { background: linear-gradient(180deg, #ffb703, #fb8500); }
     .pad-green { background: linear-gradient(180deg, #2a9d8f, #134e4a); }
+    .pad-purple { background: linear-gradient(180deg, #7209b7, #3a0ca3); }
 
     label {
       display: block;
@@ -420,7 +412,7 @@
       font-weight: 600;
     }
 
-    select, input[type="text"], input[type="number"], input[type="range"] {
+    select, input[type="text"], input[type="number"], input[type="range"], input[type="color"] {
       width: 100%;
       padding: 8px;
       margin-top: 3px;
@@ -466,20 +458,6 @@
       font-size: 10px;
       margin-top: 6px;
     }
-
-    .playlist-item {
-      padding: 4px;
-      border-bottom: 1px solid #0f172a;
-      cursor: pointer;
-      color: #94a3b8;
-    }
-
-    .playlist-item.ativo {
-      color: #fff;
-      background: var(--accent-red);
-      font-weight: bold;
-      border-radius: 3px;
-    }
   </style>
 </head>
 <body>
@@ -489,7 +467,7 @@
   <div class="tab-bar">
     <button class="tab-btn active" onclick="trocarAba('screen-palco', this)"><span>📻</span> Palco</button>
     <button class="tab-btn" onclick="trocarAba('screen-caixa', this)"><span>📦</span> Caixa</button>
-    <button class="tab-btn" onclick="trocarAba('screen-efeitos', this)"><span>🎛️</span> Vinhetas</button>
+    <button class="tab-btn" onclick="trocarAba('screen-efeitos', this)"><span>🎛️</span> Mesa/DSP</button>
     <button class="tab-btn" onclick="trocarAba('screen-leds', this)"><span>💡</span> LEDs</button>
   </div>
 
@@ -500,6 +478,7 @@
         <select id="quickPlayerSelect" style="width: auto; padding: 2px 6px; font-size: 10px;" onchange="trocarPlayerPeloMenu(this.value)">
           <option value="pioneer">Pioneer Golfinho 1DIN</option>
           <option value="android">Central Multimídia Touchscreen</option>
+          <option value="reddvd">Player DVD Red 1DIN</option>
         </select>
       </h3>
 
@@ -519,6 +498,26 @@
       <div style="margin-top: 12px;">
         <div class="player-hardware-case" id="playerHardwareContainer"></div>
       </div>
+
+      <button id="btnXtreme" class="btn-xtreme" onclick="alternarXtreme()">⚡ BASS BOOST XTREME (DESLIGADO)</button>
+    </div>
+
+    <div class="card">
+      <h3>📡 Controle de Longa Distância (Até 500m)</h3>
+      <div class="grid-2">
+        <div>
+          <label>Marca do Controle:</label>
+          <select id="remoteBrand">
+            <option value="JFA Eletrônicos">JFA Eletrônicos K1200 / RED</option>
+            <option value="Stetsom SX2">Stetsom SX2 / Longa Distância</option>
+            <option value="Taramps TLC3000">Taramps TLC3000 / Connect</option>
+          </select>
+        </div>
+        <div>
+          <label>Status do Sinal:</label>
+          <button class="btn-hw" style="margin-top:4px; height:32px;" onclick="alert('📡 Sinal do Controle OK (Alcance: 500 Metros)!')">📶 TESTAR FREQUÊNCIA</button>
+        </div>
+      </div>
     </div>
 
     <div class="card">
@@ -531,29 +530,78 @@
     </div>
   </div>
 
-  <div id="screen-efeitos" class="screen">
-    <div class="card">
-      <h3>🎛️ Mesa de Vinhetas & Pistolão</h3>
-      <div class="grid-pads">
-        <button class="pad pad-red" onclick="tocarEfeito('airhorn')">📯 AIRHORN</button>
-        <button class="pad pad-blue" onclick="tocarEfeito('grave')">💥 BASS DROP</button>
-        <button class="pad pad-yellow" onclick="tocarEfeito('sirene')">🚨 SIRENE</button>
-        <button class="pad pad-green" onclick="tocarEfeito('laser')">⚡ LASER DJ</button>
-      </div>
-    </div>
-  </div>
-
   <div id="screen-caixa" class="screen">
     <div class="card">
-      <h3>📦 Estrutura Acústica & Falantes</h3>
+      <h3>📦 Estrutura Acústica, Projeto & Marca</h3>
+      <div class="grid-2">
+        <div>
+          <label>Modelo de Caixa:</label>
+          <select id="boxStructure" onchange="atualizarPalco()">
+            <option value="dutada">Dutada Tradicional (Reta)</option>
+            <option value="labirinto">Dutada Labirinto (Grave Profundo)</option>
+            <option value="euclides">Euclides Turbo (Pancadão)</option>
+            <option value="corneteira">Corneteira Isolada (Régua)</option>
+            <option value="manifold">Manifold / Bandpass</option>
+            <option value="canhao">Canhão / T18 / Turbina</option>
+            <option value="bob">Bob Sponge / Residencial</option>
+          </select>
+        </div>
+        <div>
+          <label>Fabricante / Convertedor:</label>
+          <select id="boxMaker">
+            <option value="Sob Medida Local">Sob Medida (Lojas / Convertedor)</option>
+            <option value="Regsom Caixas">Regsom Caixas Especiais</option>
+            <option value="Bomber">Bomber Acoustic</option>
+            <option value="Falcon Design">Falcon Sound</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div>
+          <label>Tipo de Duto:</label>
+          <select id="dutoType" onchange="atualizarPalco()">
+            <option value="redondo">Redondo com LED</option>
+            <option value="quadrado">Régua / Retangular</option>
+            <option value="triangular">Triangular / Canto</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>🎨 Revestimento & Foto da Caixa</h3>
+      <div class="grid-2">
+        <div>
+          <label>Revestimento:</label>
+          <select id="boxMaterial" onchange="alterarMaterialCaixa()">
+            <option value="padrao">Padrão Grafitado</option>
+            <option value="couro">Couro Preto Costurado</option>
+            <option value="carbono">Vinil Fibra de Carbono 3D</option>
+            <option value="mdf">Madeira / MDF Cru</option>
+            <option value="liso">Pintura Liso Gloss</option>
+          </select>
+        </div>
+        <div>
+          <label>Cor Interna:</label>
+          <input type="color" id="caixaBgColor" value="#18181b" onchange="alterarCorCaixa()">
+        </div>
+      </div>
+      <label>📸 Foto da Galeria na Caixa:</label>
+      <input type="file" id="boxBgFile" accept="image/*" onchange="alterarFotoCaixa(event)">
+    </div>
+
+    <div class="card">
+      <h3>🔊 Alto-Falantes & Cornetas</h3>
       <div class="grid-2">
         <div>
           <label>Marca Woofers:</label>
           <select id="wooferBrand" onchange="atualizarPalco()">
-            <option value="Eros">Eros Target Bass</option>
-            <option value="Triton">Triton Vulcano</option>
+            <option value="Eros">Eros Target Bass / Hammer</option>
+            <option value="Triton">Triton Shocker / Vulcano</option>
             <option value="Hard Power">Hard Power HP</option>
-            <option value="JBL">JBL Tornado</option>
+            <option value="JBL">JBL Vulcano / Tornado</option>
+            <option value="7Driver">7Driver Bass / Thunder</option>
           </select>
         </div>
         <div>
@@ -568,11 +616,44 @@
           <input type="number" id="driverQty" value="2" min="0" max="8" onchange="atualizarPalco()">
         </div>
         <div>
-          <label>Tipo de Duto:</label>
-          <select id="dutoType" onchange="atualizarPalco()">
-            <option value="redondo">Redondo com LED</option>
-            <option value="quadrado">Régua / Retangular</option>
+          <label>Formato Corneta:</label>
+          <select id="hornFormat" onchange="atualizarPalco()">
+            <option value="square">Jararaca / Perfil 3D</option>
+            <option value="round">Redonda / Oval</option>
+            <option value="guia">Guia de Onda Trio</option>
           </select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="screen-efeitos" class="screen">
+    <div class="card">
+      <h3>🎛️ Mesa de Vinhetas & Efeitos DJ</h3>
+      <div class="grid-pads">
+        <button class="pad pad-red" onclick="tocarEfeito('airhorn')">📯 BUZINA / AIRHORN</button>
+        <button class="pad pad-blue" onclick="tocarEfeito('grave')">💥 BASS DROP (GRAVE)</button>
+        <button class="pad pad-yellow" onclick="tocarEfeito('sirene')">🚨 SIRENE POLÍCIA</button>
+        <button class="pad pad-green" onclick="tocarEfeito('laser')">⚡ LASER DJ</button>
+        <button class="pad pad-purple" onclick="tocarEfeito('paredao')">🗣️ CHAMADA PAREDÃO</button>
+        <button class="pad pad-red" onclick="tocarEfeito('maritima')">🚢 BUZINA MARÍTIMA</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>🎛️ Módulo Mesa de Som DSP</h3>
+      <div class="grid-2">
+        <div>
+          <label>Marca da Mesa:</label>
+          <select id="dspBrand">
+            <option value="Taramps Expert">Taramps Pro 2.4S</option>
+            <option value="Stetsom STX">Stetsom STX2448</option>
+            <option value="Expert Electronics">Expert PX2 Connect</option>
+          </select>
+        </div>
+        <div>
+          <label>Ganho Principal:</label>
+          <input type="range" min="0" max="100" value="80">
         </div>
       </div>
     </div>
@@ -580,7 +661,25 @@
 
   <div id="screen-leds" class="screen">
     <div class="card">
-      <h3>💡 Central de Efeitos LED RGB</h3>
+      <h3>💡 Central de Efeitos LED RGB (AJK / Taramps)</h3>
+      <div class="grid-2">
+        <div>
+          <label>Central de LED:</label>
+          <select id="ledCentralBrand">
+            <option value="AJK Sound Strobo Bluetooth">AJK Sound Strobo Rítmico</option>
+            <option value="Taramps LED RGB Digital">Taramps Digital RGB Controller</option>
+          </select>
+        </div>
+        <div>
+          <label>Efeito do LED Caixa:</label>
+          <select id="ledMode" onchange="atualizarLeds()">
+            <option value="estatico">Estático</option>
+            <option value="pisca">Strobo / Sincronizado Áudio</option>
+            <option value="giratorio">Rainbow Giratório</option>
+          </select>
+        </div>
+      </div>
+
       <div class="grid-2">
         <div>
           <label>Cor LED 1:</label>
@@ -591,6 +690,16 @@
           <input type="color" id="ledColor2" value="#ff0055" onchange="atualizarLeds()">
         </div>
       </div>
+
+      <div class="grid-2">
+        <div>
+          <label>Cor do LED do Player:</label>
+          <input type="color" id="playerLedColor" value="#00f0ff" onchange="alterarCorPlayerLed(this.value)">
+        </div>
+      </div>
+
+      <label>Fundo App (Foto/GIF):</label>
+      <input type="file" id="bgFile" accept="image/*" onchange="alterarFundoApp(event)">
     </div>
   </div>
 
