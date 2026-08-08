@@ -1,1203 +1,865 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Simulador Master PRO - Som Automotivo Realista</title>
-  <style>
-    :root {
-      --bg-dark: #04060c;
-      --card-bg: #0b1120;
-      --border-color: #1e293b;
-      --accent-red: #ff0055;
-      --neon-cyan: #00f0ff;
-      --neon-yellow: #ffcc00;
-      --neon-green: #00ff66;
-      --led-color1: #00f0ff;
-      --led-color2: #ff0055;
-      --player-led-color: #00f0ff;
-      --caixa-bg-color: #18181b;
-      --caixa-texture: none;
-      --text-main: #f8fafc;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⚡ SPEED RÁDIO - SAVEIRO PAREDÃO PRO</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; }
+        :root { 
+            --bg-color: #0a0b0e; 
+            --pioneer-frame-bg: linear-gradient(145deg, #1f232a, #0d0e12);
+            --pioneer-border: #00d4ff;
+            --pioneer-blue: #00d4ff; 
+            --pioneer-glow: rgba(0, 212, 255, 0.4);
+            --speaker-sub-color: #00ff88;
+            --speaker-horn-color: #0044ff;
+            --speaker-tweet-color: #ff0055;
+            --btn-bg: #00d4ff;
+            --btn-text: #000000;
+            --text-color: #00d4ff;
+            --flash-color: #ffffff;
+        }
 
-    body {
-      background-color: var(--bg-dark);
-      background-size: cover;
-      background-position: center;
-      background-attachment: fixed;
-      color: var(--text-main);
-      font-family: 'Segoe UI', Roboto, sans-serif;
-      margin: 0;
-      padding: 10px;
-      padding-bottom: 75px;
-    }
+        html, body { width: 100%; min-height: 100vh; margin: 0; padding: 0; }
+        body { 
+            background-color: var(--bg-color); 
+            background-size: cover; background-position: center; background-repeat: no-repeat; background-attachment: fixed;
+            color: #fff; font-family: 'Courier New', Courier, monospace; text-align: center; padding: 10px; transition: background 0.2s ease;
+        }
 
-    h1 {
-      text-align: center;
-      color: var(--accent-red);
-      font-size: 16px;
-      margin: 6px 0 12px 0;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      text-shadow: 0 0 10px var(--led-color1);
-    }
+        /* GIFS & ANIMATIONS */
+        body.glitter-bg {
+            background-image: radial-gradient(circle, #ffffff 1px, transparent 1px), radial-gradient(circle, #ff007f 1px, transparent 1px);
+            background-size: 25px 25px, 35px 35px; animation: glitterAnim 1.2s infinite linear;
+        }
+        @keyframes glitterAnim { 0% { background-position: 0 0, 10px 10px; } 50% { background-position: 15px 25px, 25px 5px; } 100% { background-position: 0 0, 10px 10px; } }
+        body.gif-fogo { background-image: url('https://i.gifer.com/13i.gif') !important; }
+        body.gif-matrix { background-image: url('https://i.gifer.com/7S8E.gif') !important; }
+        body.gif-galaxy { background-image: url('https://i.gifer.com/S2mP.gif') !important; }
+        body.gif-stars { background-image: url('https://i.gifer.com/4S0.gif') !important; }
+        body.gif-cyberpunk { background-image: url('https://i.gifer.com/9C.gif') !important; }
+        body.gif-fogoblue { background-image: url('https://i.gifer.com/71d.gif') !important; }
+        body.gif-waves { background-image: url('https://i.gifer.com/7Scq.gif') !important; }
+        body.gif-eqdigital { background-image: url('https://i.gifer.com/U8.gif') !important; }
+        body.gif-lights { background-image: url('https://i.gifer.com/39G.gif') !important; }
 
-    .tab-bar {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: #020617;
-      border-top: 2px solid var(--border-color);
-      display: flex;
-      justify-content: space-around;
-      padding: 8px 4px;
-      z-index: 1000;
-      backdrop-filter: blur(10px);
-    }
+        .gear-container { position: fixed; top: 10px; right: 10px; z-index: 1000; }
+        .gear-btn { background: #1f232a; border: 2px solid var(--pioneer-border); color: #fff; padding: 10px 14px; border-radius: 50%; cursor: pointer; font-size: 18px; box-shadow: 0 0 10px var(--pioneer-glow); }
+        .gear-menu { display: none; position: absolute; right: 0; top: 45px; background: #111318; border: 2px solid var(--pioneer-border); padding: 10px; border-radius: 10px; width: 230px; box-shadow: 0 8px 20px rgba(0,0,0,0.9); text-align: left; }
+        .gear-menu button { width: 100%; margin: 4px 0; font-size: 11px; padding: 8px; background: var(--btn-bg); color: var(--btn-text); border: none; border-radius: 5px; font-weight: bold; cursor: pointer; }
 
-    .tab-btn {
-      background: none;
-      border: none;
-      color: #64748b;
-      font-size: 10px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 3px;
-      cursor: pointer;
-      font-weight: bold;
-      text-transform: uppercase;
-      flex: 1;
-    }
+        .pioneer-frame { background: var(--pioneer-frame-bg); border: 4px solid var(--pioneer-border); border-radius: 18px; padding: 15px; max-width: 650px; margin: 35px auto 15px auto; box-shadow: 0 10px 30px rgba(0,0,0,0.9), 0 0 15px var(--pioneer-glow); position: relative; }
+        .lcd-display { background: #00121a; border: 3px solid #002b3d; border-radius: 8px; padding: 10px; color: var(--text-color); margin-bottom: 12px; }
 
-    .tab-btn span { font-size: 16px; }
+        .wall-container-saveiro { background: #08090c; border: 3px solid #1f232a; border-radius: 12px; padding: 10px 5px; margin: 10px 0; display: flex; flex-direction: column; gap: 8px; }
+        .rack-top, .rack-bottom { display: flex; justify-content: space-around; align-items: center; background: #111318; padding: 6px; border-radius: 8px; }
 
-    .tab-btn.active {
-      color: var(--neon-cyan);
-      text-shadow: 0 0 8px var(--neon-cyan);
-    }
+        .shake-effect { animation: tremor 0.05s infinite alternate; }
+        @keyframes tremor { 0% { transform: translate(2px, 1px); } 100% { transform: translate(-2px, -1px); } }
 
-    .screen { display: none; }
-    .screen.active { display: block; animation: fadeIn 0.2s ease-in-out; }
+        .subwoofer-saveiro { width: 75px; height: 75px; background: radial-gradient(circle, #222 10%, #111 50%, #000 100%); border: 4px solid #333; border-radius: 50%; display: flex; justify-content: center; align-items: center; transition: transform 0.03s ease; }
+        .subwoofer-saveiro::before { content: 'SDS'; font-size: 9px; font-weight: bold; color: #fff; width: 42px; height: 42px; background: radial-gradient(circle, var(--speaker-sub-color) 15%, #111 90%); border-radius: 50%; border: 2px solid #000; display: flex; align-items: center; justify-content: center; }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(4px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+        .horn-saveiro { width: 42px; height: 42px; background: #15171c; border: 2px solid #333; border-radius: 50%; display: flex; justify-content: center; align-items: center; }
+        .horn-saveiro-inner { width: 28px; height: 28px; background: radial-gradient(circle, var(--speaker-horn-color) 10%, #000 80%); border-radius: 50%; }
 
-    .card {
-      background: rgba(11, 17, 32, 0.92);
-      border: 1px solid var(--border-color);
-      border-radius: 10px;
-      padding: 12px;
-      margin-bottom: 12px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.8);
-    }
+        .tweeter-saveiro { width: 28px; height: 28px; background: #1a1a1a; border: 2px solid #444; border-radius: 4px; display: flex; justify-content: center; align-items: center; }
+        .tweeter-saveiro-core { width: 10px; height: 10px; background: var(--speaker-tweet-color); border-radius: 50%; }
 
-    .card h3 {
-      font-size: 12px;
-      color: var(--neon-cyan);
-      text-transform: uppercase;
-      margin-top: 0;
-      border-bottom: 1px solid var(--border-color);
-      padding-bottom: 6px;
-      margin-bottom: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
+        .box-link { background: rgba(0, 212, 255, 0.05); border: 1px dashed var(--pioneer-blue); border-radius: 6px; padding: 8px; margin: 10px 0; display: flex; flex-direction: column; align-items: center; gap: 5px; }
+        .box-link input { width: 90%; text-align: center; font-size: 11px; background: #000; color: var(--text-color); border: 1px solid #005577; padding: 5px; }
 
-    .palco-container {
-      background: #000;
-      border: 3px solid var(--led-color1);
-      border-radius: 12px;
-      padding: 15px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 12px;
-      position: relative;
-      box-shadow: inset 0 0 30px rgba(0,0,0,0.9), 0 0 15px var(--led-color1);
-      transition: border-color 0.3s, box-shadow 0.3s;
-    }
+        input[type="text"], input[type="email"], input[type="password"], input[type="datetime-local"], select { width: 90%; padding: 8px; border-radius: 5px; border: 1px solid #005577; background: #00121a; color: #fff; margin-bottom: 8px; font-size: 12px; }
+        button { padding: 8px 12px; border-radius: 6px; border: none; background: var(--btn-bg); color: var(--btn-text); font-weight: bold; cursor: pointer; margin: 2px; }
+        .btn-power { background: #e74c3c; color: #fff; font-size: 13px; padding: 8px; border-radius: 8px; font-weight: bold; width: 100%; margin-bottom: 8px; }
+        .btn-power.on { background: #2ecc71 !important; }
+        .btn-danger { background: #e74c3c !important; color: #fff !important; }
+        .btn-extreme { background: #ff0055 !important; color: #fff !important; width: 100%; padding: 8px; }
+        .btn-small { padding: 3px 6px; font-size: 10px; margin: 0 1px; }
 
-    .palco-container.led-giratorio { animation: rotateRainbow 3s linear infinite; }
-    .palco-container.led-pisca { animation: stroboEffect 0.15s infinite alternate; }
+        canvas { width: 100%; height: 65px; display: block; }
+        .eq-panel { background: rgba(0,0,0,0.6); padding: 10px; border-radius: 8px; border: 1px solid #003344; margin: 8px 0; text-align: left; }
+        .eq-slider { display: flex; justify-content: space-between; align-items: center; margin: 6px 0; font-size: 11px; }
+        .eq-slider input { width: 50%; }
 
-    @keyframes rotateRainbow {
-      0% { filter: hue-rotate(0deg); }
-      100% { filter: hue-rotate(360deg); }
-    }
+        ol, ul { text-align: left; background: rgba(0, 212, 255, 0.05); padding: 8px; border-radius: 5px; max-height: 180px; overflow-y: auto; border: 1px solid #003344; color: var(--text-color); font-size: 11px; list-style: none; }
+        li { margin-bottom: 4px; border-bottom: 1px solid #002b3d; padding-bottom: 3px; display: flex; justify-content: space-between; align-items: center; gap: 5px; }
+        .song-title { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .color-group { display: flex; align-items: center; justify-content: space-between; margin: 6px 0; font-size: 11px; }
+        .color-group input[type="color"] { border: none; width: 35px; height: 25px; cursor: pointer; background: none; }
+        iframe { width: 100%; height: 180px; border: none; border-radius: 8px; margin-top: 5px; }
 
-    @keyframes stroboEffect {
-      0% { opacity: 0.3; }
-      100% { opacity: 1; }
-    }
-
-    .caixa-acustica {
-      background-color: var(--caixa-bg-color);
-      background-image: var(--caixa-texture);
-      background-size: cover;
-      background-position: center;
-      border: 4px solid #27272a;
-      border-radius: 10px;
-      padding: 15px;
-      width: 100%;
-      box-sizing: border-box;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 12px;
-      position: relative;
-      box-shadow: inset 0 0 25px #000;
-    }
-
-    .voltimetro-embutido {
-      position: absolute;
-      top: 8px;
-      right: 12px;
-      background: #000;
-      border: 1.5px solid #222;
-      padding: 3px 8px;
-      border-radius: 4px;
-      box-shadow: inset 0 0 8px rgba(255,0,0,0.8);
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
-
-    .voltimetro-embutido-texto {
-      font-family: 'Courier New', Courier, monospace;
-      font-size: 13px;
-      font-weight: 900;
-      color: #ff0033;
-      text-shadow: 0 0 8px #ff0000;
-      letter-spacing: 1px;
-    }
-
-    .painel-cornetas, .painel-woofers, .painel-dutos {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 10px;
-      width: 100%;
-    }
-
-    .duto-redondo {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background: radial-gradient(circle, #000 35%, #18181b 75%, #3f3f46 100%);
-      border: 3px solid var(--led-color1);
-      box-shadow: inset 0 0 8px #000, 0 0 10px var(--led-color1);
-    }
-
-    .duto-quadrado {
-      width: 90%;
-      height: 20px;
-      background: linear-gradient(180deg, #000 0%, #18181b 100%);
-      border: 2px solid var(--led-color1);
-      border-radius: 4px;
-      box-shadow: inset 0 0 10px #000, 0 0 10px var(--led-color1);
-    }
-
-    .duto-triangular {
-      width: 0;
-      height: 0;
-      border-left: 18px solid transparent;
-      border-right: 18px solid transparent;
-      border-bottom: 30px solid #111;
-      filter: drop-shadow(0 0 4px var(--led-color1));
-    }
-
-    .real-woofer {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      background: radial-gradient(circle, #27272a 15%, #09090b 55%, #18181b 85%, #000 100%);
-      border: 5px solid #3f3f46;
-      outline: 2px solid var(--led-color2);
-      box-shadow: inset 0 0 12px #000, 0 0 10px var(--led-color2);
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 8px;
-      font-weight: 900;
-      color: #e4e4e7;
-      text-transform: uppercase;
-      will-change: transform;
-      transition: transform 0.02s linear;
-    }
-
-    .real-woofer::after {
-      content: '';
-      width: 26px;
-      height: 26px;
-      border-radius: 50%;
-      background: radial-gradient(circle, #52525b 0%, #18181b 100%);
-      border: 1px solid #71717a;
-    }
-
-    .real-driver {
-      width: 55px;
-      height: 55px;
-      background: linear-gradient(135deg, #3f3f46 0%, #09090b 60%, #000 100%);
-      border: 2px solid #a1a1aa;
-      border-radius: 6px;
-      color: var(--neon-cyan);
-      font-size: 7px;
-      font-weight: bold;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      overflow: hidden;
-      box-shadow: inset -4px -4px 8px #000, 0 0 8px var(--led-color1);
-    }
-
-    .real-driver-led-throat {
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      background: #000;
-      border: 1px solid var(--led-color1);
-      box-shadow: inset 0 0 6px var(--led-color1);
-      margin-bottom: 2px;
-    }
-
-    .player-hardware-case {
-      background: linear-gradient(180deg, #18181b 0%, #09090b 100%);
-      border: 3px solid #3f3f46;
-      border-radius: 10px;
-      padding: 10px;
-      box-shadow: inset 0 0 15px #000, 0 8px 20px rgba(0,0,0,0.9);
-      width: 100%;
-      box-sizing: border-box;
-      position: relative;
-    }
-
-    .player-hardware-case.player-led-rainbow { animation: rotateRainbow 3s linear infinite; }
-
-    .pioneer-face { display: flex; flex-direction: column; gap: 8px; }
-
-    .pioneer-top-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-    }
-
-    .pioneer-knob-btn {
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      background: radial-gradient(circle, #52525b 10%, #18181b 70%, #000 100%);
-      border: 2px solid var(--player-led-color);
-      box-shadow: 0 0 10px var(--player-led-color), inset 0 0 5px #000;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 10px;
-      color: var(--player-led-color);
-      font-weight: bold;
-    }
-
-    .pioneer-screen-blue {
-      flex: 1;
-      background: #020b14;
-      border: 2px solid var(--player-led-color);
-      border-radius: 6px;
-      padding: 6px 10px;
-      box-shadow: inset 0 0 10px var(--player-led-color);
-      color: var(--player-led-color);
-      font-family: monospace;
-      font-size: 10px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      min-height: 40px;
-      text-shadow: 0 0 5px var(--player-led-color);
-    }
-
-    .android-screen-container {
-      background: #000;
-      border: 2px solid var(--player-led-color);
-      border-radius: 8px;
-      padding: 8px;
-      box-shadow: 0 0 12px var(--player-led-color);
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .android-display-hdr {
-      background: linear-gradient(135deg, #0f172a 0%, #020617 100%);
-      border: 1px solid var(--player-led-color);
-      border-radius: 6px;
-      padding: 8px;
-      display: flex;
-      gap: 10px;
-      align-items: center;
-    }
-
-    .android-album-art {
-      width: 45px;
-      height: 45px;
-      border-radius: 6px;
-      background: radial-gradient(circle, var(--accent-red), #000);
-      border: 1px solid #fff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 18px;
-    }
-
-    .pioneer-controls-row { display: flex; justify-content: space-between; gap: 4px; }
-
-    .btn-hw {
-      background: linear-gradient(180deg, #27272a 0%, #0f0f11 100%);
-      border: 1px solid #52525b;
-      color: var(--player-led-color);
-      font-size: 9px;
-      padding: 6px 10px;
-      border-radius: 4px;
-      cursor: pointer;
-      font-weight: bold;
-      flex: 1;
-      text-align: center;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.8);
-      user-select: none;
-    }
-
-    .btn-hw:active {
-      transform: translateY(1px);
-      background: var(--player-led-color);
-      color: #000;
-    }
-
-    label {
-      display: block;
-      font-size: 10px;
-      color: #94a3b8;
-      margin-top: 6px;
-      text-transform: uppercase;
-      font-weight: 600;
-    }
-
-    select, input[type="text"], input[type="number"], input[type="range"] {
-      width: 100%;
-      padding: 8px;
-      margin-top: 3px;
-      background: #020617;
-      border: 1px solid #334155;
-      color: #fff;
-      border-radius: 6px;
-      box-sizing: border-box;
-      font-size: 11px;
-    }
-
-    .grid-2 { display: flex; gap: 8px; }
-    .grid-2 > div { flex: 1; }
-
-    .btn-xtreme {
-      width: 100%;
-      background: #1e293b;
-      color: #888;
-      border: 2px solid #334155;
-      padding: 10px;
-      font-weight: 900;
-      border-radius: 6px;
-      font-size: 12px;
-      cursor: pointer;
-      margin-top: 10px;
-      text-transform: uppercase;
-    }
-
-    .btn-xtreme.active {
-      background: linear-gradient(90deg, #ff0055, #ff5500);
-      color: #fff;
-      border-color: #ff0055;
-      box-shadow: 0 0 15px rgba(255, 0, 85, 0.8);
-    }
-
-    .playlist-box {
-      background: #020617;
-      border: 1px solid #1e293b;
-      border-radius: 6px;
-      padding: 6px;
-      max-height: 90px;
-      overflow-y: auto;
-      font-size: 10px;
-      margin-top: 6px;
-    }
-
-    .playlist-item {
-      padding: 4px;
-      border-bottom: 1px solid #0f172a;
-      cursor: pointer;
-      color: #94a3b8;
-    }
-
-    .playlist-item.ativo {
-      color: #fff;
-      background: var(--accent-red);
-      font-weight: bold;
-      border-radius: 3px;
-    }
-
-    textarea {
-      width: 100%;
-      height: 180px;
-      background: #020617;
-      color: #00ffcc;
-      border: 1px solid var(--neon-cyan);
-      border-radius: 6px;
-      padding: 8px;
-      font-family: monospace;
-      font-size: 10px;
-      box-sizing: border-box;
-      margin-top: 6px;
-    }
-  </style>
+        .sampler-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-top: 8px; }
+        .chat-box { background: rgba(0, 18, 26, 0.9); border: 1px solid #005577; height: 160px; overflow-y: auto; padding: 8px; text-align: left; font-size: 11px; border-radius: 6px; margin-bottom: 8px; }
+    </style>
 </head>
-<body>
+<body onclick="desbloquearAudio()">
 
-  <h1>🔊 SIMULADOR MASTER PRO</h1>
-
-  <div id="screen-palco" class="screen active">
-    <div class="card">
-      <h3>
-        <span>📻 PALCO DO SOM REALISTA</span>
-        <select id="quickPlayerSelect" style="width: auto; padding: 2px 6px; font-size: 10px;" onchange="trocarPlayerPeloMenu(this.value)">
-          <option value="pioneer">Pioneer Golfinho 1DIN</option>
-          <option value="android">Central Multimídia Touchscreen</option>
-          <option value="reddvd">Player DVD Red 1DIN</option>
-        </select>
-      </h3>
-
-      <div class="palco-container" id="palcoVirtual">
-        <div class="caixa-acustica" id="caixaAcustica">
-          <div class="voltimetro-embutido">
-            <span style="color:#888; font-size:7px; font-weight:bold;">VOLTS</span>
-            <span class="voltimetro-embutido-texto" id="voltsEmbutido">12.6V</span>
-          </div>
-
-          <div class="painel-cornetas" id="painelCornetas"></div>
-          <div class="painel-woofers" id="painelWoofers"></div>
-          <div class="painel-dutos" id="painelDutos"></div>
+    <div class="gear-container">
+        <button class="gear-btn" onclick="toggleGearMenu(event)">⚙️ MENU</button>
+        <div id="gearMenu" class="gear-menu">
+            <button onclick="verAba('abaOuvinte')">📻 Display Pioneer (Público)</button>
+            <button onclick="verAba('abaChat')">💬 Chat da Galera</button>
+            <button onclick="solicitarAcesso('abaAdm')">🎛️ Mesa DJ & Mídia</button>
+            <button onclick="solicitarAcesso('abaVinhetas')">📢 Mesa de Vinhetas</button>
+            <button onclick="solicitarAcesso('abaAgenda')">📅 Agendador de Músicas</button>
+            <button onclick="solicitarAcesso('abaAuto')">📂 AutoDJ & Pastas</button>
+            <button onclick="solicitarAcesso('abaPedidos')">📥 Pedidos da Galera</button>
+            <button onclick="solicitarAcesso('abaMic')">🎙️ Microfone & Efeitos</button>
+            <button onclick="solicitarAcesso('abaCustom')">🎨 Visual, Cores & Som</button>
+            <button onclick="encerrarSessao()" class="btn-danger" id="btnSair" style="display:none; margin-top:10px;">🚪 Sair da Conta ADM</button>
         </div>
-      </div>
-
-      <div style="margin-top: 12px;">
-        <div class="player-hardware-case" id="playerHardwareContainer"></div>
-      </div>
     </div>
 
-    <div class="card">
-      <h3>📡 Controle de Longa Distância (Até 500m)</h3>
-      <div class="grid-2">
-        <div>
-          <label>Marca do Controle:</label>
-          <select id="remoteBrand">
-            <option value="JFA Eletrônicos">JFA Eletrônicos K1200 / RED</option>
-            <option value="Stetsom SX2">Stetsom SX2 / Longa Distância</option>
-            <option value="Taramps TLC3000">Taramps TLC3000 / Connect</option>
-          </select>
-        </div>
-        <div>
-          <label>Status do Sinal:</label>
-          <button class="btn-hw" style="margin-top:4px; height:32px;" onclick="alert('📡 Sinal do Controle OK (Alcance: 500 Metros)!')">📶 TESTAR FREQUÊNCIA</button>
-        </div>
-      </div>
+    <!-- MODAL DE LOGIN -->
+    <div id="modalLogin" class="pioneer-frame" style="display:none; border-color: #ffcc00;">
+        <h3 style="color:#ffcc00;">🔒 Painel de Controle ADM</h3>
+        <input type="email" id="loginEmail" placeholder="E-mail ADM">
+        <input type="password" id="loginPass" placeholder="Senha ADM">
+        <br>
+        <button onclick="validarLogin()">Acessar e Salvar Login</button>
+        <button onclick="cancelarLogin()" class="btn-danger">Cancelar</button>
     </div>
 
-    <div class="card">
-      <h3>🎵 Playlist & Arquivos do Celular</h3>
-      <input type="file" id="audioFiles" multiple accept="audio/*" onchange="carregarPlaylist(event)">
-      <audio id="audioPlayer" style="display:none;" crossorigin="anonymous"></audio>
-      <div class="playlist-box" id="playlistContainer">
-        <div style="color: #64748b;">Nenhum áudio (.mp3) selecionado...</div>
-      </div>
-    </div>
-  </div>
-
-  <div id="screen-caixa" class="screen">
-    <div class="card">
-      <h3>📦 Estrutura Acústica, Projeto & Marca</h3>
-      <div class="grid-2">
-        <div>
-          <label>Modelo de Caixa:</label>
-          <select id="boxStructure" onchange="atualizarPalco()">
-            <option value="dutada">Dutada Tradicional (Reta)</option>
-            <option value="labirinto">Dutada Labirinto (Grave Profundo)</option>
-            <option value="euclides">Euclides Turbo (Pancadão)</option>
-            <option value="corneteira">Corneteira Isolada (Régua)</option>
-            <option value="manifold">Manifold / Bandpass</option>
-            <option value="canhao">Canhão / T18 / Turbina</option>
-            <option value="bob">Bob Sponge / Residencial</option>
-          </select>
-        </div>
-        <div>
-          <label>Fabricante / Convertedor:</label>
-          <select id="boxMaker">
-            <option value="Sob Medida Local">Sob Medida (Lojas / Convertedor)</option>
-            <option value="Regsom Caixas">Regsom Caixas Especiais</option>
-            <option value="Bomber">Bomber Acoustic</option>
-            <option value="Falcon Design">Falcon Sound</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="grid-2">
-        <div>
-          <label>Tipo de Duto:</label>
-          <select id="dutoType" onchange="atualizarPalco()">
-            <option value="redondo">Redondo com LED</option>
-            <option value="quadrado">Régua / Retangular</option>
-            <option value="triangular">Triangular / Canto</option>
-          </select>
-        </div>
-      </div>
-    </div>
-
-    <div class="card">
-      <h3>🎨 Material & Fundo da Caixa</h3>
-      <div class="grid-2">
-        <div>
-          <label>Revestimento:</label>
-          <select id="boxMaterial" onchange="alterarMaterialCaixa()">
-            <option value="padrao">Padrão Grafitado</option>
-            <option value="couro">Couro Preto Costurado</option>
-            <option value="carbono">Vinil Fibra de Carbono 3D</option>
-            <option value="mdf">Madeira / MDF Cru</option>
-            <option value="liso">Pintura Liso Gloss</option>
-          </select>
-        </div>
-        <div>
-          <label>Cor Interna:</label>
-          <input type="color" id="caixaBgColor" value="#18181b" onchange="alterarCorCaixa()">
-        </div>
-      </div>
-      <label>📸 Foto da sua Galeria na Caixa:</label>
-      <input type="file" id="boxBgFile" accept="image/*" onchange="alterarFotoCaixa(event)">
-    </div>
-
-    <div class="card">
-      <h3>🔊 Alto-Falantes & Cornetas</h3>
-      <div class="grid-2">
-        <div>
-          <label>Marca Woofers:</label>
-          <select id="wooferBrand" onchange="atualizarPalco()">
-            <option value="Eros">Eros Target Bass / Hammer</option>
-            <option value="Triton">Triton Shocker / Vulcano</option>
-            <option value="Hard Power">Hard Power HP</option>
-            <option value="JBL">JBL Vulcano / Tornado</option>
-            <option value="7Driver">7Driver Bass / Thunder</option>
-          </select>
-        </div>
-        <div>
-          <label>Qtd Woofers:</label>
-          <input type="number" id="wooferQty" value="2" min="1" max="8" onchange="atualizarPalco()">
-        </div>
-      </div>
-
-      <div class="grid-2">
-        <div>
-          <label>Qtd Drivers:</label>
-          <input type="number" id="driverQty" value="2" min="0" max="8" onchange="atualizarPalco()">
-        </div>
-        <div>
-          <label>Formato Corneta:</label>
-          <select id="hornFormat" onchange="atualizarPalco()">
-            <option value="square">Jararaca / Perfil 3D</option>
-            <option value="round">Redonda / Oval</option>
-            <option value="guia">Guia de Onda Trio</option>
-          </select>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div id="screen-leds" class="screen">
-    <div class="card">
-      <h3>💡 Central de Efeitos LED RGB (AJK / Taramps)</h3>
-      <div class="grid-2">
-        <div>
-          <label>Central de LED:</label>
-          <select id="ledCentralBrand">
-            <option value="AJK Sound Strobo Bluetooth">AJK Sound Strobo Rítmico</option>
-            <option value="Taramps LED RGB Digital">Taramps Digital RGB Controller</option>
-          </select>
-        </div>
-        <div>
-          <label>Efeito do LED Caixa:</label>
-          <select id="ledMode" onchange="atualizarLeds()">
-            <option value="estatico">Estático</option>
-            <option value="pisca">Strobo / Sincronizado Áudio</option>
-            <option value="giratorio">Rainbow Giratório</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="grid-2">
-        <div>
-          <label>Cor LED 1:</label>
-          <input type="color" id="ledColor1" value="#00f0ff" onchange="atualizarLeds()">
-        </div>
-        <div>
-          <label>Cor LED 2:</label>
-          <input type="color" id="ledColor2" value="#ff0055" onchange="atualizarLeds()">
-        </div>
-      </div>
-      <label>Fundo App (Foto/GIF):</label>
-      <input type="file" id="bgFile" accept="image/*" onchange="alterarFundoApp(event)">
-    </div>
-
-    <div class="card">
-      <h3>🎛 Iluminação e LEDs do Player</h3>
-      <div class="grid-2">
-        <div>
-          <label>Cor do LED do Player:</label>
-          <input type="color" id="playerLedColor" value="#00f0ff" onchange="alterarCorPlayerLed(this.value)">
-        </div>
-        <div>
-          <label>Modo LED Player:</label>
-          <select id="playerLedMode" onchange="atualizarModoLedPlayer()">
-            <option value="normal">Cor Única Fixa</option>
-            <option value="rainbow">Giratório Rainbow</option>
-            <option value="ritmo">Bater no Ritmo da Música</option>
-          </select>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div id="screen-audio" class="screen">
-    <div class="card">
-      <h3>🎙️ Mesa de Som Automotiva</h3>
-      <div class="grid-2">
-        <div>
-          <label>Modelo da Mesa:</label>
-          <select id="mixerBrand">
-            <option value="Taramps MX1 / MX2">Taramps MX1 / MX2 Pro</option>
-            <option value="Stetsom STM1003">Stetsom STM1003 3 Vias</option>
-            <option value="Expert MX-AIR">Expert Electronics MX-AIR</option>
-          </select>
-        </div>
-        <div>
-          <label>Ganho do Microfone/Aux:</label>
-          <input type="range" min="0" max="100" value="75">
-        </div>
-      </div>
-    </div>
-
-    <div class="card">
-      <h3>🎛 Processador DSP / Crossover</h3>
-      <label>Modelo do DSP Processador:</label>
-      <select id="dspModel">
-        <option value="Stetsom STX2448 Digital">Stetsom STX2448 / STX2848</option>
-        <option value="Expert PX-2 PRO Bluetooth">Expert PX-1 / PX-2 PRO</option>
-        <option value="JFA X5 Crossover">JFA X5 Crossover 4 Vias</option>
-        <option value="Taramps Pro 2.4S DSP">Taramps Pro 2.4S DSP</option>
-      </select>
-    </div>
-
-    <div class="card">
-      <h3>🎛 Equalização & Bass Xtreme</h3>
-      <div class="grid-2">
-        <div>
-          <label>Grave (Bass):</label>
-          <input type="range" id="eqBass" min="-20" max="20" value="0" oninput="atualizarFiltrosAudio()">
-        </div>
-        <div>
-          <label>Médio (Mid):</label>
-          <input type="range" id="eqMid" min="-20" max="20" value="0" oninput="atualizarFiltrosAudio()">
-        </div>
-      </div>
-      <label>Agudo (High):</label>
-      <input type="range" id="eqHigh" min="-20" max="20" value="0" oninput="atualizarFiltrosAudio()">
-
-      <button class="btn-xtreme" id="btnXtreme" onclick="toggleBassXtreme()">🔥 BASS XTREME: DESATIVADO</button>
-    </div>
-  </div>
-
-  <div id="screen-eletrica" class="screen">
-    <div class="card">
-      <h3>🔋 Regulagem & Troca de Baterias</h3>
-      <div class="grid-2">
-        <div>
-          <label>Modelo Bateria / Fonte:</label>
-          <select id="batteryModel" onchange="calcularEletrica()">
-            <option value="moura">Moura Clean / Chumbo-Ácido</option>
-            <option value="litio">Bateria de Lítio (LiFePO4 HQ)</option>
-            <option value="agm">Bateria de Gel / AGM Deep Cycle</option>
-            <option value="usina">Fonte Automotiva Usina / JFA</option>
-          </select>
-        </div>
-        <div>
-          <label>Capacidade (Ah):</label>
-          <input type="number" id="batteryAh" value="150" min="40" max="1000" oninput="calcularEletrica()">
-        </div>
-      </div>
-
-      <div class="grid-2">
-        <div>
-          <label>Tensão Nominal (Volts):</label>
-          <input type="number" id="batteryVolts" value="12.6" step="0.1" min="10" max="15" oninput="calcularEletrica()">
-        </div>
-        <div>
-          <label>Eficiência / Carga %:</label>
-          <input type="range" id="batteryHealth" min="20" max="100" value="100" oninput="calcularEletrica()">
-        </div>
-      </div>
-    </div>
-
-    <div class="card">
-      <h3>📊 Dimensionamento & Relatório Técnico</h3>
-      <button style="width:100%; padding:10px; background:var(--neon-cyan); border:none; font-weight:bold; border-radius:6px;" onclick="gerarProjeto()">GERAR RELATÓRIO TÉCNICO</button>
-      <textarea id="relatorioOutput" readonly placeholder="O relatório detalhado aparecerá aqui..."></textarea>
-    </div>
-  </div>
-
-  <nav class="tab-bar">
-    <button class="tab-btn active" id="btnTabPalco" onclick="trocarTela('screen-palco', this)">
-      <span>📻</span> Palco
-    </button>
-    <button class="tab-btn" onclick="trocarTela('screen-caixa', this)">
-      <span>⚙️</span> Caixa
-    </button>
-    <button class="tab-btn" onclick="trocarTela('screen-leds', this)">
-      <span>💡</span> LEDs
-    </button>
-    <button class="tab-btn" id="btnTabAudio" onclick="trocarTela('screen-audio', this)">
-      <span>🎛</span> Áudio
-    </button>
-    <button class="tab-btn" onclick="trocarTela('screen-eletrica', this)">
-      <span>⚡</span> Elétrica
-    </button>
-  </nav>
-
-  <script>
-    let playlist = [];
-    let currentIndex = 0;
-    let isXtremeActive = false;
-    let currentPlayerModel = 'pioneer';
-    const audio = document.getElementById('audioPlayer');
-    let audioCtx, source, analyser, bassFilter, midFilter, highFilter;
-    let isAudioSetup = false;
-    let animationFrameId;
-
-    function trocarTela(screenId, btn) {
-      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-      document.getElementById(screenId).classList.add('active');
-      if (btn) btn.classList.add('active');
-    }
-
-    function irParaTelaAudio() {
-      trocarTela('screen-audio', document.getElementById('btnTabAudio'));
-    }
-
-    function initWebAudio() {
-      if (isAudioSetup) return;
-      const AudioContext = window.AudioContext || window.webkitAudioContext;
-      audioCtx = new AudioContext();
-      source = audioCtx.createMediaElementSource(audio);
-
-      analyser = audioCtx.createAnalyser();
-      analyser.fftSize = 64;
-
-      bassFilter = audioCtx.createBiquadFilter();
-      bassFilter.type = 'lowshelf';
-      bassFilter.frequency.value = 80;
-
-      midFilter = audioCtx.createBiquadFilter();
-      midFilter.type = 'peaking';
-      midFilter.frequency.value = 1000;
-
-      highFilter = audioCtx.createBiquadFilter();
-      highFilter.type = 'highshelf';
-      highFilter.frequency.value = 6000;
-
-      source.connect(bassFilter);
-      bassFilter.connect(midFilter);
-      midFilter.connect(highFilter);
-      highFilter.connect(analyser);
-      analyser.connect(audioCtx.destination);
-
-      isAudioSetup = true;
-      processAudioRealtime();
-    }
-
-    function processAudioRealtime() {
-      if (!analyser) return;
-
-      const bufferLength = analyser.frequencyBinCount;
-      const dataArray = new Uint8Array(bufferLength);
-      analyser.getByteFrequencyData(dataArray);
-
-      let bassSum = 0;
-      for (let i = 0; i < 4; i++) bassSum += dataArray[i];
-      let bassAvg = bassSum / 4;
-
-      let trebleSum = 0;
-      for (let i = 12; i < 24; i++) trebleSum += dataArray[i];
-      let trebleAvg = trebleSum / 12;
-
-      let bassScale = 1 + (bassAvg / 255) * (isXtremeActive ? 0.42 : 0.25);
-      document.querySelectorAll('.real-woofer').forEach(w => {
-        w.style.transform = `scale(${bassScale})`;
-      });
-
-      let driverGlow = trebleAvg / 255;
-      document.querySelectorAll('.real-driver-led-throat').forEach(led => {
-        led.style.background = `rgba(0, 240, 255, ${driverGlow})`;
-        led.style.boxShadow = `0 0 ${driverGlow * 12}px #00f0ff`;
-      });
-
-      let baseVolts = parseFloat(document.getElementById('batteryVolts').value) || 12.6;
-      let drop = (bassAvg / 255) * (isXtremeActive ? 2.8 : 1.6);
-      let realVolts = Math.max(8.5, (baseVolts - drop)).toFixed(1);
-      document.getElementById('voltsEmbutido').innerText = realVolts + 'V';
-
-      const playerLedMode = document.getElementById('playerLedMode').value;
-      if (playerLedMode === 'ritmo') {
-        let currentColor = document.getElementById('playerLedColor').value || '#00f0ff';
-        document.documentElement.style.setProperty('--player-led-color', currentColor);
-      }
-
-      animationFrameId = requestAnimationFrame(processAudioRealtime);
-    }
-
-    function atualizarFiltrosAudio() {
-      if (!isAudioSetup) initWebAudio();
-      const valBass = parseFloat(document.getElementById('eqBass').value);
-      const valMid = parseFloat(document.getElementById('eqMid').value);
-      const valHigh = parseFloat(document.getElementById('eqHigh').value);
-
-      bassFilter.gain.value = valBass + (isXtremeActive ? 15 : 0);
-      midFilter.gain.value = valMid;
-      highFilter.gain.value = valHigh;
-    }
-
-    function toggleBassXtreme() {
-      isXtremeActive = !isXtremeActive;
-      const btn = document.getElementById('btnXtreme');
-      if (isXtremeActive) {
-        btn.classList.add('active');
-        btn.innerText = '🔥 BASS XTREME: ATIVADO (+15dB SUBGUTURAL)';
-      } else {
-        btn.classList.remove('active');
-        btn.innerText = '🔥 BASS XTREME: DESATIVADO';
-      }
-      atualizarFiltrosAudio();
-    }
-
-    function trocandoMusica(dir) {
-      if (!playlist.length) return;
-      let newIdx = currentIndex + dir;
-      if (newIdx < 0) newIdx = playlist.length - 1;
-      if (newIdx >= playlist.length) newIdx = 0;
-      tocarMusica(newIdx);
-    }
-
-    function togglePlayPause() {
-      if (!playlist.length) return;
-      if (audio.paused) {
-        if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
-        audio.play();
-      } else {
-        audio.pause();
-      }
-      renderPlayerHardware();
-    }
-
-    function trocarPlayerPeloMenu(val) {
-      currentPlayerModel = val;
-      renderPlayerHardware();
-    }
-
-    function alterarCorPlayerLed(hex) {
-      document.documentElement.style.setProperty('--player-led-color', hex);
-    }
-
-    function atualizarModoLedPlayer() {
-      const playerCase = document.getElementById('playerHardwareContainer');
-      const mode = document.getElementById('playerLedMode').value;
-      if (mode === 'rainbow') {
-        playerCase.classList.add('player-led-rainbow');
-      } else {
-        playerCase.classList.remove('player-led-rainbow');
-      }
-    }
-
-    function renderPlayerHardware() {
-      const container = document.getElementById('playerHardwareContainer');
-      const trackName = playlist[currentIndex] ? playlist[currentIndex].name : "NENHUMA MÚSICA";
-      const isPlaying = !audio.paused && audio.src !== "";
-
-      if (currentPlayerModel === 'pioneer') {
-        container.innerHTML = `
-          <div class="pioneer-face">
-            <div class="pioneer-top-row">
-              <button class="pioneer-knob-btn" onclick="togglePlayPause()" title="Play/Pause">
-                ${isPlaying ? '❚❚' : '▶'}
-              </button>
-              <div class="pioneer-screen-blue">
-                <div style="font-weight:bold; font-size:9px; display:flex; justify-content:space-between;">
-                  <span>🐬 PIONEER BT</span>
-                  <span>${isPlaying ? '▶ PLAY' : '❚❚ PAUSE'}</span>
-                </div>
-                <div style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis; margin-top:2px; font-weight:bold;">
-                  ${trackName}
-                </div>
-              </div>
+    <!-- ABA OUVINTE -->
+    <div id="abaOuvinte" class="pioneer-frame">
+        <div class="lcd-display">
+            <h2 style="margin: 3px 0; font-size: 16px;">⚡ SPEED RÁDIO</h2>
+            <p id="status" style="margin: 3px 0; font-size: 10px;">[ONLINE] RÁDIO PAREDÃO NO AR</p>
+            <div style="background:#000; padding:2px; border-radius:4px;">
+                <canvas id="visualizerCanvas"></canvas>
             </div>
+        </div>
 
-            <div class="pioneer-controls-row">
-              <button class="btn-hw" onclick="trocandoMusica(-1)">⏮ VOLTAR</button>
-              <button class="btn-hw" onclick="togglePlayPause()">${isPlaying ? 'PAUSE' : 'PLAY'}</button>
-              <button class="btn-hw" onclick="trocandoMusica(1)">AVANÇAR ⏭</button>
-              <button class="btn-hw" onclick="irParaTelaAudio()">EQ/BASS 🎛</button>
+        <div id="mediaContainer">
+            <audio id="audioElement" controls crossorigin="anonymous" style="width:100%; margin: 5px 0;" onended="proximaMusica()"></audio>
+            <div id="ytContainer" style="display:none;">
+                <iframe id="ytPlayer" allow="autoplay"></iframe>
             </div>
-          </div>
-        `;
-      } else if (currentPlayerModel === 'android') {
-        container.innerHTML = `
-          <div class="android-screen-container">
-            <div class="android-display-hdr">
-              <div class="android-album-art">🎵</div>
-              <div style="flex:1; overflow:hidden;">
-                <div style="font-size:9px; color:var(--player-led-color); font-weight:bold;">ANDROID TOUCH MULTIMÍDIA</div>
-                <div style="font-size:11px; color:#fff; font-weight:bold; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">
-                  ${trackName}
-                </div>
-                <div style="font-size:8px; color:#aaa; margin-top:2px;">
-                  ${isPlaying ? '▶ Reproduzindo em Alta Fidelidade' : '❚❚ Em Pausa'}
-                </div>
-              </div>
+        </div>
+
+        <div class="wall-container-saveiro" id="paredaoContainer">
+            <div class="rack-top">
+                <div class="tweeter-saveiro"><div class="tweeter-saveiro-core"></div></div>
+                <div class="horn-saveiro"><div class="horn-saveiro-inner"></div></div>
+                <div class="horn-saveiro"><div class="horn-saveiro-inner"></div></div>
+                <div class="horn-saveiro"><div class="horn-saveiro-inner"></div></div>
+                <div class="horn-saveiro"><div class="horn-saveiro-inner"></div></div>
+                <div class="tweeter-saveiro"><div class="tweeter-saveiro-core"></div></div>
             </div>
-
-            <div class="pioneer-controls-row">
-              <button class="btn-hw" onclick="trocandoMusica(-1)">⏮ ANTERIOR</button>
-              <button class="btn-hw" onclick="togglePlayPause()">${isPlaying ? '❚❚ PAUSE' : '▶ PLAY'}</button>
-              <button class="btn-hw" onclick="trocandoMusica(1)">PRÓXIMA ⏭</button>
-              <button class="btn-hw" onclick="irParaTelaAudio()">DSP 🎛</button>
+            <div class="rack-bottom">
+                <div class="subwoofer-saveiro subElem"></div>
+                <div class="subwoofer-saveiro subElem"></div>
+                <div class="subwoofer-saveiro subElem"></div>
             </div>
-          </div>
-        `;
-      } else {
-        container.innerHTML = `
-          <div class="pioneer-face">
-            <div class="pioneer-top-row">
-              <div class="pioneer-screen-blue">
-                <div style="font-weight:bold; font-size:9px;">🔴 DVD PLAYER 1DIN NEON</div>
-                <div style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis; margin-top:2px;">
-                  ${trackName}
-                </div>
-              </div>
+        </div>
+
+        <div class="box-link">
+            <input type="text" id="urlRadio" readonly>
+            <button onclick="copiarLink()">📋 Copiar Link da Rádio</button>
+            <div id="qrcodeCanvas"></div>
+        </div>
+
+        <h4>🎵 Enviar Música ou Vídeo (Link / YouTube / MP3)</h4>
+        <input type="text" id="linkMusicaOuvinte" placeholder="Cole o link do YouTube, MP3 ou Web...">
+        <button onclick="enviarPedidoPublico()">➕ Enviar para o DJ</button>
+
+        <h4>📜 Fila Tocado Agora</h4>
+        <ol id="filaOuvinte"></ol>
+    </div>
+
+    <!-- ABA CHAT -->
+    <div id="abaChat" class="pioneer-frame" style="display:none;">
+        <h2>💬 Chat ao Vivo da Galera</h2>
+        <div id="chatDisplay" class="chat-box"></div>
+        <input type="text" id="chatNome" placeholder="Seu Nome / Apelido" style="margin-bottom:4px;">
+        <input type="text" id="chatMsg" placeholder="Digite sua mensagem...">
+        <button onclick="enviarMensagemChat()">Enviar Mensagem</button>
+    </div>
+
+    <!-- ABA ADM: MESA DJ & MÍDIA -->
+    <div id="abaAdm" class="pioneer-frame" style="display: none;">
+        <h2>🎛️ Transmissão & Controle DJ</h2>
+        <button id="btnPowerRadio" class="btn-power on" onclick="toggleLigarRadio()">⚡ DESLIGAR RÁDIO PAREDÃO</button>
+
+        <div style="margin: 10px 0;">
+            <button onclick="voltarMusica()">⏮️ Voltar</button>
+            <button onclick="pausarEPlay()">⏯️ Play/Pause</button>
+            <button onclick="proximaMusica()">⏭️ Avançar</button>
+        </div>
+
+        <div class="eq-panel">
+            <h4>🔎 Pesquisar Música / Vídeo Direto</h4>
+            <input type="text" id="inputBusca" placeholder="Nome da música ou artista...">
+            <button onclick="buscarEAdicionar()">🔍 Pesquisar e Inserir</button>
+        </div>
+
+        <div class="eq-panel">
+            <h4>🔗 Adicionar por Link / Web (Qualquer formato)</h4>
+            <input type="text" id="inputLinkDj" placeholder="Link de áudio, vídeo ou YouTube...">
+            <button onclick="adicionarLinkDj()">➕ Adicionar à Fila</button>
+        </div>
+
+        <div class="eq-panel">
+            <h4>📁 Adicionar Arquivos Locais (MP3, WAV, M4A)</h4>
+            <input type="file" id="fileInput" accept="audio/*,video/*" multiple style="font-size: 11px;">
+            <button onclick="carregarArquivosLocais()">➕ Inserir Músicas</button>
+        </div>
+
+        <h4>📜 Fila da Rádio (Reordenar / Excluir)</h4>
+        <ol id="filaAdm"></ol>
+        <button onclick="limparFila()" class="btn-danger">🗑️ Limpar Fila</button>
+    </div>
+
+    <!-- ABA VINHETAS / SAMPLER -->
+    <div id="abaVinhetas" class="pioneer-frame" style="display:none;">
+        <h2>📢 Mesa de Vinhetas & Efeitos Soltos</h2>
+        <p style="font-size: 11px;">Dispare efeitos sonoros instantâneos por cima da transmissão:</p>
+        <div class="sampler-grid">
+            <button onclick="tocarVinheta('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3')">📢 Vinheta Speed</button>
+            <button onclick="tocarVinheta('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3')">🔊 Solta o Som</button>
+            <button onclick="tocarVinheta('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3')">🚨 Corneta Paredão</button>
+            <button onclick="tocarVinheta('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3')">💥 Efeito Grave</button>
+        </div>
+        <div class="eq-panel" style="margin-top:10px;">
+            <h4>➕ Adicionar Vinheta Customizada por URL</h4>
+            <input type="text" id="urlVinhetaCustom" placeholder="Cole URL da vinheta (MP3)...">
+            <button onclick="dispararVinhetaCustom()">▶️ Disparar Agora</button>
+        </div>
+    </div>
+
+    <!-- ABA AGENDADOR DE MÚSICAS -->
+    <div id="abaAgenda" class="pioneer-frame" style="display:none;">
+        <h2>📅 Agendador Programado</h2>
+        <div class="eq-panel">
+            <p style="font-size: 11px;">Escolha uma música da fila e programe a data e hora exata para tocar:</p>
+            <select id="selectAgendaMusica"></select>
+            <input type="datetime-local" id="dataHoraAgenda">
+            <button onclick="agendarMusica()">⏰ Agendar Transmissão</button>
+        </div>
+        <h4>📜 Músicas Programadas:</h4>
+        <ul id="listaAgendadas"></ul>
+    </div>
+
+    <!-- ABA AUTODJ & PASTAS -->
+    <div id="abaAuto" class="pioneer-frame" style="display:none;">
+        <h2>📂 Auto-DJ & Organizador por Pastas</h2>
+        <div class="eq-panel">
+            <h4>📁 Criar Nova Pasta / Categoria</h4>
+            <input type="text" id="nomePasta" placeholder="Ex: Funk, Sertanejo, Eletro...">
+            <button onclick="criarPasta()">➕ Criar Pasta</button>
+        </div>
+        <div class="eq-panel">
+            <h4>🎵 Adicionar Música na Pasta</h4>
+            <select id="selectPastaAtiva"></select>
+            <input type="text" id="linkMusicaPasta" placeholder="Cole o link da música...">
+            <button onclick="adicionarNaPasta()">💾 Salvar na Pasta</button>
+        </div>
+        <h4>📁 Suas Pastas Salvas:</h4>
+        <div id="exibicaoPastas"></div>
+    </div>
+
+    <!-- ABA ADM: PEDIDOS -->
+    <div id="abaPedidos" class="pioneer-frame" style="display: none;">
+        <h2 style="color: #ffcc00;">📥 Fila de Pedidos do Público</h2>
+        <p style="font-size: 11px;">Aprove ou recuse os links enviados pelos ouvintes:</p>
+        <ul id="listaEspera"></ul>
+    </div>
+
+    <!-- ABA ADM: MICROFONE & VOZ -->
+    <div id="abaMic" class="pioneer-frame" style="display: none;">
+        <h2>🎙️ Controle de Microfone & Efeitos de Voz</h2>
+        <button id="btnMicPower" onclick="toggleMicrofone()" style="width:100%; padding: 10px; background:#e74c3c; color:#fff; font-weight:bold;">🎙️ LIGAR MICROFONE</button>
+
+        <div class="eq-panel" style="margin-top: 15px;">
+            <div class="eq-slider"><span>🔊 Volume do Mic:</span><input type="range" id="micVol" min="0" max="2" step="0.1" value="1" oninput="ajustarMic()"></div>
+            <div class="eq-slider"><span>✨ Qualidade / Ganho:</span><input type="range" id="micGain" min="0" max="10" value="5" oninput="ajustarMic()"></div>
+            <div class="eq-slider"><span>🎭 Tom de Voz (PITCH):</span><input type="range" id="micPitch" min="300" max="3000" value="1000" oninput="ajustarMic()"></div>
+            <p style="font-size: 10px; color: #888;">Arraste para a esquerda para engrossar a voz e para a direita para afinar.</p>
+        </div>
+    </div>
+
+    <!-- ABA ADM: VISUAL & EFEITOS -->
+    <div id="abaCustom" class="pioneer-frame" style="display: none;">
+        <h2>🎨 Edição de Som & Visual</h2>
+
+        <div class="eq-panel">
+            <h4>📊 Visualizador de Áudio (11 Modos)</h4>
+            <select id="selectVisualizer" onchange="mudarEstiloVisualizer(this.value)">
+                <option value="bars">1. Barras LED (Pioneer Clássico)</option>
+                <option value="wave">2. Onda Osciloscópio</option>
+                <option value="radial">3. Espectro Radial Neon</option>
+                <option value="vumeter">4. VU Meter Analógico</option>
+                <option value="bars3d">5. Espectro 3D Gradiente</option>
+                <option value="freqcircle">6. Freqüência Circular</option>
+                <option value="tunnel">7. Túnel Neon Hipnótico</option>
+                <option value="particles">8. Partículas de Grave</option>
+                <option value="floating">9. Picos Flutuantes</option>
+                <option value="matrixcube">10. Matriz Cúbica</option>
+                <option value="laser">11. Linha Laser Pulsante</option>
+            </select>
+        </div>
+
+        <div class="eq-panel">
+            <h4>🎚️ Regulagem de Áudio</h4>
+            <div class="eq-slider"><span>🔊 Subwoofer / Grave:</span><input type="range" id="bassRange" min="-10" max="30" value="0" oninput="atualizarEqualizador()"></div>
+            <div class="eq-slider"><span>📢 Corneta / Médio:</span><input type="range" id="midRange" min="-10" max="20" value="0" oninput="atualizarEqualizador()"></div>
+            <div class="eq-slider"><span>⚡ Tweeter / Agudo:</span><input type="range" id="trebleRange" min="-10" max="20" value="0" oninput="atualizarEqualizador()"></div>
+            <button id="btnGraveExtreme" class="btn-extreme" onclick="toggleGraveExtreme()">🔊 LIGAR GRAVE EXTREME</button>
+        </div>
+
+        <div class="eq-panel">
+            <h4>🎨 Cores & Conjugador RGB</h4>
+            <div class="color-group"><span>Borda Display:</span><input type="color" id="colBorder" value="#00d4ff" onchange="mudarCor('--pioneer-border', this.value); mudarCor('--pioneer-blue', this.value); salvarConfig();"></div>
+            <div class="color-group"><span>Subwoofer:</span><input type="color" id="colSub" value="#00ff88" onchange="mudarCor('--speaker-sub-color', this.value); salvarConfig();"></div>
+            <div class="color-group"><span>Corneta:</span><input type="color" id="colHorn" value="#0044ff" onchange="mudarCor('--speaker-horn-color', this.value); salvarConfig();"></div>
+            <div class="color-group"><span>Tweeter:</span><input type="color" id="colTweet" value="#ff0055" onchange="mudarCor('--speaker-tweet-color', this.value); salvarConfig();"></div>
+            <button onclick="toggleConjugadorCores()" id="btnConjugador" style="width:100%; margin-top:5px; background:#9b59b6; color:#fff;">🌈 LIGAR CONJUGADOR RGB AUTOMÁTICO</button>
+        </div>
+
+        <div class="eq-panel">
+            <h4>⚡ Efeitos de Strobo & Flash</h4>
+            <div class="color-group"><span>Cor do Flash:</span><input type="color" id="colFlash" value="#ffffff" onchange="mudarCor('--flash-color', this.value); salvarConfig();"></div>
+            <div class="eq-slider"><span>Velocidade Flash (ms):</span><input type="range" id="flashSpeed" min="50" max="1000" value="200"></div>
+            <button onclick="toggleStroboritmo()" id="btnStroboritmo" style="width:100%; margin-bottom:5px;">🎆 Strobo no Ritmo do Grave</button>
+            <button onclick="toggleFlashManual()" id="btnFlashManual" style="width:100%; background:#e67e22; color:#fff;">💡 Flash Manual Contínuo</button>
+        </div>
+
+        <div class="eq-panel">
+            <h4>🖼️ Personalização de Fundo (GIFs & Fotos)</h4>
+            <select id="tipoFundo" onchange="alterarTipoFundo(this.value); salvarConfig();">
+                <option value="solido">1. Cor Sólida Customizada</option>
+                <option value="glitter">2. Glitter Animado Neon</option>
+                <option value="gif_fogo">3. Fogo do Paredão</option>
+                <option value="gif_matrix">4. Matrix LED Green</option>
+                <option value="gif_galaxy">5. Galáxia Espacial</option>
+                <option value="gif_stars">6. Chuva de Estrelas</option>
+                <option value="gif_cyberpunk">7. Neon Cyberpunk</option>
+                <option value="gif_fogoblue">8. Fogo Azul Veloce</option>
+                <option value="gif_waves">9. Ondas Áudio Neon</option>
+                <option value="gif_eqdigital">10. Equalizador Digital</option>
+                <option value="gif_lights">11. Chuva de Luzes DJ</option>
+                <option value="foto">12. Foto ou GIF por URL</option>
+            </select>
+            <div class="color-group" id="groupCorFundo">
+                <span>Cor de Fundo:</span><input type="color" id="colBg" value="#0a0b0e" onchange="mudarCor('--bg-color', this.value); salvarConfig();">
             </div>
-
-            <div class="pioneer-controls-row" style="margin-top:6px;">
-              <button class="btn-hw" onclick="trocandoMusica(-1)">⏮ ANTERIOR</button>
-              <button class="btn-hw" onclick="togglePlayPause()">${isPlaying ? 'PAUSE' : 'PLAY'}</button>
-              <button class="btn-hw" onclick="trocandoMusica(1)">PRÓXIMA ⏭</button>
-              <button class="btn-hw" onclick="irParaTelaAudio()">EQ 🎛</button>
+            <div id="groupFotoFundo" style="display: none; margin-top: 5px;">
+                <input type="text" id="urlFotoFundo" placeholder="Cole a URL da Foto/GIF...">
+                <button onclick="aplicarFotoFundo()">Aplicar Fundo</button>
             </div>
-          </div>
-        `;
-      }
-      atualizarModoLedPlayer();
-    }
+        </div>
+    </div>
 
-    function atualizarLeds() {
-      const mode = document.getElementById('ledMode').value;
-      const c1 = document.getElementById('ledColor1').value;
-      const c2 = document.getElementById('ledColor2').value;
-      const palco = document.getElementById('palcoVirtual');
+    <script>
+        const socket = io();
+        let filaMusicas = [];
+        let listaEspera = [];
+        let indexAtual = 0;
+        let admAutenticado = false;
+        let abaPendente = '';
+        let visualizerMode = 'bars';
+        let radioLigada = true;
+        let conjugadorAtivo = false, conjugadorTimer = null;
+        let stroboRitmoAtivo = false, flashManualAtivo = false, flashInterval = null;
+        const vinhetaAudio = new Audio();
 
-      document.documentElement.style.setProperty('--led-color1', c1);
-      document.documentElement.style.setProperty('--led-color2', c2);
+        // Dados do Agendador e AutoDJ
+        let agendadas = JSON.parse(localStorage.getItem('speed_agendadas') || '[]');
+        let pastasAutoDj = JSON.parse(localStorage.getItem('speed_pastas') || '{}');
 
-      palco.classList.remove('led-pisca', 'led-giratorio');
-      if (mode === 'pisca') palco.classList.add('led-pisca');
-      if (mode === 'giratorio') palco.classList.add('led-giratorio');
-    }
+        const audio = document.getElementById('audioElement');
+        const ytPlayer = document.getElementById('ytPlayer');
+        const canvas = document.getElementById('visualizerCanvas');
+        const ctx = canvas.getContext('2d');
 
-    function alterarCorCaixa() {
-      const color = document.getElementById('caixaBgColor').value;
-      document.documentElement.style.setProperty('--caixa-bg-color', color);
-    }
+        window.onload = () => {
+            const currentUrl = window.location.href;
+            document.getElementById('urlRadio').value = currentUrl;
+            new QRCode(document.getElementById("qrcodeCanvas"), { text: currentUrl, width: 100, height: 100 });
+            
+            if(localStorage.getItem('speed_adm_session') === 'true') {
+                admAutenticado = true;
+                document.getElementById('btnSair').style.display = 'block';
+            }
+            carregarConfig();
+            renderAgendadas();
+            renderPastas();
+        };
 
-    function alterarMaterialCaixa() {
-      const mat = document.getElementById('boxMaterial').value;
-      let texture = 'none';
-
-      if (mat === 'couro') {
-        texture = 'radial-gradient(circle, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.9) 100%)';
-        document.documentElement.style.setProperty('--caixa-bg-color', '#111113');
-      } else if (mat === 'carbono') {
-        texture = 'linear-gradient(45deg, #111 25%, #222 25%, #222 50%, #111 50%, #111 75%, #222 75%, #222 100%)';
-        document.documentElement.style.setProperty('--caixa-bg-color', '#0a0a0c');
-      } else if (mat === 'mdf') {
-        texture = 'linear-gradient(180deg, rgba(160,82,45,0.8) 0%, rgba(110,50,20,0.9) 100%)';
-        document.documentElement.style.setProperty('--caixa-bg-color', '#8B4513');
-      } else {
-        texture = 'radial-gradient(circle, #18181b 0%, #09090b 100%)';
-        document.documentElement.style.setProperty('--caixa-bg-color', '#18181b');
-      }
-
-      document.documentElement.style.setProperty('--caixa-texture', texture);
-    }
-
-    function alterarFotoCaixa(event) {
-      const file = event.target.files[0];
-      if (file) {
-        const url = URL.createObjectURL(file);
-        document.documentElement.style.setProperty('--caixa-texture', `url('${url}')`);
-      }
-    }
-
-    function alterarFundoApp(event) {
-      const file = event.target.files[0];
-      if (file) {
-        const url = URL.createObjectURL(file);
-        document.body.style.backgroundImage = `url('${url}')`;
-      }
-    }
-
-    function atualizarPalco() {
-      const wooferQty = parseInt(document.getElementById('wooferQty').value) || 2;
-      const wooferBrand = document.getElementById('wooferBrand').value;
-      const driverQty = parseInt(document.getElementById('driverQty').value) || 2;
-      const dutoType = document.getElementById('dutoType').value;
-
-      const pCornetas = document.getElementById('painelCornetas');
-      const pWoofers = document.getElementById('painelWoofers');
-      const pDutos = document.getElementById('painelDutos');
-
-      pCornetas.innerHTML = '';
-      pWoofers.innerHTML = '';
-      pDutos.innerHTML = '';
-
-      for(let i = 0; i < driverQty; i++) {
-        const driver = document.createElement('div');
-        driver.className = 'real-driver';
-        driver.innerHTML = `<div class="real-driver-led-throat"></div><span>CORNETA</span>`;
-        pCornetas.appendChild(driver);
-      }
-
-      for(let i = 0; i < wooferQty; i++) {
-        const woofer = document.createElement('div');
-        woofer.className = 'real-woofer';
-        woofer.innerText = wooferBrand;
-        pWoofers.appendChild(woofer);
-      }
-
-      if (dutoType === 'quadrado') {
-        const duto = document.createElement('div');
-        duto.className = 'duto-quadrado';
-        pDutos.appendChild(duto);
-      } else if (dutoType === 'triangular') {
-        for(let i = 0; i < 2; i++) {
-          const duto = document.createElement('div');
-          duto.className = 'duto-triangular';
-          pDutos.appendChild(duto);
+        function salvarConfig() {
+            const cfg = {
+                border: document.getElementById('colBorder').value,
+                sub: document.getElementById('colSub').value,
+                horn: document.getElementById('colHorn').value,
+                tweet: document.getElementById('colTweet').value,
+                flash: document.getElementById('colFlash').value,
+                bg: document.getElementById('colBg').value,
+                fundoTipo: document.getElementById('tipoFundo').value,
+                fotoUrl: document.getElementById('urlFotoFundo').value
+            };
+            localStorage.setItem('speed_radio_config', JSON.stringify(cfg));
         }
-      } else {
-        for(let i = 0; i < 2; i++) {
-          const duto = document.createElement('div');
-          duto.className = 'duto-redondo';
-          pDutos.appendChild(duto);
+
+        function carregarConfig() {
+            const saved = localStorage.getItem('speed_radio_config');
+            if(!saved) return;
+            try {
+                const cfg = JSON.parse(saved);
+                if(cfg.border) { mudarCor('--pioneer-border', cfg.border); mudarCor('--pioneer-blue', cfg.border); document.getElementById('colBorder').value = cfg.border; }
+                if(cfg.sub) { mudarCor('--speaker-sub-color', cfg.sub); document.getElementById('colSub').value = cfg.sub; }
+                if(cfg.horn) { mudarCor('--speaker-horn-color', cfg.horn); document.getElementById('colHorn').value = cfg.horn; }
+                if(cfg.tweet) { mudarCor('--speaker-tweet-color', cfg.tweet); document.getElementById('colTweet').value = cfg.tweet; }
+                if(cfg.flash) { mudarCor('--flash-color', cfg.flash); document.getElementById('colFlash').value = cfg.flash; }
+                if(cfg.bg) { mudarCor('--bg-color', cfg.bg); document.getElementById('colBg').value = cfg.bg; }
+                if(cfg.fundoTipo) { document.getElementById('tipoFundo').value = cfg.fundoTipo; alterarTipoFundo(cfg.fundoTipo); }
+                if(cfg.fotoUrl) { document.getElementById('urlFotoFundo').value = cfg.fotoUrl; if(cfg.fundoTipo === 'foto') aplicarFotoFundo(); }
+            } catch(e){}
         }
-      }
 
-      renderPlayerHardware();
-    }
+        let audioCtx, source, analyser, bassNode, midNode, trebleNode, extremeBassNode;
+        let micStream, micSource, micGainNode, micFilterNode;
+        let micAtivo = false;
+        let graveExtremeAtivo = false;
 
-    function carregarPlaylist(event) {
-      const files = event.target.files;
-      if (!files.length) return;
-      playlist = Array.from(files);
-      currentIndex = 0;
-      renderPlaylist();
-      tocarMusica(currentIndex);
-    }
+        function toggleLigarRadio() {
+            radioLigada = !radioLigada;
+            const btn = document.getElementById('btnPowerRadio');
+            const status = document.getElementById('status');
+            if (radioLigada) {
+                btn.innerText = "⚡ DESLIGAR RÁDIO PAREDÃO"; btn.classList.add('on');
+                status.innerText = "[ONLINE] RÁDIO PAREDÃO NO AR";
+                desbloquearAudio();
+                if (filaMusicas.length > 0) tocarMusica(indexAtual);
+            } else {
+                btn.innerText = "🛑 LIGAR RÁDIO PAREDÃO"; btn.classList.remove('on');
+                status.innerText = "[DESLIGADO] RÁDIO PAREDÃO DESLIGADA";
+                audio.pause(); ytPlayer.src = "";
+            }
+        }
 
-    function renderPlaylist() {
-      const container = document.getElementById('playlistContainer');
-      container.innerHTML = '';
-      playlist.forEach((file, index) => {
-        const item = document.createElement('div');
-        item.className = 'playlist-item' + (index === currentIndex ? ' ativo' : '');
-        item.innerText = `${index + 1}. ${file.name}`;
-        item.onclick = () => tocarMusica(index);
-        container.appendChild(item);
-      });
-    }
+        function toggleGearMenu(e) { e.stopPropagation(); const menu = document.getElementById('gearMenu'); menu.style.display = (menu.style.display === 'block') ? 'none' : 'block'; }
+        
+        function solicitarAcesso(aba) {
+            if (admAutenticado) verAba(aba);
+            else { abaPendente = aba; document.getElementById('modalLogin').style.display = 'block'; document.getElementById('gearMenu').style.display = 'none'; }
+        }
 
-    function tocarMusica(index) {
-      if (index < 0 || index >= playlist.length) return;
-      currentIndex = index;
-      const file = playlist[currentIndex];
-      audio.src = URL.createObjectURL(file);
-      if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
-      audio.play();
-      renderPlaylist();
-      renderPlayerHardware();
-    }
+        function validarLogin() {
+            const e = document.getElementById('loginEmail').value.trim();
+            const p = document.getElementById('loginPass').value.trim();
+            if ((e === "fabiojr073@gmail.com" && p === "Deus777") || (e === "admin@speed.com" && p === "1234")) {
+                admAutenticado = true;
+                localStorage.setItem('speed_adm_session', 'true');
+                document.getElementById('modalLogin').style.display = 'none';
+                document.getElementById('btnSair').style.display = 'block';
+                verAba(abaPendente);
+            } else alert("E-mail ou Senha incorretos!");
+        }
 
-    audio.onplay = () => {
-      if (!isAudioSetup) initWebAudio();
-      renderPlayerHardware();
-    };
+        function encerrarSessao() {
+            localStorage.removeItem('speed_adm_session');
+            admAutenticado = false;
+            document.getElementById('btnSair').style.display = 'none';
+            verAba('abaOuvinte');
+            alert('Sessão encerrada!');
+        }
 
-    audio.onpause = () => {
-      renderPlayerHardware();
-    };
+        function cancelarLogin() { document.getElementById('modalLogin').style.display = 'none'; }
 
-    function calcularEletrica() {
-      const v = parseFloat(document.getElementById('batteryVolts').value) || 12.6;
-      document.getElementById('voltsEmbutido').innerText = v.toFixed(1) + 'V';
-    }
+        function verAba(abaId) {
+            ['abaOuvinte', 'abaChat', 'abaAdm', 'abaVinhetas', 'abaAgenda', 'abaAuto', 'abaPedidos', 'abaMic', 'abaCustom'].forEach(id => {
+                const el = document.getElementById(id);
+                if(el) el.style.display = 'none';
+            });
+            document.getElementById(abaId).style.display = 'block';
+            document.getElementById('gearMenu').style.display = 'none';
+            if(abaId === 'abaAgenda') atualizarSelectAgenda();
+        }
 
-    function gerarProjeto() {
-      const dsp = document.getElementById('dspModel').value;
-      const mixer = document.getElementById('mixerBrand').value;
-      const remote = document.getElementById('remoteBrand').value;
-      const ledCentral = document.getElementById('ledCentralBrand').value;
-      const boxMaker = document.getElementById('boxMaker').value;
-      const boxStructure = document.getElementById('boxStructure').value;
-      const wooferBrand = document.getElementById('wooferBrand').value;
-      const qty = parseInt(document.getElementById('wooferQty').value) || 2;
-      const driverQty = parseInt(document.getElementById('driverQty').value) || 0;
-      const batModel = document.getElementById('batteryModel').value;
-      const batAh = document.getElementById('batteryAh').value;
+        function copiarLink() {
+            const input = document.getElementById('urlRadio'); input.select(); document.execCommand('copy'); alert('Link copiado!');
+        }
 
-      const totalRmsGeral = (qty * 1500) + (driverQty * 160);
+        function desbloquearAudio() {
+            if (!audioCtx) initAudioContext();
+            else if (audioCtx.state === 'suspended') audioCtx.resume();
+        }
 
-      document.getElementById('relatorioOutput').value = 
-`======================================================
-🔊 RELATÓRIO COMPLETO E CALCULADO MASTER PRO
-======================================================
-• Estrutura: Caixa ${boxStructure.toUpperCase()} (${boxMaker})
-• Configuração: ${qty}x Woofers ${wooferBrand} + ${driverQty}x Drivers
-• Mesa de Som: ${mixer}
-• Processador DSP: ${dsp}
-• Controle Longa Distância: ${remote}
-• Central de LED RGB: ${ledCentral}
-• Fonte/Bateria: Bateria ${batModel.toUpperCase()} - ${batAh}Ah
-• Potência Total Estimada: ~${totalRmsGeral}W RMS
-• Autonomia: Calculada com base na Carga da Bateria em Tempo Real`;
-    }
+        function initAudioContext() {
+            try {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                source = audioCtx.createMediaElementSource(audio);
+                analyser = audioCtx.createAnalyser(); analyser.fftSize = 256;
 
-    atualizarPalco();
-    atualizarLeds();
-  </script>
+                bassNode = audioCtx.createBiquadFilter(); bassNode.type = 'lowshelf'; bassNode.frequency.value = 180;
+                midNode = audioCtx.createBiquadFilter(); midNode.type = 'peaking'; midNode.frequency.value = 1000;
+                trebleNode = audioCtx.createBiquadFilter(); trebleNode.type = 'highshelf'; trebleNode.frequency.value = 3500;
+                extremeBassNode = audioCtx.createBiquadFilter(); extremeBassNode.type = 'lowshelf'; extremeBassNode.frequency.value = 70;
+
+                source.connect(bassNode); bassNode.connect(midNode); midNode.connect(trebleNode);
+                trebleNode.connect(extremeBassNode); extremeBassNode.connect(analyser); analyser.connect(audioCtx.destination);
+                renderFrame();
+            } catch(e) {}
+        }
+
+        /* CHAT AO VIVO */
+        function enviarMensagemChat() {
+            const nome = document.getElementById('chatNome').value.trim() || 'Ouvinte Anonimo';
+            const msg = document.getElementById('chatMsg').value.trim();
+            if(msg) {
+                socket.emit('chatMsg', { nome, msg });
+                document.getElementById('chatMsg').value = '';
+            }
+        }
+        socket.on('receberChat', (data) => {
+            const box = document.getElementById('chatDisplay');
+            box.innerHTML += `<div><strong>${data.nome}:</strong> ${data.msg}</div>`;
+            box.scrollTop = box.scrollHeight;
+        });
+
+        /* VINHETAS / SAMPLER */
+        function tocarVinheta(url) {
+            vinhetaAudio.src = url;
+            vinhetaAudio.play();
+        }
+        function dispararVinhetaCustom() {
+            const url = document.getElementById('urlVinhetaCustom').value.trim();
+            if(url) tocarVinheta(url);
+        }
+
+        /* AGENDADOR DE MÚSICAS */
+        function atualizarSelectAgenda() {
+            const sel = document.getElementById('selectAgendaMusica');
+            sel.innerHTML = '';
+            filaMusicas.forEach((m, i) => {
+                sel.innerHTML += `<option value="${i}">${m.nome}</option>`;
+            });
+        }
+        function agendarMusica() {
+            const idx = document.getElementById('selectAgendaMusica').value;
+            const dataHora = document.getElementById('dataHoraAgenda').value;
+            if(idx !== '' && dataHora) {
+                agendadas.push({ nome: filaMusicas[idx].nome, url: filaMusicas[idx].url, time: dataHora });
+                localStorage.setItem('speed_agendadas', JSON.stringify(agendadas));
+                renderAgendadas();
+                alert('Música Agendada!');
+            }
+        }
+        function renderAgendadas() {
+            const ul = document.getElementById('listaAgendadas');
+            ul.innerHTML = '';
+            agendadas.forEach((a, i) => {
+                ul.innerHTML += `<li><span class="song-title">${a.nome} (${a.time.replace('T', ' ')})</span><button class="btn-small btn-danger" onclick="removerAgendada(${i})">❌</button></li>`;
+            });
+        }
+        function removerAgendada(i) { agendadas.splice(i, 1); localStorage.setItem('speed_agendadas', JSON.stringify(agendadas)); renderAgendadas(); }
+
+        setInterval(() => {
+            const agora = new Date();
+            agendadas.forEach((a, i) => {
+                if (new Date(a.time) <= agora) {
+                    filaMusicas.unshift({ nome: "[AGENDADA] " + a.nome, url: a.url });
+                    tocarMusica(0);
+                    removerAgendada(i);
+                }
+            });
+        }, 20000);
+
+        /* AUTODJ & PASTAS */
+        function criarPasta() {
+            const nome = document.getElementById('nomePasta').value.trim();
+            if(nome && !pastasAutoDj[nome]) {
+                pastasAutoDj[nome] = [];
+                localStorage.setItem('speed_pastas', JSON.stringify(pastasAutoDj));
+                document.getElementById('nomePasta').value = '';
+                renderPastas();
+            }
+        }
+        function adicionarNaPasta() {
+            const pasta = document.getElementById('selectPastaAtiva').value;
+            const url = document.getElementById('linkMusicaPasta').value.trim();
+            if(pasta && url) {
+                pastasAutoDj[pasta].push(url);
+                localStorage.setItem('speed_pastas', JSON.stringify(pastasAutoDj));
+                document.getElementById('linkMusicaPasta').value = '';
+                renderPastas();
+            }
+        }
+        function renderPastas() {
+            const div = document.getElementById('exibicaoPastas');
+            const select = document.getElementById('selectPastaAtiva');
+            div.innerHTML = ''; select.innerHTML = '';
+            for(let p in pastasAutoDj) {
+                select.innerHTML += `<option value="${p}">${p}</option>`;
+                div.innerHTML += `<div class="eq-panel"><strong>📁 ${p}</strong> (${pastasAutoDj[p].length} músicas) <button class="btn-small" onclick="carregarPastaNaFila('${p}')">▶️ Tocar Pasta</button></div>`;
+            }
+        }
+        function carregarPastaNaFila(pasta) {
+            if(pastasAutoDj[pasta]) {
+                pastasAutoDj[pasta].forEach(url => filaMusicas.push({ nome: `[Pasta ${pasta}] Som`, url }));
+                atualizarFila();
+                if(audio.paused) tocarMusica(indexAtual);
+            }
+        }
+
+        /* MICROFONE E AFINAÇÃO */
+        async function toggleMicrofone() {
+            desbloquearAudio();
+            const btn = document.getElementById('btnMicPower');
+            if (!micAtivo) {
+                try {
+                    micStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                    micSource = audioCtx.createMediaStreamSource(micStream);
+                    micGainNode = audioCtx.createGain();
+                    micFilterNode = audioCtx.createBiquadFilter();
+                    micFilterNode.type = 'lowpass';
+
+                    micSource.connect(micGainNode);
+                    micGainNode.connect(micFilterNode);
+                    micFilterNode.connect(audioCtx.destination);
+
+                    ajustarMic();
+                    micAtivo = true;
+                    btn.innerText = "🎙️ DESLIGAR MICROFONE"; btn.style.background = "#2ecc71";
+                } catch (e) { alert("Permissão de Microfone Recusada!"); }
+            } else {
+                if (micStream) micStream.getTracks().forEach(t => t.stop());
+                micAtivo = false;
+                btn.innerText = "🎙️ LIGAR MICROFONE"; btn.style.background = "#e74c3c";
+            }
+        }
+
+        function ajustarMic() {
+            if (!micAtivo) return;
+            const vol = parseFloat(document.getElementById('micVol').value);
+            const gain = parseFloat(document.getElementById('micGain').value);
+            const pitch = parseFloat(document.getElementById('micPitch').value);
+
+            micGainNode.gain.value = vol * gain;
+            micFilterNode.frequency.value = pitch;
+        }
+
+        function extrairYoutubeId(url) {
+            const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+            const match = url.match(regExp);
+            return (match && match[2].length === 11) ? match[2] : null;
+        }
+
+        function tocarMusica(index) {
+            if (index >= 0 && index < filaMusicas.length) {
+                indexAtual = index;
+                const m = filaMusicas[indexAtual];
+                document.getElementById('status').innerText = "TOCANDO: " + m.nome;
+
+                const ytId = extrairYoutubeId(m.url);
+                if (ytId) {
+                    audio.pause(); audio.style.display = "none";
+                    document.getElementById('ytContainer').style.display = "block";
+                    ytPlayer.src = `https://www.youtube.com/embed/${ytId}?autoplay=1`;
+                } else {
+                    ytPlayer.src = ""; document.getElementById('ytContainer').style.display = "none";
+                    audio.style.display = "block"; audio.src = m.url;
+                    if (radioLigada) audio.play();
+                }
+                atualizarFila();
+            }
+        }
+
+        function carregarArquivosLocais() {
+            const fileInput = document.getElementById('fileInput');
+            if (fileInput.files.length > 0) {
+                for (let i = 0; i < fileInput.files.length; i++) {
+                    const file = fileInput.files[i];
+                    filaMusicas.push({ nome: file.name, url: URL.createObjectURL(file) });
+                }
+                atualizarFila();
+                if (audio.paused && filaMusicas.length > 0) tocarMusica(indexAtual);
+            }
+        }
+
+        function adicionarLinkDj() {
+            const val = document.getElementById('inputLinkDj').value.trim();
+            if (val) {
+                filaMusicas.push({ nome: "Link/Vídeo Importado", url: val });
+                document.getElementById('inputLinkDj').value = '';
+                atualizarFila();
+                if (audio.paused && filaMusicas.length === 1) tocarMusica(0);
+            }
+        }
+
+        function buscarEAdicionar() {
+            const query = document.getElementById('inputBusca').value.trim();
+            if (query) {
+                const searchUrl = `https://www.youtube.com/results?search_query=${encodeURIComponent(query)}`;
+                filaMusicas.push({ nome: `Busca: ${query}`, url: searchUrl });
+                alert(`Busca registrada! Para tocar, cole o link direto gerado.`);
+                document.getElementById('inputBusca').value = '';
+                atualizarFila();
+            }
+        }
+
+        function enviarPedidoPublico() {
+            const val = document.getElementById('linkMusicaOuvinte').value.trim();
+            if (val) {
+                socket.emit('novoPedido', val);
+                alert('Música enviada ao DJ!');
+                document.getElementById('linkMusicaOuvinte').value = '';
+            }
+        }
+
+        socket.on('receberPedido', (url) => { listaEspera.push(url); atualizarListaEspera(); });
+
+        function atualizarListaEspera() {
+            const ul = document.getElementById('listaEspera'); ul.innerHTML = '';
+            listaEspera.forEach((url, i) => {
+                ul.innerHTML += `<li><span class="song-title">${url}</span><div><button class="btn-small" onclick="aprovarPedido(${i})">✅</button><button class="btn-small btn-danger" onclick="recusarPedido(${i})">❌</button></div></li>`;
+            });
+        }
+
+        function aprovarPedido(i) {
+            filaMusicas.push({ nome: "Pedido Aprovado", url: listaEspera[i] });
+            listaEspera.splice(i, 1); atualizarListaEspera(); atualizarFila();
+            if (audio.paused && filaMusicas.length === 1) tocarMusica(0);
+        }
+        function recusarPedido(i) { listaEspera.splice(i, 1); atualizarListaEspera(); }
+
+        function pausarEPlay() { if (audio.paused) audio.play(); else audio.pause(); }
+        function proximaMusica() { if (indexAtual + 1 < filaMusicas.length) tocarMusica(indexAtual + 1); }
+        function voltarMusica() { if (indexAtual - 1 >= 0) tocarMusica(indexAtual - 1); }
+        function moverParaCima(i) { if(i>0) { let t=filaMusicas[i]; filaMusicas[i]=filaMusicas[i-1]; filaMusicas[i-1]=t; atualizarFila(); } }
+        function moverParaBaixo(i) { if(i<filaMusicas.length-1) { let t=filaMusicas[i]; filaMusicas[i]=filaMusicas[i+1]; filaMusicas[i+1]=t; atualizarFila(); } }
+        function removerMusica(i) { filaMusicas.splice(i, 1); atualizarFila(); }
+        function limparFila() { filaMusicas = []; audio.pause(); audio.src = ""; ytPlayer.src = ""; atualizarFila(); }
+
+        function atualizarFila() {
+            const lOuv = document.getElementById('filaOuvinte');
+            const lAdm = document.getElementById('filaAdm');
+            lOuv.innerHTML = ''; lAdm.innerHTML = '';
+            filaMusicas.forEach((m, i) => {
+                const st = (i === indexAtual) ? 'style="color:#00ff88; font-weight:bold;"' : '';
+                lOuv.innerHTML += `<li ${st}><span class="song-title">${i + 1}. ${m.nome}</span></li>`;
+                lAdm.innerHTML += `<li ${st}><span class="song-title">${i + 1}. ${m.nome}</span><div><button class="btn-small" onclick="tocarMusica(${i})">▶️</button><button class="btn-small" onclick="moverParaCima(${i})">⬆️</button><button class="btn-small" onclick="moverParaBaixo(${i})">⬇️</button><button class="btn-small btn-danger" onclick="removerMusica(${i})">❌</button></div></li>`;
+            });
+        }
+
+        function renderFrame() {
+            requestAnimationFrame(renderFrame);
+            if (!analyser || !radioLigada) return;
+            const bufferLength = analyser.frequencyBinCount;
+            const dataArray = new Uint8Array(bufferLength);
+            analyser.getByteFrequencyData(dataArray);
+
+            let bassSum = 0; for (let i = 0; i < 10; i++) bassSum += dataArray[i];
+            let bassAvg = bassSum / 10;
+            const subScale = 1 + (bassAvg / 255) * 0.28;
+            document.querySelectorAll('.subElem').forEach(el => el.style.transform = `scale(${subScale})`);
+
+            const paredao = document.getElementById('paredaoContainer');
+            if (bassAvg > 180) {
+                paredao.classList.add('shake-effect');
+                if (stroboRitmoAtivo) {
+                    document.body.style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue('--flash-color').trim() || '#ffffff';
+                    setTimeout(() => { document.body.style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue('--bg-color').trim(); }, 40);
+                }
+            } else paredao.classList.remove('shake-effect');
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            const lineColor = getComputedStyle(document.documentElement).getPropertyValue('--pioneer-blue').trim() || '#00d4ff';
+
+            if (visualizerMode === 'bars') {
+                const barWidth = (canvas.width / bufferLength) * 2.5; let x = 0;
+                for (let i = 0; i < bufferLength; i++) {
+                    const barHeight = dataArray[i] / 3.5;
+                    ctx.fillStyle = lineColor; ctx.fillRect(x, canvas.height - barHeight, barWidth, barHeight);
+                    x += barWidth + 1;
+                }
+            } else if (visualizerMode === 'wave') {
+                ctx.beginPath(); ctx.lineWidth = 2; ctx.strokeStyle = lineColor;
+                const sliceWidth = canvas.width / bufferLength; let x = 0;
+                for (let i = 0; i < bufferLength; i++) {
+                    const v = dataArray[i] / 128.0; const y = (v * canvas.height) / 2;
+                    if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+                    x += sliceWidth;
+                }
+                ctx.stroke();
+            } else {
+                const barWidth = (canvas.width / bufferLength) * 2.5; let x = 0;
+                for (let i = 0; i < bufferLength; i++) {
+                    ctx.fillStyle = lineColor; ctx.fillRect(x, canvas.height - (dataArray[i]/3), barWidth, dataArray[i]/3);
+                    x += barWidth + 1;
+                }
+            }
+        }
+
+        function mudarEstiloVisualizer(v) { visualizerMode = v; }
+        function atualizarEqualizador() {
+            if (!audioCtx) return;
+            bassNode.gain.value = parseFloat(document.getElementById('bassRange').value);
+            midNode.gain.value = parseFloat(document.getElementById('midRange').value);
+            trebleNode.gain.value = parseFloat(document.getElementById('trebleRange').value);
+        }
+        function toggleGraveExtreme() {
+            if (!audioCtx) return;
+            graveExtremeAtivo = !graveExtremeAtivo;
+            const btn = document.getElementById('btnGraveExtreme');
+            extremeBassNode.gain.value = graveExtremeAtivo ? 25 : 0;
+            btn.innerText = graveExtremeAtivo ? "💥 GRAVE EXTREME ATIVADO" : "🔊 LIGAR GRAVE EXTREME";
+        }
+        function mudarCor(variable, value) { document.documentElement.style.setProperty(variable, value); }
+
+        function toggleConjugadorCores() {
+            conjugadorAtivo = !conjugadorAtivo;
+            const btn = document.getElementById('btnConjugador');
+            if(conjugadorAtivo) {
+                btn.innerText = "🌈 DESLIGAR CONJUGADOR RGB";
+                let hue = 0;
+                conjugadorTimer = setInterval(() => {
+                    hue = (hue + 10) % 360;
+                    mudarCor('--speaker-sub-color', `hsl(${hue}, 100%, 50%)`);
+                    mudarCor('--speaker-horn-color', `hsl(${(hue+120)%360}, 100%, 50%)`);
+                    mudarCor('--speaker-tweet-color', `hsl(${(hue+240)%360}, 100%, 50%)`);
+                }, 150);
+            } else { btn.innerText = "🌈 LIGAR CONJUGADOR RGB AUTOMÁTICO"; clearInterval(conjugadorTimer); }
+        }
+
+        function toggleStroboritmo() {
+            stroboRitmoAtivo = !stroboRitmoAtivo;
+            document.getElementById('btnStroboritmo').innerText = stroboRitmoAtivo ? "🎆 Desligar Strobo Grave" : "🎆 Strobo no Ritmo do Grave";
+        }
+
+        function toggleFlashManual() {
+            flashManualAtivo = !flashManualAtivo;
+            const btn = document.getElementById('btnFlashManual');
+            if(flashManualAtivo) {
+                btn.innerText = "💡 Desligar Flash Manual";
+                let flag = false;
+                flashInterval = setInterval(() => {
+                    document.body.style.backgroundColor = flag ? getComputedStyle(document.documentElement).getPropertyValue('--flash-color').trim() : getComputedStyle(document.documentElement).getPropertyValue('--bg-color').trim();
+                    flag = !flag;
+                }, parseInt(document.getElementById('flashSpeed').value));
+            } else {
+                btn.innerText = "💡 Flash Manual Contínuo"; clearInterval(flashInterval);
+                document.body.style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue('--bg-color').trim();
+            }
+        }
+
+        function alterarTipoFundo(val) {
+            document.body.className = ''; document.body.style.backgroundImage = 'none';
+            document.getElementById('groupCorFundo').style.display = 'none';
+            document.getElementById('groupFotoFundo').style.display = 'none';
+            if (val === 'solido') document.getElementById('groupCorFundo').style.display = 'flex';
+            else if (val === 'foto') document.getElementById('groupFotoFundo').style.display = 'block';
+            else document.body.classList.add(val);
+        }
+
+        function aplicarFotoFundo() {
+            const url = document.getElementById('urlFotoFundo').value;
+            if (url) { document.body.className = ''; document.body.style.backgroundImage = `url('${url}')`; salvarConfig(); }
+        }
+    </script>
 </body>
 </html>
