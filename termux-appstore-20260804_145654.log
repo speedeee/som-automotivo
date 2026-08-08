@@ -1,0 +1,16 @@
+2026-08-04 14:56:54 - Starting package installation for: xdotool python libpng libjpeg-turbo python-tkinter python-pillow
+2026-08-04 14:56:57 - Installing package: xdotool
+2026-08-04 14:57:00 - Successfully install package: xdotool
+2026-08-04 14:57:00 - Installing package: python
+2026-08-04 14:57:00 - Successfully install package: python
+2026-08-04 14:57:00 - Installing package: libpng
+2026-08-04 14:57:00 - Successfully install package: libpng
+2026-08-04 14:57:00 - Installing package: libjpeg-turbo
+2026-08-04 14:57:00 - Successfully install package: libjpeg-turbo
+2026-08-04 14:57:00 - Installing package: python-tkinter
+2026-08-04 14:58:59 - Successfully install package: python-tkinter
+2026-08-04 14:58:59 - Installing package: python-pillow
+2026-08-04 14:59:00 - Successfully install package: python-pillow
+2026-08-04 14:59:00 - Downloading TermuxDM-v6-LTS-Codenamed-Morano.deb...
+2026-08-04 14:59:01 - File downloaded successfully.
+2026-08-04 14:59:49 - Deleted: /data/data/com.termux/files/usr/tmp/TermuxDM-v6-LTS-Codenamed-Morano.deb

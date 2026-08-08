@@ -1,0 +1,3 @@
+2026-08-03 22:35:49 - Downloading GitHubDesktop-linux-arm64-3.4.13-linux1.deb...
+2026-08-03 22:36:23 - File downloaded successfully.
+2026-08-03 22:36:23 - ERR trap: line 1075 exit 127: "${SELECTED_DISTRO_TYPE}"-distro login "$SELECTED_DISTRO" -- /bin/bash "/root/$script_name" 2>&1

@@ -1,0 +1,5 @@
+[include]
+    path = /data/data/com.termux/files/home/.config/git/conf.d
+[user]
+	email = fabiojr074@gmail.com
+	name = speedeee

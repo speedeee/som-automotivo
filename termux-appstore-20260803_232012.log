@@ -1,0 +1,16 @@
+2026-08-03 23:20:12 - Starting package installation for: make nasm clang perl xdelta3 python git
+2026-08-03 23:20:15 - Installing package: make
+2026-08-03 23:20:15 - Successfully install package: make
+2026-08-03 23:20:15 - Installing package: nasm
+2026-08-03 23:20:17 - Successfully install package: nasm
+2026-08-03 23:20:17 - Installing package: clang
+2026-08-03 23:20:17 - Successfully install package: clang
+2026-08-03 23:20:17 - Installing package: perl
+2026-08-03 23:20:17 - Successfully install package: perl
+2026-08-03 23:20:17 - Installing package: xdelta3
+2026-08-03 23:20:18 - Successfully install package: xdelta3
+2026-08-03 23:20:18 - Installing package: python
+2026-08-03 23:20:19 - Successfully install package: python
+2026-08-03 23:20:19 - Installing package: git
+2026-08-03 23:20:19 - Successfully install package: git
+2026-08-03 23:20:46 - ERR trap: line 1075 exit 127: "${SELECTED_DISTRO_TYPE}"-distro login "$SELECTED_DISTRO" -- /bin/bash "/root/$script_name" 2>&1

@@ -1,0 +1,36 @@
+2026-08-03 21:34:52 -03 [INF] Installation started.
+2026-08-03 21:34:52 -03 [VAR] USER="u0_a513"
+2026-08-03 21:34:52 -03 [VAR] HOME="/data/data/com.termux/files/home"
+2026-08-03 21:34:52 -03 [VAR] SHELL="/data/data/com.termux/files/usr/bin/bash"
+2026-08-03 21:34:53 -03 [VAR] LANG="en_US.UTF-8"
+2026-08-03 21:34:53 -03 [VAR] sys_kernel="Linux 5.10.240-android12-9-00006-g25161a557b20-ab14744618 aarch64 Android"
+2026-08-03 21:34:53 -03 [VAR] sys_os=""
+2026-08-03 21:34:53 -03 [VAR] XDG_CURRENT_DESKTOP=""
+2026-08-03 21:34:53 -03 [VAR] XDG_SESSION_TYPE=""
+2026-08-03 21:34:53 -03 [MSG] Enhanced File Manager Actions for Linux v30.16.3
+2026-08-03 21:34:53 -03 [VAR] APP_VERSION="30.16.3"
+2026-08-03 21:34:53 -03 [MSG] Installing in non-interactive mode...
+2026-08-03 21:34:53 -03 [VAR] OPT_INSTALL_BASIC_DEPS="true"
+2026-08-03 21:34:53 -03 [VAR] OPT_REMOVE_SCRIPTS="true"
+2026-08-03 21:34:53 -03 [VAR] OPT_INSTALL_ACCELS="true"
+2026-08-03 21:34:53 -03 [VAR] OPT_CLOSE_FILE_MANAGER="true"
+2026-08-03 21:34:53 -03 [VAR] OPT_INSTALL_APP_SHORTCUTS="false"
+2026-08-03 21:34:53 -03 [VAR] OPT_INSTALL_HOMEBREW="false"
+2026-08-03 21:34:53 -03 [VAR] OPT_CHOOSE_CATEGORIES="false"
+2026-08-03 21:34:53 -03 [VAR] OPT_INTERACTIVE_INSTALL="false"
+2026-08-03 21:34:53 -03 [VAR] OPT_QUIET_INSTALL="false"
+2026-08-03 21:34:54 -03 [MSG] Checking for basic dependencies:
+2026-08-03 21:34:54 -03 [INF] Package manager: apt-get
+2026-08-03 21:34:54 -03 [MSG] > All dependencies are already satisfied.
+2026-08-03 21:34:54 -03 [MSG] > Done!
+2026-08-03 21:34:54 -03 [VAR] INSTALL_OWNER="u0_a513"
+2026-08-03 21:34:54 -03 [VAR] INSTALL_GROUP="u0_a513"
+2026-08-03 21:34:54 -03 [MSG] Installing:
+2026-08-03 21:34:54 -03 [MSG] > User: u0_a513
+2026-08-03 21:34:54 -03 [MSG] > Directory: /data/data/com.termux/files/home/.local/share/scripts
+2026-08-03 21:34:54 -03 [MSG] > Copying files...
+2026-08-03 21:34:55 -03 [MSG] > (thunar) Installing actions in the context menu...
+2026-08-03 21:35:59 -03 [MSG] > (thunar) Installing keyboard accelerators...
+2026-08-03 21:36:11 -03 [MSG] > (thunar) Closing the file manager...
+2026-08-03 21:36:11 -03 [MSG] > Done!
+2026-08-03 21:36:11 -03 [MSG] Installation completed successfully!

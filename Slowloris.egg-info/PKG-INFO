@@ -1,0 +1,13 @@
+Metadata-Version: 2.4
+Name: Slowloris
+Version: 0.1.4
+Summary: Low bandwidth DoS tool. Slowloris rewrite in Python.
+Home-page: https://github.com/gkbrk/slowloris
+Author: Gokberk Yaltirakli
+Author-email: webdosusb@gmail.com
+Keywords: dos,http,slowloris
+Dynamic: author
+Dynamic: author-email
+Dynamic: home-page
+Dynamic: keywords
+Dynamic: summary

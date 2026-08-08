@@ -1,0 +1,2 @@
+#!/bin/sh
+feh --no-fehbg --bg-fill '/data/data/com.termux/files/usr/share/app/wall/wall.jpg' '/data/data/com.termux/files/usr/share/app/wall/wall1.jpg' 

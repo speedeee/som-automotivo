@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xbel version="1.0"
+      xmlns:bookmark="http://www.freedesktop.org/standards/desktop-bookmarks"
+      xmlns:mime="http://www.freedesktop.org/standards/shared-mime-info"
+>
+  <bookmark href="file:///data/data/com.termux/files/home/.local/share/Mousepad/autosave-1" added="2026-08-04T01:15:45.070990Z" modified="2026-08-04T01:15:45.071038Z" visited="2026-08-04T01:15:45.070992Z">
+    <desc>Language: ; Encoding: UTF-8; Cursor: 0:0;</desc>
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="text/plain"/>
+        <bookmark:groups>
+          <bookmark:group>Mousepad</bookmark:group>
+        </bookmark:groups>
+        <bookmark:applications>
+          <bookmark:application name="Mousepad" exec="&apos;mousepad %u&apos;" modified="2026-08-04T01:15:45.071020Z" count="1"/>
+        </bookmark:applications>
+        <bookmark:private/>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///data/data/com.termux/files/home/.local/share/Mousepad/autosave-0" added="2026-08-04T01:15:45.076005Z" modified="2026-08-04T21:34:48.384527Z" visited="2026-08-04T01:15:45.076009Z">
+    <desc>Language: ; Encoding: UTF-8; Cursor: 0:0;</desc>
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="text/plain"/>
+        <bookmark:groups>
+          <bookmark:group>Mousepad</bookmark:group>
+        </bookmark:groups>
+        <bookmark:applications>
+          <bookmark:application name="Mousepad" exec="&apos;mousepad %u&apos;" modified="2026-08-04T21:34:48.384525Z" count="3"/>
+        </bookmark:applications>
+        <bookmark:private/>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///data/data/com.termux/files/home/Music/xigncode/75bb217b701afb4964cf001cda959062.mp3" added="2026-08-04T02:33:10.968470Z" modified="2026-08-04T02:33:12.331714Z" visited="2026-08-04T02:33:10.968475Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="audio/mpeg"/>
+        <bookmark:applications>
+          <bookmark:application name="Thunar" exec="&apos;Thunar %u&apos;" modified="2026-08-04T02:33:12.331702Z" count="2"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///data/data/com.termux/files/home/Pictures/1770263806828.png" added="2026-08-04T02:33:40.380982Z" modified="2026-08-04T02:33:40.380996Z" visited="2026-08-04T02:33:40.380984Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="image/png"/>
+        <bookmark:applications>
+          <bookmark:application name="Thunar" exec="&apos;Thunar %u&apos;" modified="2026-08-04T02:33:40.380989Z" count="1"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///data/data/com.termux/files/home/Pictures/1770758028810.png" added="2026-08-04T02:35:46.979353Z" modified="2026-08-04T02:35:46.979389Z" visited="2026-08-04T02:35:46.979360Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="image/png"/>
+        <bookmark:applications>
+          <bookmark:application name="Thunar" exec="&apos;Thunar %u&apos;" modified="2026-08-04T02:35:46.979371Z" count="1"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///data/data/com.termux/files/home/Pictures/1770757448558.png" added="2026-08-04T02:35:51.398214Z" modified="2026-08-04T16:10:08.824092Z" visited="2026-08-04T02:35:51.398220Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="image/png"/>
+        <bookmark:applications>
+          <bookmark:application name="Thunar" exec="&apos;Thunar %u&apos;" modified="2026-08-04T16:10:08.824080Z" count="3"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///data/data/com.termux/files/home/Pictures/5562516-fundo-abstrato-de-corrida-vermelha-vetor.jpg" added="2026-08-04T02:35:58.436322Z" modified="2026-08-04T02:35:58.436386Z" visited="2026-08-04T02:35:58.436369Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="image/jpeg"/>
+        <bookmark:applications>
+          <bookmark:application name="Thunar" exec="&apos;Thunar %u&apos;" modified="2026-08-04T02:35:58.436376Z" count="1"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///data/data/com.termux/files/home/Pictures/1756926351720.jpg" added="2026-08-04T02:36:02.161917Z" modified="2026-08-04T02:36:02.161935Z" visited="2026-08-04T02:36:02.161920Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="image/jpeg"/>
+        <bookmark:applications>
+          <bookmark:application name="Thunar" exec="&apos;Thunar %u&apos;" modified="2026-08-04T02:36:02.161925Z" count="1"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///data/data/com.termux/files/home/Pictures/965384-azul-motocicleta-sportbikes-wrap-gratis-vetor.jpg" added="2026-08-04T02:36:07.975903Z" modified="2026-08-04T16:13:04.964030Z" visited="2026-08-04T02:36:07.975906Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="image/jpeg"/>
+        <bookmark:applications>
+          <bookmark:application name="Thunar" exec="&apos;Thunar %u&apos;" modified="2026-08-04T16:13:04.964024Z" count="2"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///data/data/com.termux/files/home/Pictures/1769832774103.png" added="2026-08-04T02:36:19.923576Z" modified="2026-08-04T02:36:19.923608Z" visited="2026-08-04T02:36:19.923580Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="image/png"/>
+        <bookmark:applications>
+          <bookmark:application name="Thunar" exec="&apos;Thunar %u&apos;" modified="2026-08-04T02:36:19.923594Z" count="1"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///storage/569C-190C/bluetooth/11.%20Sidoka%20-%20nos%20%C3%A9%20mais%20que%20bom(MP3_160K).mp3" added="2026-08-04T02:37:48.280684Z" modified="2026-08-04T02:37:51.019983Z" visited="2026-08-04T02:37:48.280687Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="audio/mpeg"/>
+        <bookmark:applications>
+          <bookmark:application name="Thunar" exec="&apos;Thunar %u&apos;" modified="2026-08-04T02:37:51.019953Z" count="2"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///storage/569C-190C/LOST.DIR/79825" added="2026-08-04T02:39:10.747890Z" modified="2026-08-04T02:39:10.747907Z" visited="2026-08-04T02:39:10.747893Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="application/octet-stream"/>
+        <bookmark:applications>
+          <bookmark:application name="Thunar" exec="&apos;Thunar %u&apos;" modified="2026-08-04T02:39:10.747900Z" count="1"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///storage/569C-190C/Download/ANDROID_12.apk" added="2026-08-04T02:40:33.046412Z" modified="2026-08-04T02:41:03.208027Z" visited="2026-08-04T02:40:33.046414Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="application/vnd.android.package-archive"/>
+        <bookmark:applications>
+          <bookmark:application name="Thunar" exec="&apos;Thunar %u&apos;" modified="2026-08-04T02:40:56.930997Z" count="2"/>
+          <bookmark:application name="File Roller" exec="&apos;file-roller&apos;" modified="2026-08-04T02:41:03.208016Z" count="3"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///storage/569C-190C/Download/GTA%20SAN%20CANAL%20KELVE%20BLACK%20%F0%9F%91%8D/GTA%20SA%20Android%2011%20portugues.apk" added="2026-08-04T02:41:43.777257Z" modified="2026-08-04T02:41:45.206585Z" visited="2026-08-04T02:41:43.777260Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="application/vnd.android.package-archive"/>
+        <bookmark:applications>
+          <bookmark:application name="Thunar" exec="&apos;Thunar %u&apos;" modified="2026-08-04T02:41:43.777266Z" count="1"/>
+          <bookmark:application name="File Roller" exec="&apos;file-roller&apos;" modified="2026-08-04T02:41:45.206578Z" count="1"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///data/data/com.termux/files/home/Pictures/1770757106031.png" added="2026-08-04T16:09:33.543393Z" modified="2026-08-04T16:09:33.543418Z" visited="2026-08-04T16:09:33.543397Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="image/png"/>
+        <bookmark:applications>
+          <bookmark:application name="Thunar" exec="&apos;Thunar %u&apos;" modified="2026-08-04T16:09:33.543405Z" count="1"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///data/data/com.termux/files/home/Pictures/1768724332419.jpg" added="2026-08-04T16:09:49.556942Z" modified="2026-08-04T16:09:49.556957Z" visited="2026-08-04T16:09:49.556944Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="image/jpeg"/>
+        <bookmark:applications>
+          <bookmark:application name="Thunar" exec="&apos;Thunar %u&apos;" modified="2026-08-04T16:09:49.556950Z" count="1"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///data/data/com.termux/files/home/Desktop/Alacritty.desktop" added="2026-08-04T16:11:16.471424Z" modified="2026-08-04T16:11:16.471446Z" visited="2026-08-04T16:11:16.471428Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="application/x-desktop"/>
+        <bookmark:applications>
+          <bookmark:application name="Thunar" exec="&apos;Thunar %u&apos;" modified="2026-08-04T16:11:16.471434Z" count="1"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///data/data/com.termux/files/home/Desktop/kali-hack.jpg" added="2026-08-04T16:11:18.815785Z" modified="2026-08-04T16:23:16.758266Z" visited="2026-08-04T16:11:18.815787Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="image/jpeg"/>
+        <bookmark:applications>
+          <bookmark:application name="Thunar" exec="&apos;Thunar %u&apos;" modified="2026-08-04T16:23:16.758247Z" count="4"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///data/data/com.termux/files/home/Downloads/965384-azul-motocicleta-sportbikes-wrap-gratis-vetor.jpg" added="2026-08-04T16:15:09.542194Z" modified="2026-08-04T16:15:09.542206Z" visited="2026-08-04T16:15:09.542197Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="image/jpeg"/>
+        <bookmark:applications>
+          <bookmark:application name="Thunar" exec="&apos;Thunar %u&apos;" modified="2026-08-04T16:15:09.542201Z" count="1"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///data/data/com.termux/files/home/Downloads/965384-azul-motocicleta-sportbikes-wrap-gratis-vetor%20(copy%201).jpg" added="2026-08-04T16:15:24.850897Z" modified="2026-08-04T16:15:24.850908Z" visited="2026-08-04T16:15:24.850899Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="image/jpeg"/>
+        <bookmark:applications>
+          <bookmark:application name="Thunar" exec="&apos;Thunar %u&apos;" modified="2026-08-04T16:15:24.850903Z" count="1"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///data/data/com.termux/files/home/termux-appstore-20260803_231758.log" added="2026-08-04T16:16:05.238353Z" modified="2026-08-04T16:16:05.907833Z" visited="2026-08-04T16:16:05.238355Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="text/plain"/>
+        <bookmark:groups>
+          <bookmark:group>geany</bookmark:group>
+        </bookmark:groups>
+        <bookmark:applications>
+          <bookmark:application name="Thunar" exec="&apos;Thunar %u&apos;" modified="2026-08-04T16:16:05.238362Z" count="1"/>
+          <bookmark:application name="geany" exec="&apos;geany %u&apos;" modified="2026-08-04T16:16:05.907830Z" count="1"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///data/data/com.termux/files/home/old-config-20260803-210445.tar.xz" added="2026-08-04T16:16:26.870848Z" modified="2026-08-04T16:16:31.922577Z" visited="2026-08-04T16:16:26.870850Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="application/x-xz-compressed-tar"/>
+        <bookmark:applications>
+          <bookmark:application name="Thunar" exec="&apos;Thunar %u&apos;" modified="2026-08-04T16:16:26.870858Z" count="1"/>
+          <bookmark:application name="File Roller" exec="&apos;file-roller&apos;" modified="2026-08-04T16:16:31.922574Z" count="1"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///storage/569C-190C/YMusic/2.%20%20VEIGH%20-%20ENGANA%20DIZENDO%20QUE%20AMA%20FT.%20TZ%20DA%20CORONEL%20(Dos%20Pr%C3%A9dios%20Deluxe).mp3" added="2026-08-06T20:06:13.243662Z" modified="2026-08-06T20:06:13.243690Z" visited="2026-08-06T20:06:13.243667Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="audio/mpeg"/>
+        <bookmark:applications>
+          <bookmark:application name="parole" exec="&apos;parole %u&apos;" modified="2026-08-06T20:06:13.243677Z" count="1"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+</xbel>

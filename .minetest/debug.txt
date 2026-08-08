@@ -1,0 +1,81 @@
+
+
+-------------
+  Separator
+-------------
+
+
+
+-------------
+  Separator
+-------------
+
+
+
+-------------
+  Separator
+-------------
+
+2026-08-03 23:22:57: WARNING[Main]: Irrlicht: SDL_PollEvent took too long: 64ms
+2026-08-03 23:22:57: WARNING[Main]: Irrlicht: SDL_PollEvent took too long: 51ms
+2026-08-03 23:22:59: WARNING[Main]: Irrlicht: SDL_PollEvent took too long: 82ms
+2026-08-03 23:24:19: WARNING[Main]: Irrlicht: SDL_PollEvent took too long: 57ms
+2026-08-03 23:24:56: ACTION[Main]: Installed package to /data/data/com.termux/files/home/.minetest/games/minetest_game
+2026-08-03 23:25:06: WARNING[Main]: Irrlicht: SDL_PollEvent took too long: 52ms
+2026-08-03 23:25:11: WARNING[Main]: Irrlicht: SDL_PollEvent took too long: 54ms
+2026-08-03 23:25:32: WARNING[Main]: Irrlicht: SDL_PollEvent took too long: 54ms
+2026-08-03 23:25:37: WARNING[Main]: Irrlicht: SDL_PollEvent took too long: 52ms
+2026-08-03 23:26:00: ACTION[ServerStart]: World at [/data/data/com.termux/files/home/.minetest/worlds/world2]
+2026-08-03 23:26:00: ACTION[ServerStart]: Server for gameid="minetest" listening on 127.0.0.1:57997.
+2026-08-03 23:26:04: ACTION[Server]: singleplayer [127.0.0.1] joins game. List of players: singleplayer
+2026-08-03 23:27:00: ACTION[Server]: singleplayer digs default:dirt_with_coniferous_litter at (0,16,1)
+2026-08-03 23:27:03: ACTION[Server]: singleplayer digs default:dirt_with_coniferous_litter at (1,16,1)
+2026-08-03 23:27:08: ACTION[Server]: singleplayer digs default:pine_tree at (3,17,1)
+2026-08-03 23:27:12: ACTION[Server]: singleplayer digs default:pine_tree at (3,18,1)
+2026-08-03 23:27:55: WARNING[Main]: Irrlicht: SDL_PollEvent took too long: 86ms
+2026-08-03 23:27:56: WARNING[Main]: Irrlicht: SDL_PollEvent took too long: 56ms
+2026-08-03 23:28:06: WARNING[Main]: Irrlicht: SDL_PollEvent took too long: 54ms
+2026-08-03 23:28:07: WARNING[Main]: Irrlicht: SDL_PollEvent took too long: 56ms
+2026-08-03 23:29:35: WARNING[Main]: Irrlicht: SDL_PollEvent took too long: 82ms
+2026-08-03 23:29:55: WARNING[Main]: Irrlicht: SDL_PollEvent took too long: 90ms
+2026-08-03 23:30:10: WARNING[Main]: Irrlicht: SDL_PollEvent took too long: 282ms
+2026-08-03 23:30:20: WARNING[Main]: Irrlicht: SDL_PollEvent took too long: 59ms
+2026-08-03 23:30:23: WARNING[Main]: Irrlicht: SDL_PollEvent took too long: 63ms
+2026-08-03 23:30:23: WARNING[Main]: Irrlicht: SDL_PollEvent took too long: 64ms
+2026-08-03 23:30:24: WARNING[Main]: Irrlicht: SDL_PollEvent took too long: 153ms
+2026-08-03 23:30:24: WARNING[Main]: Irrlicht: SDL_PollEvent took too long: 148ms
+2026-08-03 23:30:48: ACTION[Server]: singleplayer leaves game. List of players: 
+2026-08-03 23:30:48: ACTION[ServerStop]: Server: Shutting down
+2026-08-03 23:34:39: WARNING[Main]: Irrlicht: SDL_PollEvent took too long: 68ms
+2026-08-03 23:34:54: WARNING[Main]: Irrlicht: SDL_PollEvent took too long: 69ms
+2026-08-03 23:34:59: WARNING[Main]: Irrlicht: SDL_PollEvent took too long: 52ms
+2026-08-03 23:35:22: WARNING[Main]: Irrlicht: SDL_PollEvent took too long: 64ms
+2026-08-03 23:37:43: WARNING[Main]: Irrlicht: SDL_PollEvent took too long: 57ms
+2026-08-03 23:37:45: WARNING[Main]: Irrlicht: SDL_PollEvent took too long: 70ms
+2026-08-03 23:49:31: WARNING[Main]: Irrlicht: SDL_PollEvent took too long: 105ms
+2026-08-03 23:49:31: WARNING[Main]: Irrlicht: SDL_PollEvent took too long: 108ms
+2026-08-03 23:50:20: WARNING[Main]: Irrlicht: SDL_PollEvent took too long: 79ms
+2026-08-03 23:50:20: WARNING[Main]: Irrlicht: SDL_PollEvent took too long: 75ms
+2026-08-03 23:50:49: WARNING[Main]: Irrlicht: SDL_PollEvent took too long: 73ms
+2026-08-03 23:51:17: WARNING[Main]: Irrlicht: SDL_PollEvent took too long: 58ms
+2026-08-03 23:51:24: WARNING[Main]: Irrlicht: SDL_PollEvent took too long: 109ms
+2026-08-03 23:51:24: WARNING[Main]: Irrlicht: SDL_PollEvent took too long: 278ms
+2026-08-03 23:51:28: WARNING[Main]: Irrlicht: SDL_PollEvent took too long: 87ms
+2026-08-03 23:51:28: WARNING[Main]: Irrlicht: SDL_PollEvent took too long: 293ms
+2026-08-03 23:51:39: WARNING[Main]: Irrlicht: SDL_PollEvent took too long: 63ms
+2026-08-03 23:51:50: WARNING[Main]: Irrlicht: SDL_PollEvent took too long: 407ms
+2026-08-03 23:52:41: WARNING[Main]: Irrlicht: SDL_PollEvent took too long: 57ms
+2026-08-03 23:52:41: WARNING[Main]: Irrlicht: SDL_PollEvent took too long: 67ms
+2026-08-03 23:52:44: WARNING[Main]: Irrlicht: SDL_PollEvent took too long: 79ms
+2026-08-03 23:52:44: WARNING[Main]: Irrlicht: SDL_PollEvent took too long: 129ms
+2026-08-03 23:52:49: WARNING[Main]: Irrlicht: SDL_PollEvent took too long: 110ms
+2026-08-03 23:52:52: WARNING[Main]: Irrlicht: SDL_PollEvent took too long: 72ms
+2026-08-03 23:52:52: WARNING[Main]: Irrlicht: SDL_PollEvent took too long: 79ms
+2026-08-03 23:52:56: WARNING[Main]: Irrlicht: SDL_PollEvent took too long: 99ms
+2026-08-03 23:52:57: WARNING[Main]: Irrlicht: SDL_PollEvent took too long: 127ms
+2026-08-03 23:53:12: WARNING[Main]: Irrlicht: SDL_PollEvent took too long: 144ms
+2026-08-03 23:53:14: WARNING[Main]: Irrlicht: SDL_PollEvent took too long: 79ms
+2026-08-03 23:53:14: WARNING[Main]: Irrlicht: SDL_PollEvent took too long: 58ms
+2026-08-03 23:53:15: WARNING[Main]: Irrlicht: SDL_PollEvent took too long: 194ms
+2026-08-03 23:53:15: WARNING[Main]: Irrlicht: SDL_PollEvent took too long: 211ms
+2026-08-03 23:56:15: WARNING[Main]: Irrlicht: SDL_PollEvent took too long: 52ms

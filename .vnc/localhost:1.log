@@ -1,0 +1,128 @@
+
+Xvnc TigerVNC 1.16.2 - built Apr 29 2026 05:55:51
+Copyright (C) 1999-2026 TigerVNC team and many others (see README.rst)
+See https://www.tigervnc.org for information on TigerVNC.
+Underlying X server release 12101016
+
+Built without GBM support
+Failed to initialize DRI3 extension
+Sync Extension 3.1
+
+Tue Aug  4 22:23:58 2026
+ vncext:      VNC extension running!
+ vncext:      Listening for VNC connections on all interface(s), port 5901
+ vncext:      Created VNC server for screen 0
+[dix] Could not init font path element /data/data/com.termux/files/usr/share/fonts/misc/, removing from list!
+[dix] Could not init font path element /data/data/com.termux/files/usr/share/fonts/TTF/, removing from list!
+[dix] Could not init font path element /data/data/com.termux/files/usr/share/fonts/OTF/, removing from list!
+[dix] Could not init font path element /data/data/com.termux/files/usr/share/fonts/Type1/, removing from list!
+[dix] Could not init font path element /data/data/com.termux/files/usr/share/fonts/100dpi/, removing from list!
+[dix] Could not init font path element /data/data/com.termux/files/usr/share/fonts/75dpi/, removing from list!
+Popen: `"/data/data/com.termux/files/usr/bin/xkbcomp" -w 1 "-R/data/data/com.termux/files/usr/share/X11/xkb" -xkm "-" -em1 "The XKEYBOARD keymap compiler (xkbcomp) reports:" -emp "> " -eml "Errors from xkbcomp are not fatal to the X server" "/data/data/com.termux/files/usr/tmp/server-1.xkm"', fp = 0xb4000075bcd41018
+Pclose: fp = 0xb4000075bcd41018
+The XKEYBOARD keymap compiler (xkbcomp) reports:
+> Warning:          Multiple symbols for level 1/group 1 on key <FK23>
+>                   Using F23, ignoring XF86TouchpadOff
+> Warning:          Symbol map for key <FK23> redefined
+>                   Using last definition for conflicting fields
+> Warning:          Symbol map for key <FK24> redefined
+>                   Using last definition for conflicting fields
+> Warning:          Could not resolve keysym XF86ElectronicPrivacyScreenOn
+> Warning:          Could not resolve keysym XF86ElectronicPrivacyScreenOff
+> Warning:          Could not resolve keysym XF86ActionOnSelection
+> Warning:          Could not resolve keysym XF86ContextualInsert
+> Warning:          Could not resolve keysym XF86ContextualQuery
+Errors from xkbcomp are not fatal to the X server
+Loaded XKB keymap /data/data/com.termux/files/usr/tmp/server-1.xkm, defined=0x7f
+client(0): Reserved pid(26809).
+client(0): Reserved cmdname(/data/data/com.termux/files/usr/bin/Xvnc) and cmdargs(:1 -auth /data/data/com.termux/files/home/.Xauthority -desktop localhost:1 () -geometry 1280x720 -rfbauth /data/data/com.termux/files/home/.vnc/passwd -rfbport 5901).
+[mi] mieq: warning: overriding existing handler 0x0 with 0x6264660e60 for event 2
+[mi] mieq: warning: overriding existing handler 0x0 with 0x6264660e60 for event 3
+client(200000): Reserved pid(26889).
+client(200000): Reserved cmdname(xcompmgr) and cmdargs(NULL).
+AllocNewConnection: client index = 1, socket fd = 8, local = 1
+client(400000): Reserved pid(26911).
+client(400000): Reserved cmdname(xprop) and cmdargs(-root -remove _NET_NUMBER_OF_DESKTOPS -remove _NET_DESKTOP_NAMES -remove _NET_CURRENT_DESKTOP).
+AllocNewConnection: client index = 2, socket fd = 9, local = 1
+client(400000): Released pid(26911).
+client(400000): Released cmdline(xprop) and cmdargs(-root -remove _NET_NUMBER_OF_DESKTOPS -remove _NET_DESKTOP_NAMES -remove _NET_CURRENT_DESKTOP).
+client(400000): Reserved pid(26890).
+client(400000): Reserved cmdname(feh) and cmdargs(--randomize --bg-fill /data/data/com.termux/files/usr/share/app/wall/wall.jpg /data/data/com.termux/files/usr/share/app/wall/wall1.jpg).
+AllocNewConnection: client index = 2, socket fd = 9, local = 1
+client(600000): Reserved pid(26893).
+client(600000): Reserved cmdname(/data/data/com.termux/files/usr/bin/openbox) and cmdargs(--startup /data/data/com.termux/files/usr/libexec/openbox-autostart OPENBOX).
+AllocNewConnection: client index = 3, socket fd = 10, local = 1
+client(800000): Reserved pid(26890).
+client(800000): Reserved cmdname(feh) and cmdargs(--randomize --bg-fill /data/data/com.termux/files/usr/share/app/wall/wall.jpg /data/data/com.termux/files/usr/share/app/wall/wall1.jpg).
+AllocNewConnection: client index = 4, socket fd = 11, local = 1
+client(400000): Released pid(26890).
+client(400000): Released cmdline(feh) and cmdargs(--randomize --bg-fill /data/data/com.termux/files/usr/share/app/wall/wall.jpg /data/data/com.termux/files/usr/share/app/wall/wall1.jpg).
+client(400000): Reserved pid(26891).
+client(400000): Reserved cmdname(python) and cmdargs(app.py).
+AllocNewConnection: client index = 2, socket fd = 9, local = 1
+ERROR: openbox-xdg-autostart requires PyXDG to be installed
+
+
+/data/data/com.termux/files/home/.vnc/xstartup: 7: /data/data/com.termux/files/home/.config/polybar/docky/launch.sh: not found
+client(a00000): Reserved pid(26945).
+client(a00000): Reserved cmdname(openbox) and cmdargs(--reconfigure).
+AllocNewConnection: client index = 5, socket fd = 11, local = 1
+client(a00000): Released pid(26945).
+client(a00000): Released cmdline(openbox) and cmdargs(--reconfigure).
+
+Tue Aug  4 22:24:52 2026
+ Connections: Accepted: 127.0.0.1::39786
+ SConnection: Client needs protocol version 3.8
+ SConnection: Client requests security type VncAuth(2)
+
+Tue Aug  4 22:25:17 2026
+ VNCSConnST:  Server default pixel format depth 24 (32bpp) little-endian rgb888
+ VNCSConnST:  Client pixel format depth 6 (8bpp) rgb222
+client(a00000): Reserved pid(28303).
+client(a00000): Reserved cmdname(obconf) and cmdargs(NULL).
+AllocNewConnection: client index = 5, socket fd = 12, local = 1
+client(c00000): Reserved pid(28308).
+client(c00000): Reserved cmdname(dbus-launch) and cmdargs(--autolaunch fd93b737f2252a68d174e4976a70e131 --binary-syntax --close-stderr).
+AllocNewConnection: client index = 6, socket fd = 14, local = 1
+client(e00000): Reserved pid(28311).
+client(e00000): Reserved cmdname(dbus-launch) and cmdargs(--autolaunch fd93b737f2252a68d174e4976a70e131 --binary-syntax --close-stderr).
+AllocNewConnection: client index = 7, socket fd = 15, local = 1
+error 9: BadDrawable (invalid Pixmap or Window parameter) request 144 minor 1 serial 8308
+error 3: BadWindow (invalid Window parameter) request 129 minor 6 serial 8309
+error 3: BadWindow (invalid Window parameter) request 20 minor 0 serial 8310
+error 3: BadWindow (invalid Window parameter) request 15 minor 0 serial 8311
+client(a00000): Released pid(28303).
+client(a00000): Released cmdline(obconf) and cmdargs(NULL).
+Exception in Tkinter callback
+Traceback (most recent call last):
+  File "/data/data/com.termux/files/usr/lib/python3.14/tkinter/__init__.py", line 2093, in __call__
+    return self.func(*args)
+           ~~~~~~~~~^^^^^^^
+  File "/data/data/com.termux/files/usr/share/app/app.py", line 70, in wall
+    img_a = PhotoImage(file="wall/wall.png")
+  File "/data/data/com.termux/files/usr/lib/python3.14/tkinter/__init__.py", line 4328, in __init__
+    Image.__init__(self, 'photo', name, cnf, master, **kw)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.14/tkinter/__init__.py", line 4275, in __init__
+    self.tk.call(('image', 'create', imgtype, name,) + options)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_tkinter.TclError: couldn't open "wall/wall.png": no such file or directory
+client(400000): Released pid(26891).
+client(400000): Released cmdline(python) and cmdargs(app.py).
+
+Tue Aug  4 22:48:24 2026
+ VNCSConnST:  Closing 127.0.0.1::39786: Clean disconnection
+ EncodeManager: Framebuffer updates: 565
+ EncodeManager:   RRE:
+ EncodeManager:     Solid: 79 rects, 771.512 kpixels
+ EncodeManager:            1.31152 KiB (1:575.175 ratio)
+ EncodeManager:   ZRLE:
+ EncodeManager:     Bitmap RLE: 139 rects, 910.381 kpixels
+ EncodeManager:                 7.41602 KiB (1:120.101 ratio)
+ EncodeManager:     Indexed RLE: 1.091 krects, 13.7691 Mpixels
+ EncodeManager:                  688.432 KiB (1:19.5505 ratio)
+ EncodeManager:     Full Colour: 21 rects, 504 pixels
+ EncodeManager:                  633 B (1:1.19431 ratio)
+ EncodeManager:   Total: 1.33 krects, 15.4515 Mpixels
+ EncodeManager:          697.777 KiB (1:21.6472 ratio)
+ Connections: Closed: 127.0.0.1::39786

@@ -1,0 +1,1173 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⚡ SPEED RÁDIO - SAVEIRO PAREDÃO PRO</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; }
+        :root { 
+            --bg-color: #0a0b0e; 
+            --pioneer-frame-bg: linear-gradient(145deg, #1f232a, #0d0e12);
+            --pioneer-border: #00d4ff;
+            --pioneer-blue: #00d4ff; 
+            --pioneer-glow: rgba(0, 212, 255, 0.4);
+            --speaker-sub-color: #00ff88;
+            --speaker-horn-color: #0044ff;
+            --speaker-tweet-color: #ff0055;
+            --btn-bg: #00d4ff;
+            --btn-text: #000000;
+            --text-color: #00d4ff;
+            --flash-color: #ffffff;
+        }
+
+        html, body { width: 100%; min-height: 100vh; margin: 0; padding: 0; overflow-x: hidden; }
+        body { 
+            background-color: var(--bg-color); 
+            background-size: cover; background-position: center; background-repeat: no-repeat; background-attachment: fixed;
+            color: #fff; font-family: 'Courier New', Courier, monospace; text-align: center; padding: 10px; transition: background 0.2s ease;
+        }
+
+        /* GIFS & ANIMATIONS */
+        body.glitter-bg {
+            background-image: radial-gradient(circle, #ffffff 1px, transparent 1px), radial-gradient(circle, #ff007f 1px, transparent 1px);
+            background-size: 25px 25px, 35px 35px; animation: glitterAnim 1.2s infinite linear;
+        }
+        @keyframes glitterAnim { 0% { background-position: 0 0, 10px 10px; } 50% { background-position: 15px 25px, 25px 5px; } 100% { background-position: 0 0, 10px 10px; } }
+        body.gif-fogo { background-image: url('https://i.gifer.com/13i.gif') !important; }
+        body.gif-matrix { background-image: url('https://i.gifer.com/7S8E.gif') !important; }
+        body.gif-galaxy { background-image: url('https://i.gifer.com/S2mP.gif') !important; }
+        body.gif-stars { background-image: url('https://i.gifer.com/4S0.gif') !important; }
+        body.gif-cyberpunk { background-image: url('https://i.gifer.com/9C.gif') !important; }
+        body.gif-fogoblue { background-image: url('https://i.gifer.com/71d.gif') !important; }
+        body.gif-waves { background-image: url('https://i.gifer.com/7Scq.gif') !important; }
+        body.gif-eqdigital { background-image: url('https://i.gifer.com/U8.gif') !important; }
+        body.gif-lights { background-image: url('https://i.gifer.com/39G.gif') !important; }
+
+        /* NOVA ENGRENAGEM DE MENU DISCRETA */
+        .gear-container { position: fixed; top: 15px; right: 15px; z-index: 2000; }
+        .gear-btn { 
+            background: rgba(31, 35, 42, 0.8); 
+            border: 1px solid var(--pioneer-border); 
+            color: var(--pioneer-blue); 
+            padding: 10px; 
+            border-radius: 50%; 
+            cursor: pointer; 
+            font-size: 22px; 
+            box-shadow: 0 0 10px var(--pioneer-glow);
+            transition: all 0.3s ease;
+        }
+        .gear-btn:hover { background: var(--pioneer-blue); color: #000; transform: rotate(90deg); }
+
+        .gear-menu { 
+            display: none; 
+            position: absolute; 
+            right: 0; 
+            top: 50px; 
+            background: rgba(17, 19, 24, 0.95); 
+            border: 2px solid var(--pioneer-border); 
+            padding: 10px; 
+            border-radius: 10px; 
+            width: 250px; 
+            box-shadow: 0 8px 20px rgba(0,0,0,0.9); 
+            text-align: left; 
+            backdrop-filter: blur(5px);
+        }
+        .gear-menu button { width: 100%; margin: 5px 0; font-size: 12px; padding: 10px; background: #1f232a; color: #fff; border: 1px solid #333; border-radius: 5px; cursor: pointer; text-align: left; transition: all 0.2s; }
+        .gear-menu button:hover { background: var(--btn-bg); color: var(--btn-text); font-weight: bold; }
+        .gear-menu .btn-danger:hover { background: #e74c3c !important; color: #fff; }
+
+        .pioneer-frame { background: var(--pioneer-frame-bg); border: 4px solid var(--pioneer-border); border-radius: 18px; padding: 15px; max-width: 650px; margin: 50px auto 15px auto; box-shadow: 0 10px 30px rgba(0,0,0,0.9), 0 0 15px var(--pioneer-glow); position: relative; }
+        .lcd-display { background: #00121a; border: 3px solid #002b3d; border-radius: 8px; padding: 10px; color: var(--text-color); margin-bottom: 12px; }
+
+        .wall-container-saveiro { background: #08090c; border: 3px solid #1f232a; border-radius: 12px; padding: 10px 5px; margin: 10px 0; display: flex; flex-direction: column; gap: 8px; }
+        .rack-top, .rack-bottom { display: flex; justify-content: space-around; align-items: center; background: #111318; padding: 6px; border-radius: 8px; }
+
+        .shake-effect { animation: tremor 0.05s infinite alternate; }
+        @keyframes tremor { 0% { transform: translate(2px, 1px); } 100% { transform: translate(-2px, -1px); } }
+
+        .subwoofer-saveiro { width: 75px; height: 75px; background: radial-gradient(circle, #222 10%, #111 50%, #000 100%); border: 4px solid #333; border-radius: 50%; display: flex; justify-content: center; align-items: center; transition: transform 0.03s ease; }
+        .subwoofer-saveiro::before { content: 'SDS'; font-size: 9px; font-weight: bold; color: #fff; width: 42px; height: 42px; background: radial-gradient(circle, var(--speaker-sub-color) 15%, #111 90%); border-radius: 50%; border: 2px solid #000; display: flex; align-items: center; justify-content: center; }
+
+        .horn-saveiro { width: 42px; height: 42px; background: #15171c; border: 2px solid #333; border-radius: 50%; display: flex; justify-content: center; align-items: center; }
+        .horn-saveiro-inner { width: 28px; height: 28px; background: radial-gradient(circle, var(--speaker-horn-color) 10%, #000 80%); border-radius: 50%; }
+
+        .tweeter-saveiro { width: 28px; height: 28px; background: #1a1a1a; border: 2px solid #444; border-radius: 4px; display: flex; justify-content: center; align-items: center; }
+        .tweeter-saveiro-core { width: 10px; height: 10px; background: var(--speaker-tweet-color); border-radius: 50%; }
+
+        .box-link { background: rgba(0, 212, 255, 0.05); border: 1px dashed var(--pioneer-blue); border-radius: 6px; padding: 8px; margin: 10px 0; display: flex; flex-direction: column; align-items: center; gap: 5px; }
+        .box-link input { width: 90%; text-align: center; font-size: 11px; background: #000; color: var(--text-color); border: 1px solid #005577; padding: 5px; }
+
+        input[type="text"], input[type="email"], input[type="password"], input[type="datetime-local"], select { width: 95%; padding: 10px; border-radius: 5px; border: 1px solid #005577; background: #00121a; color: #fff; margin-bottom: 10px; font-size: 13px; box-sizing: border-box; }
+        button { padding: 10px 15px; border-radius: 6px; border: none; background: var(--btn-bg); color: var(--btn-text); font-weight: bold; cursor: pointer; margin: 3px; transition: opacity 0.2s; }
+        button:active { opacity: 0.7; }
+        .btn-power { background: #e74c3c; color: #fff; font-size: 14px; padding: 10px; border-radius: 8px; font-weight: bold; width: 100%; margin-bottom: 10px; }
+        .btn-power.on { background: #2ecc71 !important; }
+        .btn-danger { background: #e74c3c !important; color: #fff !important; }
+        .btn-extreme { background: #ff0055 !important; color: #fff !important; width: 100%; padding: 10px; }
+        .btn-small { padding: 4px 8px; font-size: 11px; margin: 0 2px; }
+
+        canvas { width: 100%; height: 70px; display: block; }
+        .eq-panel { background: rgba(0,0,0,0.6); padding: 15px; border-radius: 8px; border: 1px solid #003344; margin: 10px 0; text-align: left; }
+        .eq-slider { display: flex; justify-content: space-between; align-items: center; margin: 8px 0; font-size: 12px; }
+        .eq-slider input { width: 50%; margin: 0; }
+        .vol-display { font-size: 11px; color: #aaa; min-width: 35px; text-align: right; }
+
+        ol, ul { text-align: left; background: rgba(0, 212, 255, 0.05); padding: 10px; border-radius: 6px; max-height: 200px; overflow-y: auto; border: 1px solid #003344; color: var(--text-color); font-size: 12px; list-style: none; margin: 10px 0; }
+        li { margin-bottom: 5px; border-bottom: 1px solid #002b3d; padding-bottom: 4px; display: flex; justify-content: space-between; align-items: center; gap: 5px; }
+        .song-title { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .color-group { display: flex; align-items: center; justify-content: space-between; margin: 8px 0; font-size: 12px; }
+        .color-group input[type="color"] { border: none; width: 40px; height: 30px; cursor: pointer; background: none; padding: 0; }
+        iframe { width: 100%; height: 200px; border: none; border-radius: 8px; margin-top: 5px; }
+
+        /* ESTILO MESA DE VINHETAS */
+        .jingle-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; margin: 10px 0; }
+        .jingle-btn { 
+            background: #1a1e24; 
+            border: 2px solid #333; 
+            color: #ccc; 
+            padding: 12px; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            font-size: 12px; 
+            font-weight: bold;
+            transition: all 0.2s;
+            display: flex; flex-direction: column; align-items: center; gap: 5px;
+            text-align: center;
+        }
+        .jingle-btn:hover { border-color: var(--pioneer-blue); color: #fff; background: #232831; }
+        .jingle-btn.playing { border-color: #f1c40f !important; color: #f1c40f !important; animation: pulseGlow 1s infinite; }
+        
+        @keyframes pulseGlow { 0% { box-shadow: 0 0 5px rgba(241, 196, 15, 0.3); } 50% { box-shadow: 0 0 15px rgba(241, 196, 15, 0.6); } 100% { box-shadow: 0 0 5px rgba(241, 196, 15, 0.3); } }
+
+        .chat-box { background: rgba(0, 18, 26, 0.9); border: 1px solid #005577; height: 180px; overflow-y: auto; padding: 10px; text-align: left; font-size: 12px; border-radius: 8px; margin-bottom: 10px; color: #e0f7fa; }
+        .chat-msg { margin-bottom: 6px; border-bottom: 1px solid #1a3a4a; padding-bottom: 3px; }
+        .chat-msg b { color: var(--pioneer-blue); }
+    </style>
+</head>
+<body onclick="desbloquearAudio()">
+
+    <!-- NOVA ENGRENAGEM DISCRETA -->
+    <div class="gear-container">
+        <button class="gear-btn" onclick="toggleGearMenu(event)">⚙️</button>
+        <div id="gearMenu" class="gear-menu">
+            <button onclick="verAba('abaOuvinte')">📻 Painel Ouvinte / Display</button>
+            <button onclick="verAba('abaChat')">💬 Chat ao Vivo</button>
+            <button onclick="solicitarAcesso('abaAdm')">🎛️ Mesa DJ & Mídia</button>
+            <button onclick="solicitarAcesso('abaVinhetas')">📢 Mixer de Vinhetas</button>
+            <button onclick="solicitarAcesso('abaAgenda')">📅 Agendador Programado</button>
+            <button onclick="solicitarAcesso('abaAuto')">📂 AutoDJ & Pastas</button>
+            <button onclick="solicitarAcesso('abaPedidos')">📥 Pedidos da Galera</button>
+            <button onclick="solicitarAcesso('abaMic')">🎙️ Microfone & Efeitos</button>
+            <button onclick="solicitarAcesso('abaCustom')">🎨 Visual & Som Profissional</button>
+            <button onclick="encerrarSessao()" class="btn-danger" id="btnSair" style="display:none; margin-top:10px;">🚪 Sair ADM</button>
+        </div>
+    </div>
+
+    <!-- MODAL DE LOGIN -->
+    <div id="modalLogin" class="pioneer-frame" style="display:none; border-color: #ffcc00; margin-top: 100px;">
+        <h3 style="color:#ffcc00;">🔒 Painel de Controle ADM</h3>
+        <input type="email" id="loginEmail" placeholder="E-mail ADM">
+        <input type="password" id="loginPass" placeholder="Senha ADM">
+        <br>
+        <button onclick="validarLogin()">Acessar Painel</button>
+        <button onclick="cancelarLogin()" class="btn-danger">Cancelar</button>
+    </div>
+
+    <!-- ABA OUVINTE -->
+    <div id="abaOuvinte" class="pioneer-frame">
+        <div class="lcd-display">
+            <h2 style="margin: 3px 0; font-size: 16px;">⚡ SPEED RÁDIO</h2>
+            <p id="status" style="margin: 3px 0; font-size: 10px;">[ONLINE] RÁDIO PAREDÃO NO AR</p>
+            <div style="background:#000; padding:2px; border-radius:4px;">
+                <canvas id="visualizerCanvas"></canvas>
+            </div>
+        </div>
+
+        <div id="mediaContainer">
+            <audio id="audioElement" controls crossorigin="anonymous" style="width:100%; margin: 5px 0;" onended="proximaMusica()"></audio>
+            <div id="ytContainer" style="display:none;">
+                <iframe id="ytPlayer" allow="autoplay"></iframe>
+            </div>
+        </div>
+
+        <div class="wall-container-saveiro" id="paredaoContainer">
+            <div class="rack-top">
+                <div class="tweeter-saveiro"><div class="tweeter-saveiro-core"></div></div>
+                <div class="horn-saveiro"><div class="horn-saveiro-inner"></div></div>
+                <div class="horn-saveiro"><div class="horn-saveiro-inner"></div></div>
+                <div class="horn-saveiro"><div class="horn-saveiro-inner"></div></div>
+                <div class="horn-saveiro"><div class="horn-saveiro-inner"></div></div>
+                <div class="tweeter-saveiro"><div class="tweeter-saveiro-core"></div></div>
+            </div>
+            <div class="rack-bottom">
+                <div class="subwoofer-saveiro subElem"></div>
+                <div class="subwoofer-saveiro subElem"></div>
+                <div class="subwoofer-saveiro subElem"></div>
+            </div>
+        </div>
+
+        <div class="box-link">
+            <input type="text" id="urlRadio" readonly>
+            <button onclick="copiarLink()">📋 Copiar Link da Rádio</button>
+            <div id="qrcodeCanvas"></div>
+        </div>
+
+        <h4>🎵 Enviar Música ou Vídeo (Link / YouTube / MP3)</h4>
+        <input type="text" id="linkMusicaOuvinte" placeholder="Cole o link do YouTube, MP3 ou Web...">
+        <button onclick="enviarPedidoPublico()">➕ Enviar para o DJ</button>
+
+        <h4>📜 Fila Tocado Agora</h4>
+        <ol id="filaOuvinte"></ol>
+    </div>
+
+    <!-- ABA CHAT -->
+    <div id="abaChat" class="pioneer-frame" style="display:none;">
+        <h2>💬 Chat ao Vivo da Galera</h2>
+        <div id="chatDisplay" class="chat-box"></div>
+        <input type="text" id="chatNome" placeholder="Seu Nome / Apelido" style="margin-bottom:5px;">
+        <input type="text" id="chatMsg" placeholder="Digite sua mensagem...">
+        <button onclick="enviarMensagemChat()" style="width: 100%;">Enviar Mensagem</button>
+    </div>
+
+    <!-- ABA ADM: MESA DJ & MÍDIA -->
+    <div id="abaAdm" class="pioneer-frame" style="display: none;">
+        <h2>🎛️ Transmissão & Controle DJ</h2>
+        <button id="btnPowerRadio" class="btn-power on" onclick="toggleLigarRadio()">⚡ DESLIGAR RÁDIO PAREDÃO</button>
+
+        <div style="margin: 10px 0; display:flex; justify-content:center; gap:5px;">
+            <button onclick="voltarMusica()">⏮️ Voltar</button>
+            <button onclick="pausarEPlay()">⏯️ Play/Pause</button>
+            <button onclick="proximaMusica()">⏭️ Avançar</button>
+        </div>
+
+        <div class="eq-panel">
+            <h4>🔎 Pesquisar Música / Vídeo Direto</h4>
+            <input type="text" id="inputBusca" placeholder="Nome da música ou artista...">
+            <button onclick="buscarEAdicionar()">🔍 Pesquisar e Inserir</button>
+        </div>
+
+        <div class="eq-panel">
+            <h4>🔗 Adicionar por Link / Web (Qualquer formato)</h4>
+            <input type="text" id="inputLinkDj" placeholder="Link de áudio, vídeo ou YouTube...">
+            <button onclick="adicionarLinkDj()">➕ Adicionar à Fila</button>
+        </div>
+
+        <div class="eq-panel">
+            <h4>📁 Adicionar Arquivos Locais (Do Dispositivo)</h4>
+            <input type="file" id="fileInput" accept="audio/*,video/*" multiple style="font-size: 12px; background:none; border:none; color:#ccc;">
+            <button onclick="carregarArquivosLocais()" style="width: 100%; margin-top:5px;">➕ Inserir Arquivos na Fila</button>
+        </div>
+
+        <h4>📜 Fila da Rádio (Reordenar / Excluir)</h4>
+        <ol id="filaAdm"></ol>
+        <button onclick="limparFila()" class="btn-danger" style="width:100%;">🗑️ Limpar Fila</button>
+    </div>
+
+    <!-- ABA VINHETAS / MIXER - CORRIGIDO E MELHORADO -->
+    <div id="abaVinhetas" class="pioneer-frame" style="display:none;">
+        <h2>📢 Mixer de Vinhetas & Efeitos (Sampler)</h2>
+        <p style="font-size: 11px; color:#aaa;">Toque para soltar. Clique novamente no mesmo botão para PARAR.</p>
+        
+        <div class="jingle-grid" id="jingleContainer">
+            <button class="jingle-btn" onclick="toggleVinheta(this, 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3')"><span>📢</span> Vinheta Speed</button>
+            <button class="jingle-btn" onclick="toggleVinheta(this, 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3')"><span>🔊</span> Solta o Som</button>
+            <button class="jingle-btn" onclick="toggleVinheta(this, 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3')"><span>🚨</span> Corneta Paredão</button>
+            <button class="jingle-btn" onclick="toggleVinheta(this, 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3')"><span>💥</span> Efeito Grave</button>
+        </div>
+
+        <div class="eq-panel">
+            <h4>🎚️ Volume do Mixer (Vinhetas)</h4>
+            <div class="eq-slider">
+                <span>Mixer Vol:</span>
+                <input type="range" id="vinhetaVolRange" min="0" max="1" step="0.05" value="0.8" oninput="ajustarVolumeVinheta(this.value)">
+                <span id="vinhetaVolDisplay" class="vol-display">80%</span>
+            </div>
+            
+            <div style="display:flex; justify-content:center; gap:10px; margin-top:10px;">
+                <button onclick="playerVinheta.play()" class="btn-small">▶️ Play Teste</button>
+                <button onclick="playerVinheta.pause()" class="btn-small btn-danger">⏸️ Pause Teste</button>
+            </div>
+        </div>
+
+        <div class="eq-panel">
+            <h4>➕ Adicionar Vinheta Customizada</h4>
+            <input type="text" id="nomeVinhetaCustom" placeholder="Nome da Vinheta (Ex: Vinheta 01)">
+            
+            <p style="font-size:11px; color:#ccc;">Adicionar por URL (Link Direto MP3):</p>
+            <input type="text" id="urlVinhetaCustom" placeholder="Cole URL da vinheta (MP3)...">
+            <button onclick="addVinhetaWeb()" style="width: 100%; margin-bottom:10px;">🔗 Adicionar da Web</button>
+            
+            <p style="font-size:11px; color:#ccc;">Ou adicionar Arquivo do Dispositivo:</p>
+            <input type="file" id="fileVinhetaCustom" accept="audio/*" style="font-size: 12px; background:none; border:none; color:#ccc;">
+            <button onclick="addVinhetaLocal()" style="width: 100%; margin-top:5px;">📁 Adicionar Local</button>
+        </div>
+    </div>
+
+    <!-- ABA AGENDADOR DE MÚSICAS - MELHORADO -->
+    <div id="abaAgenda" class="pioneer-frame" style="display:none;">
+        <h2>📅 Agendador Programado</h2>
+        <p style="font-size: 11px; color:#aaa;">Programe músicas ou vídeos (Web ou Local) para tocar em data/hora exata.</p>
+        
+        <div class="eq-panel">
+            <h4>🎵 Adicionar Mídia para Agendar</h4>
+            <input type="text" id="nomeAgendaMídia" placeholder="Nome da Música/Vídeo">
+            <input type="text" id="urlAgendaMídia" placeholder="Cole URL (YouTube, MP3, etc.) ou pule se for local">
+            
+            <input type="file" id="fileAgendaMídia" accept="audio/*,video/*" style="font-size: 12px; background:none; border:none; color:#ccc; margin:5px 0;">
+            
+            <h4>⏰ Data e Hora da Execução</h4>
+            <input type="datetime-local" id="dataHoraAgenda">
+            
+            <button onclick="confirmarAgendamento()" class="btn-power on" style="width: 100%;">⏰ Confirmar Agendamento</button>
+        </div>
+        
+        <h4>📜 Músicas Programadas:</h4>
+        <ul id="listaAgendadas"></ul>
+    </div>
+
+    <!-- ABA AUTODJ & PASTAS -->
+    <div id="abaAuto" class="pioneer-frame" style="display:none;">
+        <h2>📂 Auto-DJ & Organizador por Pastas</h2>
+        <div class="eq-panel">
+            <h4>📁 Criar Nova Pasta / Categoria</h4>
+            <input type="text" id="nomePasta" placeholder="Ex: Funk, Sertanejo, Eletro...">
+            <button onclick="criarPasta()" style="width: 100%;">➕ Criar Pasta</button>
+        </div>
+        <div class="eq-panel">
+            <h4>🎵 Adicionar Música na Pasta</h4>
+            <select id="selectPastaAtiva"></select>
+            <input type="text" id="linkMusicaPasta" placeholder="Cole o link da música...">
+            <button onclick="adicionarNaPasta()" style="width: 100%;">💾 Salvar na Pasta</button>
+        </div>
+        <h4>📁 Suas Pastas Salvas:</h4>
+        <div id="exibicaoPastas"></div>
+    </div>
+
+    <!-- ABA ADM: PEDIDOS -->
+    <div id="abaPedidos" class="pioneer-frame" style="display: none;">
+        <h2 style="color: #ffcc00;">📥 Fila de Pedidos do Público</h2>
+        <p style="font-size: 11px;">Aprove ou recuse os links enviados pelos ouvintes:</p>
+        <ul id="listaEspera"></ul>
+    </div>
+
+    <!-- ABA ADM: MICROFONE & VOZ -->
+    <div id="abaMic" class="pioneer-frame" style="display: none;">
+        <h2>🎙️ Controle de Microfone & Efeitos de Voz</h2>
+        <button id="btnMicPower" onclick="toggleMicrofone()" style="width:100%; padding: 10px; background:#e74c3c; color:#fff; font-weight:bold;">🎙️ LIGAR MICROFONE</button>
+
+        <div class="eq-panel" style="margin-top: 15px;">
+            <div class="eq-slider"><span>🔊 Volume do Mic:</span><input type="range" id="micVol" min="0" max="2" step="0.1" value="1" oninput="ajustarMic()"></div>
+            <div class="eq-slider"><span>✨ Qualidade / Ganho:</span><input type="range" id="micGain" min="0" max="10" value="5" oninput="ajustarMic()"></div>
+            <div class="eq-slider"><span>🎭 Tom de Voz (PITCH):</span><input type="range" id="micPitch" min="300" max="3000" value="1000" oninput="ajustarMic()"></div>
+            <p style="font-size: 10px; color: #888;">Arraste para a esquerda para engrossar a voz e para a direita para afinar.</p>
+        </div>
+    </div>
+
+    <!-- ABA ADM: VISUAL & EFEITOS -->
+    <div id="abaCustom" class="pioneer-frame" style="display: none;">
+        <h2>🎨 Edição de Som & Visual</h2>
+
+        <div class="eq-panel">
+            <h4>📊 Visualizador de Áudio (11 Modos)</h4>
+            <select id="selectVisualizer" onchange="mudarEstiloVisualizer(this.value)">
+                <option value="bars">1. Barras LED (Pioneer Clássico)</option>
+                <option value="wave">2. Onda Osciloscópio</option>
+                <option value="radial">3. Espectro Radial Neon</option>
+                <option value="vumeter">4. VU Meter Analógico</option>
+                <option value="bars3d">5. Espectro 3D Gradiente</option>
+                <option value="freqcircle">6. Freqüência Circular</option>
+                <option value="tunnel">7. Túnel Neon Hipnótico</option>
+                <option value="particles">8. Partículas de Grave</option>
+                <option value="floating">9. Picos Flutuantes</option>
+                <option value="matrixcube">10. Matriz Cúbica</option>
+                <option value="laser">11. Linha Laser Pulsante</option>
+            </select>
+        </div>
+
+        <div class="eq-panel">
+            <h4>🎚️ Regulagem de Áudio</h4>
+            <div class="eq-slider"><span>🔊 Subwoofer / Grave:</span><input type="range" id="bassRange" min="-10" max="30" value="0" oninput="atualizarEqualizador()"></div>
+            <div class="eq-slider"><span>📢 Corneta / Médio:</span><input type="range" id="midRange" min="-10" max="20" value="0" oninput="atualizarEqualizador()"></div>
+            <div class="eq-slider"><span>⚡ Tweeter / Agudo:</span><input type="range" id="trebleRange" min="-10" max="20" value="0" oninput="atualizarEqualizador()"></div>
+            <button id="btnGraveExtreme" class="btn-extreme" onclick="toggleGraveExtreme()">🔊 LIGAR GRAVE EXTREME</button>
+        </div>
+
+        <div class="eq-panel">
+            <h4>🎨 Cores & Conjugador RGB</h4>
+            <div class="color-group"><span>Borda Display:</span><input type="color" id="colBorder" value="#00d4ff" onchange="mudarCor('--pioneer-border', this.value); mudarCor('--pioneer-blue', this.value); salvarConfig();"></div>
+            <div class="color-group"><span>Subwoofer:</span><input type="color" id="colSub" value="#00ff88" onchange="mudarCor('--speaker-sub-color', this.value); salvarConfig();"></div>
+            <div class="color-group"><span>Corneta:</span><input type="color" id="colHorn" value="#0044ff" onchange="mudarCor('--speaker-horn-color', this.value); salvarConfig();"></div>
+            <div class="color-group"><span>Tweeter:</span><input type="color" id="colTweet" value="#ff0055" onchange="mudarCor('--speaker-tweet-color', this.value); salvarConfig();"></div>
+            <button onclick="toggleConjugadorCores()" id="btnConjugador" style="width:100%; margin-top:5px; background:#9b59b6; color:#fff;">🌈 LIGAR CONJUGADOR RGB AUTOMÁTICO</button>
+        </div>
+
+        <div class="eq-panel">
+            <h4>⚡ Efeitos de Strobo & Flash</h4>
+            <div class="color-group"><span>Cor do Flash:</span><input type="color" id="colFlash" value="#ffffff" onchange="mudarCor('--flash-color', this.value); salvarConfig();"></div>
+            <div class="eq-slider"><span>Velocidade Flash (ms):</span><input type="range" id="flashSpeed" min="50" max="1000" value="200"></div>
+            <button onclick="toggleStroboritmo()" id="btnStroboritmo" style="width:100%; margin-bottom:5px;">🎆 Strobo no Ritmo do Grave</button>
+            <button onclick="toggleFlashManual()" id="btnFlashManual" style="width:100%; background:#e67e22; color:#fff;">💡 Flash Manual Contínuo</button>
+        </div>
+
+        <div class="eq-panel">
+            <h4>🖼️ Personalização de Fundo (GIFs & Fotos)</h4>
+            <select id="tipoFundo" onchange="alterarTipoFundo(this.value); salvarConfig();">
+                <option value="solido">1. Cor Sólida Customizada</option>
+                <option value="glitter">2. Glitter Animado Neon</option>
+                <option value="gif_fogo">3. Fogo do Paredão</option>
+                <option value="gif_matrix">4. Matrix LED Green</option>
+                <option value="gif_galaxy">5. Galáxia Espacial</option>
+                <option value="gif_stars">6. Chuva de Estrelas</option>
+                <option value="gif_cyberpunk">7. Neon Cyberpunk</option>
+                <option value="gif_fogoblue">8. Fogo Azul Veloce</option>
+                <option value="gif_waves">9. Ondas Áudio Neon</option>
+                <option value="gif_eqdigital">10. Equalizador Digital</option>
+                <option value="gif_lights">11. Chuva de Luzes DJ</option>
+                <option value="foto">12. Foto ou GIF por URL</option>
+            </select>
+            <div class="color-group" id="groupCorFundo">
+                <span>Cor de Fundo:</span><input type="color" id="colBg" value="#0a0b0e" onchange="mudarCor('--bg-color', this.value); salvarConfig();">
+            </div>
+            <div id="groupFotoFundo" style="display: none; margin-top: 5px;">
+                <input type="text" id="urlFotoFundo" placeholder="Cole a URL da Foto/GIF...">
+                <button onclick="aplicarFotoFundo()" style="width:100%;">Aplicar Fundo</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const socket = io();
+        let filaMusicas = [];
+        let listaEspera = [];
+        let indexAtual = 0;
+        let admAutenticado = false;
+        let abaPendente = '';
+        let visualizerMode = 'bars';
+        let radioLigada = true;
+        let conjugadorAtivo = false, conjugadorTimer = null;
+        let stroboRitmoAtivo = false, flashManualAtivo = false, flashInterval = null;
+
+        // Player de Vinhetas Global
+        const playerVinheta = new Audio();
+        let botaoVinhetaAtivo = null;
+
+        // Dados do Agendador e AutoDJ
+        let agendadas = JSON.parse(localStorage.getItem('speed_agendadas') || '[]');
+        let pastasAutoDj = JSON.parse(localStorage.getItem('speed_pastas') || '{}');
+        // Vinhetas customizadas salvas
+        let vinhetasSalvas = JSON.parse(localStorage.getItem('speed_vinhetas') || '[]');
+
+        const audio = document.getElementById('audioElement');
+        const ytPlayer = document.getElementById('ytPlayer');
+        const canvas = document.getElementById('visualizerCanvas');
+        const ctx = canvas.getContext('2d');
+
+        window.onload = () => {
+            const currentUrl = window.location.href;
+            document.getElementById('urlRadio').value = currentUrl;
+            new QRCode(document.getElementById("qrcodeCanvas"), { text: currentUrl, width: 100, height: 100 });
+            
+            if(localStorage.getItem('speed_adm_session') === 'true') {
+                admAutenticado = true;
+                document.getElementById('btnSair').style.display = 'block';
+            }
+            carregarConfig();
+            renderAgendadas();
+            renderPastas();
+            carregarVinhetasSalvas();
+            
+            // Configura volume inicial das vinhetas
+            const volInicial = localStorage.getItem('speed_vinheta_vol') || 0.8;
+            ajustarVolumeVinheta(volInicial);
+            document.getElementById('vinhetaVolRange').value = volInicial;
+        };
+
+        function salvarConfig() {
+            const cfg = {
+                border: document.getElementById('colBorder').value,
+                sub: document.getElementById('colSub').value,
+                horn: document.getElementById('colHorn').value,
+                tweet: document.getElementById('colTweet').value,
+                flash: document.getElementById('colFlash').value,
+                bg: document.getElementById('colBg').value,
+                fundoTipo: document.getElementById('tipoFundo').value,
+                fotoUrl: document.getElementById('urlFotoFundo').value
+            };
+            localStorage.setItem('speed_radio_config', JSON.stringify(cfg));
+        }
+
+        function carregarConfig() {
+            const saved = localStorage.getItem('speed_radio_config');
+            if(!saved) return;
+            try {
+                const cfg = JSON.parse(saved);
+                if(cfg.border) { mudarCor('--pioneer-border', cfg.border); mudarCor('--pioneer-blue', cfg.border); document.getElementById('colBorder').value = cfg.border; }
+                if(cfg.sub) { mudarCor('--speaker-sub-color', cfg.sub); document.getElementById('colSub').value = cfg.sub; }
+                if(cfg.horn) { mudarCor('--speaker-horn-color', cfg.horn); document.getElementById('colHorn').value = cfg.horn; }
+                if(cfg.tweet) { mudarCor('--speaker-tweet-color', cfg.tweet); document.getElementById('colTweet').value = cfg.tweet; }
+                if(cfg.flash) { mudarCor('--flash-color', cfg.flash); document.getElementById('colFlash').value = cfg.flash; }
+                if(cfg.bg) { mudarCor('--bg-color', cfg.bg); document.getElementById('colBg').value = cfg.bg; }
+                if(cfg.fundoTipo) { document.getElementById('tipoFundo').value = cfg.fundoTipo; alterarTipoFundo(cfg.fundoTipo); }
+                if(cfg.fotoUrl) { document.getElementById('urlFotoFundo').value = cfg.fotoUrl; if(cfg.fundoTipo === 'foto') aplicarFotoFundo(); }
+            } catch(e){}
+        }
+
+        let audioCtx, source, analyser, bassNode, midNode, trebleNode, extremeBassNode;
+        let micStream, micSource, micGainNode, micFilterNode;
+        let micAtivo = false;
+        let graveExtremeAtivo = false;
+
+        function toggleLigarRadio() {
+            radioLigada = !radioLigada;
+            const btn = document.getElementById('btnPowerRadio');
+            const status = document.getElementById('status');
+            if (radioLigada) {
+                btn.innerText = "⚡ DESLIGAR RÁDIO PAREDÃO"; btn.classList.add('on');
+                status.innerText = "[ONLINE] RÁDIO PAREDÃO NO AR";
+                desbloquearAudio();
+                if (filaMusicas.length > 0) tocarMusica(indexAtual);
+            } else {
+                btn.innerText = "🛑 LIGAR RÁDIO PAREDÃO"; btn.classList.remove('on');
+                status.innerText = "[DESLIGADO] RÁDIO PAREDÃO DESLIGADA";
+                audio.pause(); ytPlayer.src = "";
+            }
+        }
+
+        function toggleGearMenu(e) { e.stopPropagation(); const menu = document.getElementById('gearMenu'); menu.style.display = (menu.style.display === 'block') ? 'none' : 'block'; }
+        
+        function solicitarAcesso(aba) {
+            if (admAutenticado) verAba(aba);
+            else { abaPendente = aba; document.getElementById('modalLogin').style.display = 'block'; document.getElementById('gearMenu').style.display = 'none'; }
+        }
+
+        function validarLogin() {
+            const e = document.getElementById('loginEmail').value.trim();
+            const p = document.getElementById('loginPass').value.trim();
+            if ((e === "fabiojr073@gmail.com" && p === "Deus777") || (e === "admin@speed.com" && p === "1234")) {
+                admAutenticado = true;
+                localStorage.setItem('speed_adm_session', 'true');
+                document.getElementById('modalLogin').style.display = 'none';
+                document.getElementById('btnSair').style.display = 'block';
+                verAba(abaPendente);
+            } else alert("E-mail ou Senha incorretos!");
+        }
+
+        function encerrarSessao() {
+            localStorage.removeItem('speed_adm_session');
+            admAutenticado = false;
+            document.getElementById('btnSair').style.display = 'none';
+            verAba('abaOuvinte');
+            alert('Sessão encerrada!');
+        }
+
+        function cancelarLogin() { document.getElementById('modalLogin').style.display = 'none'; }
+
+        function verAba(abaId) {
+            ['abaOuvinte', 'abaChat', 'abaAdm', 'abaVinhetas', 'abaAgenda', 'abaAuto', 'abaPedidos', 'abaMic', 'abaCustom'].forEach(id => {
+                const el = document.getElementById(id);
+                if(el) el.style.display = 'none';
+            });
+            const abaAtiva = document.getElementById(abaId);
+            if(abaAtiva) abaAtiva.style.display = 'block';
+            document.getElementById('gearMenu').style.display = 'none';
+            if(abaId === 'abaAgenda') atualizarSelectAgenda();
+        }
+
+        function copiarLink() {
+            const input = document.getElementById('urlRadio'); input.select(); document.execCommand('copy'); alert('Link copiado!');
+        }
+
+        function desbloquearAudio() {
+            if (!audioCtx) initAudioContext();
+            else if (audioCtx.state === 'suspended') audioCtx.resume();
+        }
+
+        function initAudioContext() {
+            try {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                source = audioCtx.createMediaElementSource(audio);
+                analyser = audioCtx.createAnalyser(); analyser.fftSize = 256;
+
+                bassNode = audioCtx.createBiquadFilter(); bassNode.type = 'lowshelf'; bassNode.frequency.value = 180;
+                midNode = audioCtx.createBiquadFilter(); midNode.type = 'peaking'; midNode.frequency.value = 1000;
+                trebleNode = audioCtx.createBiquadFilter(); trebleNode.type = 'highshelf'; trebleNode.frequency.value = 3500;
+                extremeBassNode = audioCtx.createBiquadFilter(); extremeBassNode.type = 'lowshelf'; extremeBassNode.frequency.value = 70;
+
+                source.connect(bassNode); bassNode.connect(midNode); midNode.connect(trebleNode);
+                trebleNode.connect(extremeBassNode); extremeBassNode.connect(analyser); analyser.connect(audioCtx.destination);
+                renderFrame();
+            } catch(e) {}
+        }
+
+        /* CHAT AO VIVO */
+        function enviarMensagemChat() {
+            const nome = document.getElementById('chatNome').value.trim() || 'Ouvinte Anônimo';
+            const msg = document.getElementById('chatMsg').value.trim();
+            if(msg) {
+                socket.emit('chatMsg', { nome, msg });
+                document.getElementById('chatMsg').value = '';
+            }
+        }
+        socket.on('receberChat', (data) => {
+            const box = document.getElementById('chatDisplay');
+            if(box){
+                box.innerHTML += `<div class="chat-msg"><b>${data.nome}:</b> ${data.msg}</div>`;
+                box.scrollTop = box.scrollHeight;
+            }
+        });
+
+        /* VINHETAS / SAMPLER - CORRIGIDO E MELHORADO */
+        function ajustarVolumeVinheta(val) {
+            playerVinheta.volume = val;
+            document.getElementById('vinhetaVolDisplay').innerText = Math.round(val * 100) + '%';
+            localStorage.setItem('speed_vinheta_vol', val);
+        }
+
+        function toggleVinheta(btn, url) {
+            desbloquearAudio();
+            
+            // Se já está tocando ESTA vinheta, para.
+            if (playerVinheta.src === url && !playerVinheta.paused) {
+                playerVinheta.pause();
+                playerVinheta.currentTime = 0;
+                btn.classList.remove('playing');
+                botaoVinhetaAtivo = null;
+                return;
+            }
+            
+            // Se está tocando OUTRA vinheta, limpa o botão anterior
+            if (botaoVinhetaAtivo) {
+                botaoVinhetaAtivo.classList.remove('playing');
+            }
+            
+            // Toca a nova vinheta
+            playerVinheta.src = url;
+            botaoVinhetaAtivo = btn;
+            btn.classList.add('playing');
+            
+            playerVinheta.play().catch(e => {
+                console.error("Erro ao tocar vinheta:", e);
+                btn.classList.remove('playing');
+                botaoVinhetaAtivo = null;
+            });
+            
+            // Quando terminar, limpa o estado
+            playerVinheta.onended = () => {
+                btn.classList.remove('playing');
+                botaoVinhetaAtivo = null;
+                playerVinheta.src = ""; // Limpa a src para evitar re-play acidental
+            };
+        }
+
+        function addVinhetaWeb() {
+            const nome = document.getElementById('nomeVinhetaCustom').value.trim();
+            const url = document.getElementById('urlVinhetaCustom').value.trim();
+            if(!nome || !url) { alert("Preencha Nome e URL (MP3)!"); return; }
+            
+            const novaVinheta = { nome, url, tipo: 'web' };
+            vinhetasSalvas.push(novaVinheta);
+            salvarERenderizarVinhetas();
+            limparInputsVinheta();
+        }
+
+        function addVinhetaLocal() {
+            const nome = document.getElementById('nomeVinhetaCustom').value.trim();
+            const fileInput = document.getElementById('fileVinhetaCustom');
+            if(!nome || fileInput.files.length === 0) { alert("Preencha Nome e escolha um arquivo!"); return; }
+            
+            const file = fileInput.files[0];
+            const url = URL.createObjectURL(file);
+            
+            const novaVinheta = { nome, url, tipo: 'local', fileName: file.name };
+            vinhetasSalvas.push(novaVinheta);
+            salvarERenderizarVinhetas();
+            limparInputsVinheta();
+        }
+
+        function salvarERenderizarVinhetas() {
+            // Salva apenas vinhetas WEB no localStorage (ObjectURL não persiste)
+            const vinhetasWeb = vinhetasSalvas.filter(v => v.tipo === 'web');
+            localStorage.setItem('speed_vinhetas', JSON.stringify(vinhetasWeb));
+            renderizarVinhetas();
+        }
+
+        function carregarVinhetasSalvas() {
+            // Carrega as vinhetas padrão já existentes no HTML
+            // E adiciona as customizadas
+            renderizarVinhetas();
+        }
+
+        function renderizarVinhetas() {
+            const container = document.getElementById('jingleContainer');
+            // Mantém as vinhetas padrão do HTML e adiciona as novas
+            const botoesPadrao = container.querySelectorAll('.jingle-btn:not(.custom-vinheta)');
+            container.innerHTML = '';
+            
+            // Re-adiciona padrões
+            botoesPadrao.forEach(b => container.appendChild(b));
+            
+            // Adiciona customizadas
+            vinhetasSalvas.forEach((v, index) => {
+                const btn = document.createElement('button');
+                btn.className = 'jingle-btn custom-vinheta';
+                const icon = v.tipo === 'web' ? '🔗' : '📁';
+                btn.innerHTML = `<span>${icon}</span> ${v.nome}`;
+                btn.onclick = () => toggleVinheta(btn, v.url);
+                
+                // Botão de deletar vinheta customizada
+                const delBtn = document.createElement('button');
+                delBtn.className = 'btn-small btn-danger';
+                delBtn.style.position = 'absolute'; delBtn.style.top = '-5px'; delBtn.style.right = '-5px'; delBtn.style.padding='1px 4px'; delBtn.style.borderRadius='50%';
+                delBtn.innerText = 'X';
+                delBtn.onclick = (e) => { e.stopPropagation(); removerVinheta(index); };
+                
+                const wrapper = document.createElement('div');
+                wrapper.style.position = 'relative'; wrapper.style.display = 'inline-block';
+                wrapper.appendChild(btn);
+                wrapper.appendChild(delBtn);
+                
+                container.appendChild(wrapper);
+            });
+        }
+
+        function removerVinheta(index) {
+            if(vinhetasSalvas[index].tipo === 'local') {
+                URL.revokeObjectURL(vinhetasSalvas[index].url);
+            }
+            vinhetasSalvas.splice(index, 1);
+            salvarERenderizarVinhetas();
+        }
+
+        function limparInputsVinheta() {
+            document.getElementById('nomeVinhetaCustom').value = '';
+            document.getElementById('urlVinhetaCustom').value = '';
+            document.getElementById('fileVinhetaCustom').value = '';
+        }
+
+        /* AGENDADOR DE MÚSICAS - MELHORADO */
+        function atualizarSelectAgenda() {
+            // Não usado mais, pois agora adicionamos mídia direto na aba de agenda
+        }
+
+        function confirmarAgendamento() {
+            desbloquearAudio();
+            const nome = document.getElementById('nomeAgendaMídia').value.trim();
+            const urlWeb = document.getElementById('urlAgendaMídia').value.trim();
+            const fileInput = document.getElementById('fileAgendaMídia');
+            const dataHora = document.getElementById('dataHoraAgenda').value;
+            
+            if(!nome || !dataHora) { alert("Preencha Nome e Data/Hora!"); return; }
+            
+            let finalUrl = "";
+            let tipoMídia = "";
+            
+            if(fileInput.files.length > 0) {
+                // Mídia Local
+                const file = fileInput.files[0];
+                finalUrl = URL.createObjectURL(file);
+                tipoMídia = "local";
+            } else if(urlWeb) {
+                // Mídia Web
+                finalUrl = urlWeb;
+                tipoMídia = "web";
+            } else {
+                alert("Forneça um Link Web ou escolha um arquivo Local!");
+                return;
+            }
+            
+            agendadas.push({ nome, url: finalUrl, time: dataHora, tipo: tipoMídia });
+            
+            // Salva apenas agendamentos WEB no localStorage
+            const agendamentosWeb = agendadas.filter(a => a.tipo === 'web');
+            localStorage.setItem('speed_agendadas', JSON.stringify(agendamentosWeb));
+            
+            renderAgendadas();
+            limparInputsAgenda();
+            alert('Mídia Agendada com Sucesso!');
+        }
+
+        function renderAgendadas() {
+            const ul = document.getElementById('listaAgendadas');
+            ul.innerHTML = '';
+            agendadas.forEach((a, i) => {
+                const icon = a.tipo === 'web' ? '🔗' : '📁';
+                const dataFormatada = new Date(a.time).toLocaleString('pt-BR');
+                ul.innerHTML += `<li><span class="song-title">${icon} ${a.nome} (${dataFormatada})</span><button class="btn-small btn-danger" onclick="removerAgendada(${i})">❌</button></li>`;
+            });
+        }
+        
+        function removerAgendada(i) { 
+            if(agendadas[i].tipo === 'local') { URL.revokeObjectURL(agendadas[i].url); }
+            agendadas.splice(i, 1); 
+            const agendamentosWeb = agendadas.filter(a => a.tipo === 'web');
+            localStorage.setItem('speed_agendadas', JSON.stringify(agendamentosWeb)); 
+            renderAgendadas(); 
+        }
+
+        function limparInputsAgenda() {
+            document.getElementById('nomeAgendaMídia').value = '';
+            document.getElementById('urlAgendaMídia').value = '';
+            document.getElementById('fileAgendaMídia').value = '';
+            document.getElementById('dataHoraAgenda').value = '';
+        }
+
+        // Loop de verificação do Agendador
+        setInterval(() => {
+            const agora = new Date();
+            agendadas.forEach((a, i) => {
+                if (new Date(a.time) <= agora) {
+                    filaMusicas.unshift({ nome: "[AGENDADA] " + a.nome, url: a.url });
+                    tocarMusica(0); // Toca a música agendada imediatamente
+                    removerAgendada(i); // Remove da lista de agendamentos
+                }
+            });
+        }, 20000); // Verifica a cada 20 segundos
+
+        /* AUTODJ & PASTAS */
+        function criarPasta() {
+            const nome = document.getElementById('nomePasta').value.trim();
+            if(nome && !pastasAutoDj[nome]) {
+                pastasAutoDj[nome] = [];
+                localStorage.setItem('speed_pastas', JSON.stringify(pastasAutoDj));
+                document.getElementById('nomePasta').value = '';
+                renderPastas();
+            } else if(pastasAutoDj[nome]) { alert("Pasta já existe!"); }
+        }
+        function adicionarNaPasta() {
+            const pasta = document.getElementById('selectPastaAtiva').value;
+            const url = document.getElementById('linkMusicaPasta').value.trim();
+            if(pasta && url) {
+                pastasAutoDj[pasta].push(url);
+                localStorage.setItem('speed_pastas', JSON.stringify(pastasAutoDj));
+                document.getElementById('linkMusicaPasta').value = '';
+                renderPastas();
+                alert(`Som adicionado na pasta ${pasta}!`);
+            }
+        }
+        function renderPastas() {
+            const div = document.getElementById('exibicaoPastas');
+            const select = document.getElementById('selectPastaAtiva');
+            if(div && select) {
+                div.innerHTML = ''; select.innerHTML = '';
+                const pastaNomes = Object.keys(pastasAutoDj);
+                if(pastaNomes.length === 0) { div.innerHTML = "<p style='font-size:12px; color:#aaa;'>Nenhuma pasta criada.</p>"; return; }
+                
+                pastaNomes.forEach(p => {
+                    select.innerHTML += `<option value="${p}">${p}</option>`;
+                    div.innerHTML += `<div class="eq-panel" style="margin:5px 0;"><strong>📁 ${p}</strong> (${pastasAutoDj[p].length} sons) <div style="display:flex; gap:3px; margin-top:5px;"><button class="btn-small" onclick="carregarPastaNaFila('${p}')">▶️ Carregar Fila</button><button class="btn-small btn-danger" onclick="deletarPasta('${p}')">🗑️</button></div></div>`;
+                });
+            }
+        }
+        function deletarPasta(pasta) {
+            if(confirm(`Deseja deletar a pasta ${pasta} e todos os seus sons?`)){
+                delete pastasAutoDj[pasta];
+                localStorage.setItem('speed_pastas', JSON.stringify(pastasAutoDj));
+                renderPastas();
+            }
+        }
+        function carregarPastaNaFila(pasta) {
+            desbloquearAudio();
+            if(pastasAutoDj[pasta] && pastasAutoDj[pasta].length > 0) {
+                pastasAutoDj[pasta].forEach((url, i) => filaMusicas.push({ nome: `[Pasta ${pasta}] Som ${i+1}`, url }));
+                atualizarFila();
+                if(audio.paused && filaMusicas.length === pastasAutoDj[pasta].length) tocarMusica(filaMusicas.length - pastasAutoDj[pasta].length);
+                alert(`${pastasAutoDj[pasta].length} sons da pasta ${pasta} adicionados à fila!`);
+            } else { alert("Pasta vazia ou inexistente!"); }
+        }
+
+        /* MICROFONE E AFINAÇÃO */
+        async function toggleMicrofone() {
+            desbloquearAudio();
+            const btn = document.getElementById('btnMicPower');
+            if (!micAtivo) {
+                try {
+                    micStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                    micSource = audioCtx.createMediaStreamSource(micStream);
+                    micGainNode = audioCtx.createGain();
+                    micFilterNode = audioCtx.createBiquadFilter();
+                    micFilterNode.type = 'lowpass';
+
+                    micSource.connect(micGainNode);
+                    micGainNode.connect(micFilterNode);
+                    micFilterNode.connect(audioCtx.destination);
+
+                    ajustarMic();
+                    micAtivo = true;
+                    btn.innerText = "🎙️ DESLIGAR MICROFONE"; btn.style.background = "#2ecc71";
+                } catch (e) { alert("Permissão de Microfone Recusada ou erro de áudio!"); console.error(e); }
+            } else {
+                if (micStream) micStream.getTracks().forEach(t => t.stop());
+                micAtivo = false;
+                btn.innerText = "🎙️ LIGAR MICROFONE"; btn.style.background = "#e74c3c";
+            }
+        }
+
+        function ajustarMic() {
+            if (!micAtivo) return;
+            const vol = parseFloat(document.getElementById('micVol').value);
+            const gain = parseFloat(document.getElementById('micGain').value);
+            const pitch = parseFloat(document.getElementById('micPitch').value);
+
+            micGainNode.gain.value = vol * gain;
+            // O filtro lowpass não altera o pitch nativamente, requer WebAudio API avançada (PitchedNode)
+            // Mantemos a interface para compatibilidade futura
+            micFilterNode.frequency.value = pitch; 
+        }
+
+        /* FUNÇÕES DE PLAYER E FILA - CONSERVADAS E MELHORADAS */
+        function extrairYoutubeId(url) {
+            const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+            const match = url.match(regExp);
+            return (match && match[2].length === 11) ? match[2] : null;
+        }
+
+        function tocarMusica(index) {
+            desbloquearAudio();
+            if (index >= 0 && index < filaMusicas.length) {
+                indexAtual = index;
+                const m = filaMusicas[indexAtual];
+                document.getElementById('status').innerText = "TOCANDO: " + m.nome;
+
+                const ytId = extrairYoutubeId(m.url);
+                if (ytId) {
+                    audio.pause(); audio.style.display = "none";
+                    const containerYt = document.getElementById('ytContainer');
+                    containerYt.style.display = "block";
+                    ytPlayer.src = `https://www.youtube.com/embed/${ytId}?autoplay=1`;
+                } else {
+                    ytPlayer.src = ""; document.getElementById('ytContainer').style.display = "none";
+                    audio.style.display = "block"; 
+                    audio.src = m.url;
+                    if (radioLigada) audio.play().catch(e => console.log("Auto-play bloqueado, aguardando interação."));
+                }
+                atualizarFila();
+            } else if (filaMusicas.length > 0) {
+                // Se o index for inválido mas houver fila, toca a primeira
+                tocarMusica(0);
+            }
+        }
+
+        function carregarArquivosLocais() {
+            const fileInput = document.getElementById('fileInput');
+            if (fileInput.files.length > 0) {
+                for (let i = 0; i < fileInput.files.length; i++) {
+                    const file = fileInput.files[i];
+                    filaMusicas.push({ nome: "[Local] " + file.name, url: URL.createObjectURL(file) });
+                }
+                fileInput.value = ''; // Limpa input
+                atualizarFila();
+                if (audio.paused && audio.src === "" && filaMusicas.length > 0) tocarMusica(0);
+                alert("Arquivos locais adicionados à fila!");
+            }
+        }
+
+        function adicionarLinkDj() {
+            const val = document.getElementById('inputLinkDj').value.trim();
+            if (val) {
+                filaMusicas.push({ nome: "Link/Vídeo Importado", url: val });
+                document.getElementById('inputLinkDj').value = '';
+                atualizarFila();
+                if (audio.paused && audio.src === "" && filaMusicas.length === 1) tocarMusica(0);
+            }
+        }
+
+        function buscarEAdicionar() {
+            const query = document.getElementById('inputBusca').value.trim();
+            if (query) {
+                const searchUrl = `https://www.youtube.com/results?search_query=${encodeURIComponent(query)}`;
+                filaMusicas.push({ nome: `[Busca] ${query}`, url: searchUrl });
+                document.getElementById('inputBusca').value = '';
+                atualizarFila();
+                alert(`Busca por '${query}' adicionada à fila. Nota: Requer clique manual no player de vídeo se não for link direto.`);
+            }
+        }
+
+        function enviarPedidoPublico() {
+            const val = document.getElementById('linkMusicaOuvinte').value.trim();
+            if (val) {
+                socket.emit('novoPedido', val);
+                alert('Música enviada ao DJ para aprovação!');
+                document.getElementById('linkMusicaOuvinte').value = '';
+            }
+        }
+
+        socket.on('receberPedido', (url) => { listaEspera.push(url); atualizarListaEspera(); });
+
+        function atualizarListaEspera() {
+            const ul = document.getElementById('listaEspera'); 
+            if(ul){
+                ul.innerHTML = '';
+                listaEspera.forEach((url, i) => {
+                    ul.innerHTML += `<li><span class="song-title">${url}</span><div><button class="btn-small" onclick="aprovarPedido(${i})">✅</button><button class="btn-small btn-danger" onclick="recusarPedido(${i})">❌</button></div></li>`;
+                });
+            }
+        }
+
+        function aprovarPedido(i) {
+            filaMusicas.push({ nome: "[Pedido Ouvinte]", url: listaEspera[i] });
+            listaEspera.splice(i, 1); atualizarListaEspera(); atualizarFila();
+            if (audio.paused && audio.src === "" && filaMusicas.length === 1) tocarMusica(0);
+        }
+        function recusarPedido(i) { listaEspera.splice(i, 1); atualizarListaEspera(); }
+
+        function pausarEPlay() { desbloquearAudio(); if (audio.paused) audio.play(); else audio.pause(); }
+        function proximaMusica() { if (indexAtual + 1 < filaMusicas.length) tocarMusica(indexAtual + 1); else if(filaMusicas.length > 0) tocarMusica(0); /* Loop */ }
+        function voltarMusica() { if (indexAtual - 1 >= 0) tocarMusica(indexAtual - 1); }
+        function moverParaCima(i) { if(i>0) { let t=filaMusicas[i]; filaMusicas[i]=filaMusicas[i-1]; filaMusicas[i-1]=t; atualizarFila(); } }
+        function moverParaBaixo(i) { if(i<filaMusicas.length-1) { let t=filaMusicas[i]; filaMusicas[i]=filaMusicas[i+1]; filaMusicas[i+1]=t; atualizarFila(); } }
+        function removerMusica(i) { 
+            if(filaMusicas[i].url.startsWith('blob:')) { URL.revokeObjectURL(filaMusicas[i].url); } // Libera memória blob
+            filaMusicas.splice(i, 1); 
+            if(i === indexAtual && filaMusicas.length > 0) tocarMusica(indexAtual);
+            else if(filaMusicas.length === 0) { audio.pause(); audio.src=""; ytPlayer.src=""; document.getElementById('status').innerText="RÁDIO NO AR - FILA VAZIA"; }
+            atualizarFila(); 
+        }
+        function limparFila() { 
+            filaMusicas.forEach(m => { if(m.url.startsWith('blob:')) URL.revokeObjectURL(m.url); }); // Libera blobs
+            filaMusicas = []; audio.pause(); audio.src = ""; ytPlayer.src = ""; atualizarFila(); 
+            document.getElementById('status').innerText="RÁDIO NO AR - FILA VAZIA";
+        }
+
+        function atualizarFila() {
+            const lOuv = document.getElementById('filaOuvinte');
+            const lAdm = document.getElementById('filaAdm');
+            if(lOuv && lAdm){
+                lOuv.innerHTML = ''; lAdm.innerHTML = '';
+                filaMusicas.forEach((m, i) => {
+                    const ativo = (i === indexAtual && audio.src !== "") ? 'style="color:#00ff88; font-weight:bold;"' : '';
+                    lOuv.innerHTML += `<li ${ativo}><span class="song-title">${i + 1}. ${m.nome}</span></li>`;
+                    lAdm.innerHTML += `<li ${ativo}><span class="song-title">${i + 1}. ${m.nome}</span><div><button class="btn-small" onclick="tocarMusica(${i})">▶️</button><button class="btn-small" onclick="moverParaCima(${i})">⬆️</button><button class="btn-small" onclick="moverParaBaixo(${i})">⬇️</button><button class="btn-small btn-danger" onclick="removerMusica(${i})">❌</button></div></li>`;
+                });
+            }
+        }
+
+        /* VISUALIZAÇÃO E EFEITOS - CONSERVADOS */
+        function renderFrame() {
+            requestAnimationFrame(renderFrame);
+            if (!analyser || !radioLigada) return;
+            const bufferLength = analyser.frequencyBinCount;
+            const dataArray = new Uint8Array(bufferLength);
+            analyser.getByteFrequencyData(dataArray);
+
+            let bassSum = 0; for (let i = 0; i < 10; i++) bassSum += dataArray[i];
+            let bassAvg = bassSum / 10;
+            const subScale = 1 + (bassAvg / 255) * 0.3;
+            document.querySelectorAll('.subElem').forEach(el => el.style.transform = `scale(${subScale})`);
+
+            const paredao = document.getElementById('paredaoContainer');
+            if (bassAvg > 190) {
+                paredao.classList.add('shake-effect');
+                if (stroboRitmoAtivo) {
+                    const flashCol = getComputedStyle(document.documentElement).getPropertyValue('--flash-color').trim() || '#ffffff';
+                    document.body.style.backgroundColor = flashCol;
+                    setTimeout(() => { 
+                        const bgCol = getComputedStyle(document.documentElement).getPropertyValue('--bg-color').trim();
+                        document.body.style.backgroundColor = bgCol; 
+                    }, 40);
+                }
+            } else paredao.classList.remove('shake-effect');
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            const lineColor = getComputedStyle(document.documentElement).getPropertyValue('--pioneer-blue').trim() || '#00d4ff';
+
+            if (visualizerMode === 'bars') {
+                const barWidth = (canvas.width / bufferLength) * 2.5; let x = 0;
+                for (let i = 0; i < bufferLength; i++) {
+                    const barHeight = dataArray[i] / 3;
+                    ctx.fillStyle = lineColor; ctx.fillRect(x, canvas.height - barHeight, barWidth, barHeight);
+                    x += barWidth + 1;
+                }
+            } else if (visualizerMode === 'wave') {
+                ctx.beginPath(); ctx.lineWidth = 2; ctx.strokeStyle = lineColor;
+                const sliceWidth = canvas.width / bufferLength; let x = 0;
+                for (let i = 0; i < bufferLength; i++) {
+                    const v = dataArray[i] / 128.0; const y = (v * canvas.height) / 2;
+                    if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+                    x += sliceWidth;
+                }
+                ctx.stroke();
+            } else {
+                // Outros modos simplificados
+                const barWidth = (canvas.width / bufferLength) * 2.5; let x = 0;
+                for (let i = 0; i < bufferLength; i++) {
+                    ctx.fillStyle = lineColor; ctx.fillRect(x, canvas.height - (dataArray[i]/2.5), barWidth, dataArray[i]/2.5);
+                    x += barWidth + 1;
+                }
+            }
+        }
+
+        function mudarEstiloVisualizer(v) { visualizerMode = v; }
+        function atualizarEqualizador() {
+            if (!audioCtx) return;
+            bassNode.gain.value = parseFloat(document.getElementById('bassRange').value);
+            midNode.gain.value = parseFloat(document.getElementById('midRange').value);
+            trebleNode.gain.value = parseFloat(document.getElementById('trebleRange').value);
+        }
+        function toggleGraveExtreme() {
+            if (!audioCtx) return;
+            graveExtremeAtivo = !graveExtremeAtivo;
+            const btn = document.getElementById('btnGraveExtreme');
+            extremeBassNode.gain.value = graveExtremeAtivo ? 25 : 0;
+            btn.innerText = graveExtremeAtivo ? "💥 GRAVE EXTREME ATIVADO" : "🔊 LIGAR GRAVE EXTREME";
+        }
+        function mudarCor(variable, value) { document.documentElement.style.setProperty(variable, value); }
+
+        function toggleConjugadorCores() {
+            conjugadorAtivo = !conjugadorAtivo;
+            const btn = document.getElementById('btnConjugador');
+            if(conjugadorAtivo) {
+                btn.innerText = "🌈 DESLIGAR CONJUGADOR RGB";
+                let hue = 0;
+                conjugadorTimer = setInterval(() => {
+                    hue = (hue + 15) % 360;
+                    mudarCor('--speaker-sub-color', `hsl(${hue}, 100%, 50%)`);
+                    mudarCor('--speaker-horn-color', `hsl(${(hue+120)%360}, 100%, 50%)`);
+                    mudarCor('--speaker-tweet-color', `hsl(${(hue+240)%360}, 100%, 50%)`);
+                }, 200);
+            } else { btn.innerText = "🌈 LIGAR CONJUGADOR RGB AUTOMÁTICO"; clearInterval(conjugadorTimer); }
+        }
+
+        function toggleStroboritmo() {
+            stroboRitmoAtivo = !stroboRitmoAtivo;
+            document.getElementById('btnStroboritmo').innerText = stroboRitmoAtivo ? "🎆 Desligar Strobo Grave" : "🎆 Strobo no Ritmo do Grave";
+        }
+
+        function toggleFlashManual() {
+            flashManualAtivo = !flashManualAtivo;
+            const btn = document.getElementById('btnFlashManual');
+            if(flashManualAtivo) {
+                btn.innerText = "💡 Desligar Flash Manual";
+                let flag = false;
+                const speed = parseInt(document.getElementById('flashSpeed').value);
+                flashInterval = setInterval(() => {
+                    const flashCol = getComputedStyle(document.documentElement).getPropertyValue('--flash-color').trim();
+                    const bgCol = getComputedStyle(document.documentElement).getPropertyValue('--bg-color').trim();
+                    document.body.style.backgroundColor = flag ? flashCol : bgCol;
+                    flag = !flag;
+                }, speed);
+            } else {
+                btn.innerText = "💡 Flash Manual Contínuo"; clearInterval(flashInterval);
+                const bgCol = getComputedStyle(document.documentElement).getPropertyValue('--bg-color').trim();
+                document.body.style.backgroundColor = bgCol;
+            }
+        }
+
+        function alterarTipoFundo(val) {
+            document.body.className = ''; document.body.style.backgroundImage = 'none';
+            document.getElementById('groupCorFundo').style.display = 'none';
+            document.getElementById('groupFotoFundo').style.display = 'none';
+            if (val === 'solido') document.getElementById('groupCorFundo').style.display = 'flex';
+            else if (val === 'foto') document.getElementById('groupFotoFundo').style.display = 'block';
+            else document.body.classList.add(val);
+        }
+
+        function aplicarFotoFundo() {
+            const url = document.getElementById('urlFotoFundo').value.trim();
+            if (url) { document.body.className = ''; document.body.style.backgroundImage = `url('${url}')`; salvarConfig(); }
+        }
+    </script>
+</body>
+</html>

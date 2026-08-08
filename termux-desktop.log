@@ -1,0 +1,1439 @@
+[2026-08-03 15:21:53] DEBUG: Package manager: apt
+[2026-08-03 15:21:53] DEBUG: Do you want to run a speed test to find the fastest repo for you?
+[2026-08-03 15:21:57] DEBUG: Continuing with answer: y
+[2026-08-03 15:21:57] DEBUG: Confirmation: Do you want to continue - response: y
+[2026-08-03 15:21:57] DEBUG: [1mSelecting best termux packages mirror please wait
+[2026-08-03 15:21:57] DEBUG: Downloading termux-fastest-repo... (Attempt 1/5)
+[2026-08-03 15:21:58] DEBUG: File downloaded successfully.
+[2026-08-03 15:30:50] DEBUG: Deleted: termux-fastest-repo
+[2026-08-03 15:30:50] DEBUG: [1mUpdating System....
+[2026-08-03 15:30:53] DEBUG: Cleaning up the cache...
+[2026-08-03 15:30:55] DEBUG: [1mInstalling required packages...
+[2026-08-03 15:30:55] DEBUG: Starting package installation for: wget git jq curl tar xz-utils gzip libpopt termux-am x11-repo tur-repo termux-api file
+[2026-08-03 15:30:55] DEBUG: Installing package: [0m[36mwget
+[2026-08-03 15:30:56] DEBUG: Successfully install package: [0m[36mwget
+[2026-08-03 15:30:56] DEBUG: Installing package: [0m[36mgit
+[2026-08-03 15:30:56] DEBUG: Successfully install package: [0m[36mgit
+[2026-08-03 15:30:56] DEBUG: Installing package: [0m[36mjq
+[2026-08-03 15:30:57] DEBUG: Successfully install package: [0m[36mjq
+[2026-08-03 15:30:57] DEBUG: Installing package: [0m[36mcurl
+[2026-08-03 15:30:57] DEBUG: Successfully install package: [0m[36mcurl
+[2026-08-03 15:30:57] DEBUG: Installing package: [0m[36mtar
+[2026-08-03 15:30:57] DEBUG: Successfully install package: [0m[36mtar
+[2026-08-03 15:30:57] DEBUG: Installing package: [0m[36mxz-utils
+[2026-08-03 15:30:57] DEBUG: Successfully install package: [0m[36mxz-utils
+[2026-08-03 15:30:57] DEBUG: Installing package: [0m[36mgzip
+[2026-08-03 15:30:57] DEBUG: Successfully install package: [0m[36mgzip
+[2026-08-03 15:30:57] DEBUG: Installing package: [0m[36mlibpopt
+[2026-08-03 15:30:58] DEBUG: Successfully install package: [0m[36mlibpopt
+[2026-08-03 15:30:58] DEBUG: Installing package: [0m[36mtermux-am
+[2026-08-03 15:30:58] DEBUG: Successfully install package: [0m[36mtermux-am
+[2026-08-03 15:30:58] DEBUG: Installing package: [0m[36mx11-repo
+[2026-08-03 15:31:01] DEBUG: Successfully install package: [0m[36mx11-repo
+[2026-08-03 15:31:01] DEBUG: Installing package: [0m[36mtur-repo
+[2026-08-03 15:31:06] DEBUG: Successfully install package: [0m[36mtur-repo
+[2026-08-03 15:31:06] DEBUG: Installing package: [0m[36mtermux-api
+[2026-08-03 15:31:07] DEBUG: Successfully install package: [0m[36mtermux-api
+[2026-08-03 15:31:07] DEBUG: Installing package: [0m[36mfile
+[2026-08-03 15:31:08] DEBUG: Successfully install package: [0m[36mfile
+[2026-08-03 15:31:08] DEBUG: [1mChecking required packages...
+[2026-08-03 15:31:08] DEBUG: Checking command:- wget
+[2026-08-03 15:31:08] DEBUG: wget command exists
+[2026-08-03 15:31:08] DEBUG: Checking command:- git
+[2026-08-03 15:31:08] DEBUG: git command exists
+[2026-08-03 15:31:08] DEBUG: Checking command:- jq
+[2026-08-03 15:31:08] DEBUG: jq command exists
+[2026-08-03 15:31:08] DEBUG: Checking command:- curl
+[2026-08-03 15:31:08] DEBUG: curl command exists
+[2026-08-03 15:31:08] DEBUG: Checking command:- tar
+[2026-08-03 15:31:08] DEBUG: tar command exists
+[2026-08-03 15:31:08] DEBUG: Checking command:- gzip
+[2026-08-03 15:31:08] DEBUG: gzip command exists
+[2026-08-03 15:31:09] DEBUG: Checking command:- termux-am
+[2026-08-03 15:31:09] DEBUG: termux-am command exists
+[2026-08-03 15:31:09] DEBUG: Checking command:- termux-api-start
+[2026-08-03 15:31:09] DEBUG: termux-api-start command exists
+[2026-08-03 15:31:09] DEBUG: Checking command:- file
+[2026-08-03 15:31:09] DEBUG: file command exists
+[2026-08-03 15:31:09] DEBUG: Running on: [0mAndroid 15
+[2026-08-03 15:31:09] DEBUG: Device: [0mmotorola moto g54 5G
+[2026-08-03 15:31:10] DEBUG: SOC: [0mMediatek MT6855V/AZA
+[2026-08-03 15:31:10] DEBUG: GPU: [0mmali
+[2026-08-03 15:31:10] DEBUG: App architecture: [0maarch64
+[2026-08-03 15:31:11] DEBUG: Github Rate Limit: [0mGood to go you have 60 request remaining
+[2026-08-03 15:31:11] DEBUG: Termux PREFIX: [0mDirectory found
+[2026-08-03 15:31:12] DEBUG: Termux Version: [0m0.119.0-beta.3 (Not Recomended)
+[2026-08-03 15:31:12] DEBUG: Low storage space: [0m1.3G (4GB recommended)
+[2026-08-03 15:31:12] DEBUG: RAM: [0m7.4Gi
+[2026-08-03 15:31:13] DEBUG: Termux-x11: [0mNot Installed
+[2026-08-03 15:31:13] DEBUG: Install Termux-x11:- [0mhttps://github.com/termux/termux-x11/releases/download/nightly/app-arm64-v8a-debug.apk
+[2026-08-03 15:31:14] DEBUG: Termux-API: [0mNot Installed
+[2026-08-03 15:31:14] DEBUG: Install Termux-API:- [0mhttps://github.com/termux/termux-api/releases/download/v0.53.0/termux-api-app_v0.53.0+github-debug.apk
+[2026-08-03 15:31:14] DEBUG: Found 2 error(s). System requirements not met.
+[2026-08-03 15:31:14] DEBUG: Type 'a' to check again
+[2026-08-03 15:31:21] DEBUG: Continuing aniway...
+[2026-08-03 15:31:21] DEBUG: [1mPre-Installation Requirements
+[2026-08-03 15:31:26] DEBUG: A Quick Overview
+[2026-08-03 15:31:26] DEBUG: Key Terms:[0m
+• Generic: Pre-configured options that so far work best in most of the devices\n
+• Recommended: Tested configurations with minimal known issues\n
+• Hardware Acceleration: Uses your device's GPU for better graphics render\n
+• Custom: Full control over all installation options\n
+
+[2026-08-03 15:31:26] DEBUG: Important Note: [0m
+
+[0m[34mGeneric is recomended for beginners\n
+For most users who are familiar with Termux, the custom option is recommended, as most features are only available in the custom option
+[0m
+[2026-08-03 15:31:26] DEBUG: Select Install Type
+[2026-08-03 15:33:18] DEBUG: Continuing with answer: 2
+[2026-08-03 15:33:18] DEBUG: Importing desktop related data...
+[2026-08-03 15:33:19] DEBUG: Subfolder count: 6
+[2026-08-03 15:33:19] DEBUG: Subfolder count: 2
+[2026-08-03 15:33:19] DEBUG: Subfolder count: 0
+[2026-08-03 15:33:20] DEBUG: Subfolder count: 0
+[2026-08-03 15:33:20] DEBUG: Subfolder count: 0
+[2026-08-03 15:33:21] DEBUG: Subfolder count: 0
+[2026-08-03 15:33:21] DEBUG: Subfolder count: 2
+[2026-08-03 15:33:21] DEBUG: Subfolder count: 1
+[2026-08-03 15:33:22] DEBUG: Subfolder count: 0
+[2026-08-03 15:33:22] DEBUG: Subfolder count: 0
+[2026-08-03 15:33:22] DEBUG: Subfolder count: 0
+[2026-08-03 15:33:23] DEBUG: Subfolder count: 0
+[2026-08-03 15:33:23] DEBUG: Subfolder count: 0
+[2026-08-03 15:33:23] DEBUG: Subfolder count: 0
+[2026-08-03 15:33:23] DEBUG: Select Desktop Environment
+[2026-08-03 15:34:17] DEBUG: Continuing with answer: 1
+[2026-08-03 15:34:17] DEBUG: Subfolder count: 6
+[2026-08-03 15:34:18] DEBUG: Downloading list of available styles...
+[2026-08-03 15:34:18] DEBUG: Downloading /data/data/com.termux/files/home/styles.md... (Attempt 1/5)
+[2026-08-03 15:34:18] DEBUG: File downloaded successfully.
+[2026-08-03 15:34:18] DEBUG: Check the xfce styles preview
+[2026-08-03 15:34:18] DEBUG: From Here:- [0m[34mhttps://github.com/sabamdarif/termux-desktop/blob/main/docs/xfce_styles.md
+[2026-08-03 15:34:18] DEBUG: Number of available custom styles for xfce is: [0m[36m6
+[2026-08-03 15:34:18] DEBUG: Available Styles Are:
+[2026-08-03 15:35:37] DEBUG: Continuing with style number [0m[36m3 (Style: Windows10 Style[0m)
+[2026-08-03 15:35:37] DEBUG: Deleted: /data/data/com.termux/files/home/styles.md
+[2026-08-03 15:35:37] DEBUG: 3 6
+[2026-08-03 15:35:37] DEBUG: Downloading generic.conf... (Attempt 1/5)
+[2026-08-03 15:35:42] DEBUG: File downloaded successfully.
+[2026-08-03 15:35:42] DEBUG: Deleted: generic.conf
+[2026-08-03 15:35:42] DEBUG: Downloading generic-mali.conf... (Attempt 1/5)
+[2026-08-03 15:35:42] DEBUG: File downloaded successfully.
+[2026-08-03 15:35:42] DEBUG: Deleted: generic-mali.conf
+[2026-08-03 15:35:42] DEBUG: [1mCreate user account
+[2026-08-03 15:35:42] DEBUG: Default Password Will Be Set, Because Sometimes It Might Ask You For Password
+[2026-08-03 15:35:42] DEBUG: Password:-[0m[36mroot
+[2026-08-03 15:37:41] DEBUG: Continuing with answer: y
+[2026-08-03 15:37:41] DEBUG: Continuing with username [0m[36m2
+[2026-08-03 15:37:42] DEBUG: Installation Configuration Summary
+[2026-08-03 15:38:09] DEBUG: Created directory: /data/data/com.termux/files/usr/etc/termux-desktop
+[2026-08-03 15:38:09] DEBUG: /data/data/com.termux/files/usr/etc/termux-desktop/configuration.conf
+[2026-08-03 15:38:09] DEBUG: [1mConfiguring Storage...
+[2026-08-03 15:38:20] DEBUG: Storage configured successfully
+[2026-08-03 15:38:21] DEBUG: Created directory: /sdcard/Videos
+[2026-08-03 15:38:21] DEBUG: Created directory: /data/data/com.termux/files/home/Desktop
+[2026-08-03 15:38:21] DEBUG: You can't use microphone because you didn't install Termux-Api apk
+[2026-08-03 15:38:24] DEBUG: chosen_shell_name = zsh
+[2026-08-03 15:38:24] DEBUG: [1mConfiguring zsh..
+[2026-08-03 15:38:24] DEBUG: Starting package installation for: zsh git
+[2026-08-03 15:38:24] DEBUG: Installing package: [0m[36mzsh
+[2026-08-03 15:38:30] DEBUG: Successfully install package: [0m[36mzsh
+[2026-08-03 15:38:30] DEBUG: Installing package: [0m[36mgit
+[2026-08-03 15:38:30] DEBUG: Successfully install package: [0m[36mgit
+[2026-08-03 15:38:30] DEBUG: Downloading setup-zsh... (Attempt 1/5)
+[2026-08-03 15:38:30] DEBUG: File downloaded successfully.
+[2026-08-03 15:38:30] DEBUG: Starting backup for: /data/data/com.termux/files/home/.zshrc
+[2026-08-03 15:38:30] DEBUG: Path /data/data/com.termux/files/home/.zshrc does not exist
+[2026-08-03 15:38:30] DEBUG: Installing zinit...
+[2026-08-03 15:38:41] DEBUG: Zinit installed successfully
+[2026-08-03 15:38:41] DEBUG: Downloading /data/data/com.termux/files/home/.zshenv2... (Attempt 1/5)
+[2026-08-03 15:38:41] DEBUG: File downloaded successfully.
+[2026-08-03 15:38:41] DEBUG: Deleted: /data/data/com.termux/files/home/.zshenv2
+[2026-08-03 15:38:41] DEBUG: Downloading /data/data/com.termux/files/home/.zshrc2... (Attempt 1/5)
+[2026-08-03 15:38:42] DEBUG: File downloaded successfully.
+[2026-08-03 15:38:42] DEBUG: Deleted: /data/data/com.termux/files/home/.zshrc2
+[2026-08-03 15:39:37] DEBUG: Installing zsh theme...
+[2026-08-03 15:39:37] DEBUG: Created directory: /data/data/com.termux/files/home/.zsh-themes
+[2026-08-03 15:39:37] DEBUG: Deleted: setup-zsh
+[2026-08-03 15:39:37] DEBUG: zsh setup successfully
+[2026-08-03 15:39:37] DEBUG: selected_zsh_theme_name = td_zsh
+[2026-08-03 15:39:37] DEBUG: [1mInstalling  Nerd Font...
+[2026-08-03 15:39:37] DEBUG: Starting package installation for: nerdfix fontconfig-utils
+[2026-08-03 15:39:37] DEBUG: Installing package: [0m[36mnerdfix
+[2026-08-03 15:40:06] DEBUG: Successfully install package: [0m[36mnerdfix
+[2026-08-03 15:40:06] DEBUG: Installing package: [0m[36mfontconfig-utils
+[2026-08-03 15:40:11] DEBUG: Successfully install package: [0m[36mfontconfig-utils
+[2026-08-03 15:40:11] DEBUG: Created directory: /data/data/com.termux/files/home/.fonts
+[2026-08-03 15:40:11] DEBUG: Starting backup for: /data/data/com.termux/files/home/.termux/font.ttf
+[2026-08-03 15:40:11] DEBUG: Path /data/data/com.termux/files/home/.termux/font.ttf does not exist
+[2026-08-03 15:40:12] DEBUG: sel_base_name = 0xProto
+[2026-08-03 15:40:12] DEBUG: Downloading 0xProto.tar.xz... (Attempt 1/5)
+[2026-08-03 15:40:13] DEBUG: File downloaded successfully.
+[2026-08-03 15:40:13] DEBUG: Extracting [0m[36m0xProto.tar.xz
+[2026-08-03 15:40:14] DEBUG: Successfully extracted [0m[36m0xProto.tar.xz
+[2026-08-03 15:40:14] DEBUG: Extracted: 0xProto.tar.xz
+[2026-08-03 15:40:14] DEBUG: Deleted: 0xProto.tar.xz
+[2026-08-03 15:40:14] DEBUG: Downloaded and extracted: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.5.0/0xProto.tar.xz to /data/data/com.termux/files/home/.fonts
+[2026-08-03 15:40:16] DEBUG: Starting desktop installation
+[2026-08-03 15:40:17] DEBUG: [1mInstalling Xfce4 Desktop
+[2026-08-03 15:40:17] DEBUG: Starting package installation for: xfce4 xfce4-goodies xfce4-pulseaudio-plugin xfce4-battery-plugin xfce4-docklike-plugin xfce4-notifyd-static xfce4-cpugraph-plugin kvantum
+[2026-08-03 15:40:17] DEBUG: Installing package: [0m[36mxfce4
+[2026-08-03 15:42:43] DEBUG: Failed to install package: [0m[36mxfce4. [0m[33mTrying again... (1)
+[2026-08-03 15:43:29] DEBUG: Installing package: [0m[36mxfce4
+[2026-08-03 15:43:29] DEBUG: Failed to install package: [0m[36mxfce4. [0m[33mTrying again... (2)
+[2026-08-03 15:43:36] DEBUG: Installing package: [0m[36mxfce4
+[2026-08-03 15:45:21] DEBUG: Successfully install package: [0m[36mxfce4
+[2026-08-03 15:45:21] DEBUG: Installing package: [0m[36mxfce4-goodies
+[2026-08-03 15:46:08] DEBUG: Successfully install package: [0m[36mxfce4-goodies
+[2026-08-03 15:46:08] DEBUG: Installing package: [0m[36mxfce4-pulseaudio-plugin
+[2026-08-03 15:46:15] DEBUG: Successfully install package: [0m[36mxfce4-pulseaudio-plugin
+[2026-08-03 15:46:15] DEBUG: Installing package: [0m[36mxfce4-battery-plugin
+[2026-08-03 15:46:16] DEBUG: Successfully install package: [0m[36mxfce4-battery-plugin
+[2026-08-03 15:46:16] DEBUG: Installing package: [0m[36mxfce4-docklike-plugin
+[2026-08-03 15:46:17] DEBUG: Successfully install package: [0m[36mxfce4-docklike-plugin
+[2026-08-03 15:46:17] DEBUG: Installing package: [0m[36mxfce4-notifyd-static
+[2026-08-03 15:46:18] DEBUG: Successfully install package: [0m[36mxfce4-notifyd-static
+[2026-08-03 15:46:18] DEBUG: Installing package: [0m[36mxfce4-cpugraph-plugin
+[2026-08-03 15:46:20] DEBUG: Successfully install package: [0m[36mxfce4-cpugraph-plugin
+[2026-08-03 15:46:20] DEBUG: Installing package: [0m[36mkvantum
+[2026-08-03 15:46:40] DEBUG: Failed to install package: [0m[36mkvantum. [0m[33mTrying again... (1)
+[2026-08-03 15:46:45] DEBUG: Installing package: [0m[36mkvantum
+[2026-08-03 15:48:35] DEBUG: Successfully install package: [0m[36mkvantum
+[2026-08-03 15:48:35] DEBUG: Starting package installation for: file-roller pavucontrol gnome-font-viewer evince galculator xorg-xrdb
+[2026-08-03 15:48:35] DEBUG: Installing package: [0m[36mfile-roller
+[2026-08-03 15:48:36] DEBUG: Successfully install package: [0m[36mfile-roller
+[2026-08-03 15:48:36] DEBUG: Installing package: [0m[36mpavucontrol
+[2026-08-03 15:48:36] DEBUG: Successfully install package: [0m[36mpavucontrol
+[2026-08-03 15:48:36] DEBUG: Installing package: [0m[36mgnome-font-viewer
+[2026-08-03 15:48:37] DEBUG: Successfully install package: [0m[36mgnome-font-viewer
+[2026-08-03 15:48:37] DEBUG: Installing package: [0m[36mevince
+[2026-08-03 15:49:45] DEBUG: Successfully install package: [0m[36mevince
+[2026-08-03 15:49:45] DEBUG: Installing package: [0m[36mgalculator
+[2026-08-03 15:49:45] DEBUG: Successfully install package: [0m[36mgalculator
+[2026-08-03 15:49:45] DEBUG: Installing package: [0m[36mxorg-xrdb
+[2026-08-03 15:49:45] DEBUG: Successfully install package: [0m[36mxorg-xrdb
+[2026-08-03 15:49:45] DEBUG: de_startup = startxfce4
+[2026-08-03 15:49:45] DEBUG: de_name = xfce
+[2026-08-03 15:49:45] DEBUG: themes_folder = /data/data/com.termux/files/home/.themes
+[2026-08-03 15:49:45] DEBUG: icons_folder = /data/data/com.termux/files/home/.icons
+[2026-08-03 15:49:45] DEBUG: Desktop installation process done
+[2026-08-03 15:49:45] DEBUG: installed_browser = all
+[2026-08-03 15:49:46] DEBUG: Starting package installation for: firefox chromium
+[2026-08-03 15:49:46] DEBUG: Installing package: [0m[36mfirefox
+[2026-08-03 15:50:21] DEBUG: Successfully install package: [0m[36mfirefox
+[2026-08-03 15:50:21] DEBUG: Installing package: [0m[36mchromium
+[2026-08-03 15:52:18] DEBUG: Successfully install package: [0m[36mchromium
+[2026-08-03 15:52:18] DEBUG: installed_ide = code
+[2026-08-03 15:52:18] DEBUG: Starting package installation for: code-oss code-is-code-oss
+[2026-08-03 15:52:18] DEBUG: Installing package: [0m[36mcode-oss
+[2026-08-03 15:53:19] DEBUG: Failed to install package: [0m[36mcode-oss. [0m[33mTrying again... (1)
+[2026-08-03 15:53:20] DEBUG: Installing package: [0m[36mcode-oss
+[2026-08-03 15:54:13] DEBUG: Failed to install package: [0m[36mcode-oss. [0m[33mTrying again... (2)
+[2026-08-03 15:54:15] DEBUG: Installing package: [0m[36mcode-oss
+[2026-08-03 15:55:12] DEBUG: Failed to install package: [0m[36mcode-oss. [0m[33mTrying again... (3)
+[2026-08-03 15:55:12] DEBUG: Installing package: [0m[36mcode-oss
+[2026-08-03 15:56:22] DEBUG: Failed to install package: [0m[36mcode-oss. [0m[33mTrying again... (4)
+[2026-08-03 15:56:23] DEBUG: Installing package: [0m[36mcode-oss
+[2026-08-03 15:56:44] DEBUG: Failed to install package: [0m[36mcode-oss. [0m[33mTrying again... (5)
+[2026-08-03 15:56:44] DEBUG: Installing package: [0m[36mcode-is-code-oss
+[2026-08-03 15:57:59] DEBUG: Failed to install package: [0m[36mcode-is-code-oss. [0m[33mTrying again... (1)
+[2026-08-03 15:57:59] DEBUG: Installing package: [0m[36mcode-is-code-oss
+[2026-08-03 15:58:52] DEBUG: Failed to install package: [0m[36mcode-is-code-oss. [0m[33mTrying again... (2)
+[2026-08-03 15:58:53] DEBUG: Installing package: [0m[36mcode-is-code-oss
+[2026-08-03 16:00:05] DEBUG: Failed to install package: [0m[36mcode-is-code-oss. [0m[33mTrying again... (3)
+[2026-08-03 16:00:05] DEBUG: Installing package: [0m[36mcode-is-code-oss
+[2026-08-03 16:00:58] DEBUG: Failed to install package: [0m[36mcode-is-code-oss. [0m[33mTrying again... (4)
+[2026-08-03 16:00:58] DEBUG: Installing package: [0m[36mcode-is-code-oss
+[2026-08-03 16:02:05] DEBUG: Failed to install package: [0m[36mcode-is-code-oss. [0m[33mTrying again... (5)
+[2026-08-03 16:02:05] DEBUG: installed_media_player = vlc
+[2026-08-03 16:02:05] DEBUG: Starting package installation for: vlc-qt-static
+[2026-08-03 16:02:05] DEBUG: Installing package: [0m[36mvlc-qt-static
+[2026-08-03 16:02:37] DEBUG: Successfully install package: [0m[36mvlc-qt-static
+[2026-08-03 16:02:37] DEBUG: installed_photo_editor = gimp
+[2026-08-03 16:02:37] DEBUG: Starting package installation for: gimp
+[2026-08-03 16:02:37] DEBUG: Installing package: [0m[36mgimp
+[2026-08-03 16:03:00] DEBUG: Successfully install package: [0m[36mgimp
+[2026-08-03 16:03:00] DEBUG: Starting package installation for: gimp-resynthesizer
+[2026-08-03 16:03:00] DEBUG: Installing package: [0m[36mgimp-resynthesizer
+[2026-08-03 16:03:01] DEBUG: Successfully install package: [0m[36mgimp-resynthesizer
+[2026-08-03 16:03:01] DEBUG: installed_wine = wine_hangover
+[2026-08-03 16:03:01] DEBUG: Starting package installation for: hangover-wine
+[2026-08-03 16:03:01] DEBUG: Installing package: [0m[36mhangover-wine
+[2026-08-03 16:03:01] DEBUG: Failed to install package: [0m[36mhangover-wine. [0m[33mTrying again... (1)
+[2026-08-03 16:03:01] DEBUG: Installing package: [0m[36mhangover-wine
+[2026-08-03 16:03:02] DEBUG: Failed to install package: [0m[36mhangover-wine. [0m[33mTrying again... (2)
+[2026-08-03 16:03:02] DEBUG: Installing package: [0m[36mhangover-wine
+[2026-08-03 16:03:02] DEBUG: Failed to install package: [0m[36mhangover-wine. [0m[33mTrying again... (3)
+[2026-08-03 16:03:02] DEBUG: Installing package: [0m[36mhangover-wine
+[2026-08-03 16:03:03] DEBUG: Failed to install package: [0m[36mhangover-wine. [0m[33mTrying again... (4)
+[2026-08-03 16:03:03] DEBUG: Installing package: [0m[36mhangover-wine
+[2026-08-03 16:03:03] DEBUG: Failed to install package: [0m[36mhangover-wine. [0m[33mTrying again... (5)
+[2026-08-03 16:03:04] DEBUG: Adding wine desktop shortcuts...
+[2026-08-03 16:03:04] DEBUG: Downloading add-wine-shortcut... (Attempt 1/5)
+[2026-08-03 16:03:04] DEBUG: File downloaded successfully.
+[2026-08-03 16:03:05] DEBUG: [0m[32m[[0m[32m✓[0m[32m][0m[32m Wine shortcuts created successfully[0m
+[2026-08-03 16:03:05] DEBUG: Deleted: add-wine-shortcut
+[2026-08-03 16:03:05] DEBUG: [1mInstalling xfce Style: [0m[36m3
+[2026-08-03 16:03:05] DEBUG: Starting theme installation
+[2026-08-03 16:03:05] DEBUG: [1mConfiguring Theme: [0m[36mWindows10 Style
+[2026-08-03 16:03:05] DEBUG: Starting package installation for: gnome-themes-extra gtk2-engines-murrine
+[2026-08-03 16:03:05] DEBUG: Installing package: [0m[36mgnome-themes-extra
+[2026-08-03 16:03:12] DEBUG: Successfully install package: [0m[36mgnome-themes-extra
+[2026-08-03 16:03:12] DEBUG: Installing package: [0m[36mgtk2-engines-murrine
+[2026-08-03 16:03:15] DEBUG: Successfully install package: [0m[36mgtk2-engines-murrine
+[2026-08-03 16:03:18] DEBUG: [1mConfiguring Wallpapers...
+[2026-08-03 16:03:18] DEBUG: Downloading wallpaper.tar.gz... (Attempt 1/5)
+[2026-08-03 16:03:20] DEBUG: File downloaded successfully.
+[2026-08-03 16:03:20] DEBUG: Extracting [0m[36mwallpaper.tar.gz
+[2026-08-03 16:03:20] DEBUG: Successfully extracted [0m[36mwallpaper.tar.gz
+[2026-08-03 16:03:20] DEBUG: Extracted: wallpaper.tar.gz
+[2026-08-03 16:03:20] DEBUG: Deleted: wallpaper.tar.gz
+[2026-08-03 16:03:20] DEBUG: Downloaded and extracted: https://raw.githubusercontent.com/sabamdarif/termux-desktop/refs/heads/setup-files/setup-files/xfce/look_3/wallpaper.tar.gz to /data/data/com.termux/files/usr/share/backgrounds/
+[2026-08-03 16:03:20] DEBUG: [1mConfiguring Icon Pack...
+[2026-08-03 16:03:20] DEBUG: Starting package installation for: gdk-pixbuf
+[2026-08-03 16:03:20] DEBUG: Installing package: [0m[36mgdk-pixbuf
+[2026-08-03 16:03:20] DEBUG: Successfully install package: [0m[36mgdk-pixbuf
+[2026-08-03 16:03:20] DEBUG: Created directory: /data/data/com.termux/files/home/.icons
+[2026-08-03 16:03:20] DEBUG: Downloading icon.tar.gz... (Attempt 1/5)
+[2026-08-03 16:03:25] DEBUG: File downloaded successfully.
+[2026-08-03 16:03:26] DEBUG: Extracting [0m[36micon.tar.gz
+[2026-08-03 16:03:26] DEBUG: Failed to extract [0m[36micon.tar.gz
+[2026-08-03 16:03:26] DEBUG: Deleted: icon.tar.gz
+[2026-08-03 16:03:26] DEBUG: Downloaded and extracted: https://raw.githubusercontent.com/sabamdarif/termux-desktop/refs/heads/setup-files/setup-files/xfce/look_3/icon.tar.gz to /data/data/com.termux/files/home/.icons
+[2026-08-03 16:03:27] DEBUG: Creating icon cache...
+[2026-08-03 16:03:27] DEBUG: Creating icon cache...
+[2026-08-03 16:03:27] DEBUG: Creating icon cache...
+[2026-08-03 16:03:27] DEBUG: Creating icon cache...
+[2026-08-03 16:03:27] DEBUG: Creating icon cache...
+[2026-08-03 16:03:27] DEBUG: Creating icon cache...
+[2026-08-03 16:03:27] DEBUG: [1mInstalling Theme...
+[2026-08-03 16:03:27] DEBUG: Created directory: /data/data/com.termux/files/home/.themes
+[2026-08-03 16:03:27] DEBUG: Downloading theme.tar.gz... (Attempt 1/5)
+[2026-08-03 16:03:28] DEBUG: File downloaded successfully.
+[2026-08-03 16:03:28] DEBUG: Extracting [0m[36mtheme.tar.gz
+[2026-08-03 16:03:28] DEBUG: Successfully extracted [0m[36mtheme.tar.gz
+[2026-08-03 16:03:28] DEBUG: Extracted: theme.tar.gz
+[2026-08-03 16:03:28] DEBUG: Deleted: theme.tar.gz
+[2026-08-03 16:03:28] DEBUG: Downloaded and extracted: https://raw.githubusercontent.com/sabamdarif/termux-desktop/refs/heads/setup-files/setup-files/xfce/look_3/theme.tar.gz to /data/data/com.termux/files/home/.themes
+[2026-08-03 16:03:28] DEBUG: Creating backup of old config...
+[2026-08-03 16:03:41] DEBUG: Applying Custom Configuration...
+[2026-08-03 16:03:41] ERROR: Failed to create directory: /data/data/com.termux/files/home/.config
+[2026-08-03 16:03:41] ERROR: Failed to create directory: /data/data/com.termux/files/home/.config/
+[2026-08-03 16:03:41] DEBUG: [1m Installing Additional Packages If Required...[0m
+[2026-08-03 16:03:41] DEBUG: Starting package installation for: xdotool
+[2026-08-03 16:03:41] DEBUG: Installing package: [0m[36mxdotool
+[2026-08-03 16:03:41] DEBUG: Failed to install package: [0m[36mxdotool. [0m[33mTrying again... (1)
+[2026-08-03 16:03:41] DEBUG: Installing package: [0m[36mxdotool
+[2026-08-03 16:03:42] DEBUG: Failed to install package: [0m[36mxdotool. [0m[33mTrying again... (2)
+[2026-08-03 16:03:42] DEBUG: Installing package: [0m[36mxdotool
+[2026-08-03 16:03:42] DEBUG: Failed to install package: [0m[36mxdotool. [0m[33mTrying again... (3)
+[2026-08-03 16:03:43] DEBUG: Installing package: [0m[36mxdotool
+[2026-08-03 16:03:43] DEBUG: Failed to install package: [0m[36mxdotool. [0m[33mTrying again... (4)
+[2026-08-03 16:03:43] DEBUG: Installing package: [0m[36mxdotool
+[2026-08-03 16:03:43] DEBUG: Failed to install package: [0m[36mxdotool. [0m[33mTrying again... (5)
+[2026-08-03 16:03:44] DEBUG: style_answer = 3
+[2026-08-03 16:03:44] DEBUG: [0m[36mSkipping Extra Wallpapers Setup...
+[2026-08-03 16:03:44] DEBUG: distro_add_answer = y
+[2026-08-03 16:03:44] DEBUG: [1mConfiguring Linux Distro Container
+[2026-08-03 16:03:44] DEBUG: Downloading /data/d[2026-08-03 20:13:01] DEBUG: Package manager: apt
+[2026-08-03 20:13:01] DEBUG: Do you want to run a speed test to find the fastest repo for you?
+[2026-08-03 20:14:21] DEBUG: [0m[36mSkipping this step[0m
+[2026-08-03 20:14:21] DEBUG: Confirmation: Do you want to continue - response: n
+[2026-08-03 20:14:21] DEBUG: [1mUpdating System....
+[2026-08-03 20:14:24] DEBUG: Cleaning up the cache...
+[2026-08-03 20:14:26] DEBUG: [1mInstalling required packages...
+[2026-08-03 20:14:26] DEBUG: Starting package installation for: wget git jq curl tar xz-utils gzip libpopt termux-am x11-repo tur-repo termux-api file
+[2026-08-03 20:14:26] DEBUG: Installing package: [0m[36mwget
+[2026-08-03 20:14:26] DEBUG: Successfully install package: [0m[36mwget
+[2026-08-03 20:14:26] DEBUG: Installing package: [0m[36mgit
+[2026-08-03 20:14:26] DEBUG: Successfully install package: [0m[36mgit
+[2026-08-03 20:14:26] DEBUG: Installing package: [0m[36mjq
+[2026-08-03 20:14:26] DEBUG: Successfully install package: [0m[36mjq
+[2026-08-03 20:14:26] DEBUG: Installing package: [0m[36mcurl
+[2026-08-03 20:14:26] DEBUG: Successfully install package: [0m[36mcurl
+[2026-08-03 20:14:26] DEBUG: Installing package: [0m[36mtar
+[2026-08-03 20:14:26] DEBUG: Successfully install package: [0m[36mtar
+[2026-08-03 20:14:26] DEBUG: Installing package: [0m[36mxz-utils
+[2026-08-03 20:14:26] DEBUG: Successfully install package: [0m[36mxz-utils
+[2026-08-03 20:14:26] DEBUG: Installing package: [0m[36mgzip
+[2026-08-03 20:14:27] DEBUG: Successfully install package: [0m[36mgzip
+[2026-08-03 20:14:27] DEBUG: Installing package: [0m[36mlibpopt
+[2026-08-03 20:14:27] DEBUG: Successfully install package: [0m[36mlibpopt
+[2026-08-03 20:14:27] DEBUG: Installing package: [0m[36mtermux-am
+[2026-08-03 20:14:27] DEBUG: Successfully install package: [0m[36mtermux-am
+[2026-08-03 20:14:27] DEBUG: Installing package: [0m[36mx11-repo
+[2026-08-03 20:14:27] DEBUG: Successfully install package: [0m[36mx11-repo
+[2026-08-03 20:14:27] DEBUG: Installing package: [0m[36mtur-repo
+[2026-08-03 20:14:27] DEBUG: Successfully install package: [0m[36mtur-repo
+[2026-08-03 20:14:27] DEBUG: Installing package: [0m[36mtermux-api
+[2026-08-03 20:14:27] DEBUG: Successfully install package: [0m[36mtermux-api
+[2026-08-03 20:14:27] DEBUG: Installing package: [0m[36mfile
+[2026-08-03 20:14:27] DEBUG: Successfully install package: [0m[36mfile
+[2026-08-03 20:14:27] DEBUG: [1mChecking required packages...
+[2026-08-03 20:14:27] DEBUG: Checking command:- wget
+[2026-08-03 20:14:27] DEBUG: wget command exists
+[2026-08-03 20:14:27] DEBUG: Checking command:- git
+[2026-08-03 20:14:28] DEBUG: git command exists
+[2026-08-03 20:14:28] DEBUG: Checking command:- jq
+[2026-08-03 20:14:28] DEBUG: jq command exists
+[2026-08-03 20:14:28] DEBUG: Checking command:- curl
+[2026-08-03 20:14:28] DEBUG: curl command exists
+[2026-08-03 20:14:28] DEBUG: Checking command:- tar
+[2026-08-03 20:14:28] DEBUG: tar command exists
+[2026-08-03 20:14:28] DEBUG: Checking command:- gzip
+[2026-08-03 20:14:28] DEBUG: gzip command exists
+[2026-08-03 20:14:28] DEBUG: Checking command:- termux-am
+[2026-08-03 20:14:28] DEBUG: termux-am command exists
+[2026-08-03 20:14:28] DEBUG: Checking command:- termux-api-start
+[2026-08-03 20:14:28] DEBUG: termux-api-start command exists
+[2026-08-03 20:14:28] DEBUG: Checking command:- file
+[2026-08-03 20:14:28] DEBUG: file command exists
+[2026-08-03 20:14:28] DEBUG: Running on: [0mAndroid 15
+[2026-08-03 20:14:28] DEBUG: Device: [0mmotorola moto g54 5G
+[2026-08-03 20:14:29] DEBUG: SOC: [0mMediatek MT6855V/AZA
+[2026-08-03 20:14:29] DEBUG: GPU: [0mmali
+[2026-08-03 20:14:29] DEBUG: App architecture: [0maarch64
+[2026-08-03 20:14:30] DEBUG: Github Rate Limit: [0mGood to go you have 60 request remaining
+[2026-08-03 20:14:30] DEBUG: Termux PREFIX: [0mDirectory found
+[2026-08-03 20:14:31] DEBUG: Termux Version: [0m0.119.0-beta.3 (Not Recomended)
+[2026-08-03 20:14:31] DEBUG: Low storage space: [0m3.0G (4GB recommended)
+[2026-08-03 20:14:31] DEBUG: RAM: [0m7.4Gi
+[2026-08-03 20:14:32] DEBUG: Termux-x11: [0mNot Installed
+[2026-08-03 20:14:32] DEBUG: Install Termux-x11:- [0mhttps://github.com/termux/termux-x11/releases/download/nightly/app-arm64-v8a-debug.apk
+[2026-08-03 20:14:33] DEBUG: Termux-API: [0mNot Installed
+[2026-08-03 20:14:33] DEBUG: Install Termux-API:- [0mhttps://github.com/termux/termux-api/releases/download/v0.53.0/termux-api-app_v0.53.0+github-debug.apk
+[2026-08-03 20:14:33] DEBUG: Found 2 error(s). System requirements not met.
+[2026-08-03 20:14:33] DEBUG: Type 'a' to check again
+[2026-08-03 20:15:49] DEBUG: Continuing aniway...
+[2026-08-03 20:15:49] DEBUG: [1mPre-Installation Requirements
+[2026-08-03 20:18:40] DEBUG: A Quick Overview
+[2026-08-03 20:18:40] DEBUG: Key Terms:[0m
+• Generic: Pre-configured options that so far work best in most of the devices\n
+• Recommended: Tested configurations with minimal known issues\n
+• Hardware Acceleration: Uses your device's GPU for better graphics render\n
+• Custom: Full control over all installation options\n
+
+[2026-08-03 20:18:40] DEBUG: Important Note: [0m
+
+[0m[34mGeneric is recomended for beginners\n
+For most users who are familiar with Termux, the custom option is recommended, as most features are only available in the custom option
+[0m
+[2026-08-03 20:18:40] DEBUG: Select Install Type
+[2026-08-03 20:20:24] DEBUG: Continuing with answer: 1
+[2026-08-03 20:20:24] DEBUG: Importing desktop related data...
+[2026-08-03 20:20:25] DEBUG: Subfolder count: 6
+[2026-08-03 20:20:25] DEBUG: Subfolder count: 2
+[2026-08-03 20:20:26] DEBUG: Subfolder count: 0
+[2026-08-03 20:20:26] DEBUG: Subfolder count: 0
+[2026-08-03 20:20:27] DEBUG: Subfolder count: 0
+[2026-08-03 20:20:27] DEBUG: Subfolder count: 0
+[2026-08-03 20:20:28] DEBUG: Subfolder count: 2
+[2026-08-03 20:20:29] DEBUG: Subfolder count: 1
+[2026-08-03 20:20:29] DEBUG: Subfolder count: 0
+[2026-08-03 20:20:30] DEBUG: Subfolder count: 0
+[2026-08-03 20:20:30] DEBUG: Subfolder count: 0
+[2026-08-03 20:20:30] DEBUG: Subfolder count: 0
+[2026-08-03 20:20:31] DEBUG: Subfolder count: 0
+[2026-08-03 20:20:31] DEBUG: Subfolder count: 0
+[2026-08-03 20:20:31] DEBUG: Select Desktop Environment
+[2026-08-03 20:21:11] DEBUG: Continuing with answer: 1
+[2026-08-03 20:21:12] DEBUG: Subfolder count: 6
+[2026-08-03 20:21:12] DEBUG: Downloading list of available styles...
+[2026-08-03 20:21:12] DEBUG: Downloading /data/data/com.termux/files/home/styles.md... (Attempt 1/5)
+[2026-08-03 20:21:12] DEBUG: File downloaded successfully.
+[2026-08-03 20:21:12] DEBUG: Check the xfce styles preview
+[2026-08-03 20:21:12] DEBUG: From Here:- [0m[34mhttps://github.com/sabamdarif/termux-desktop/blob/main/docs/xfce_styles.md
+[2026-08-03 20:21:12] DEBUG: Number of available custom styles for xfce is: [0m[36m6
+[2026-08-03 20:21:12] DEBUG: Available Styles Are:
+[2026-08-03 20:22:58] DEBUG: Continuing with style number [0m[36m1 (Style: Basic Style[0m)
+[2026-08-03 20:22:58] DEBUG: Deleted: /data/data/com.termux/files/home/styles.md
+[2026-08-03 20:22:58] DEBUG: 1 6
+[2026-08-03 20:22:58] DEBUG: [1mSelect browser you want to install
+[2026-08-03 20:23:52] DEBUG: Continuing with answer: 1
+[2026-08-03 20:23:52] DEBUG: [1mSelect IDE you want to install
+[2026-08-03 20:25:18] DEBUG: Continuing with answer: 2
+[2026-08-03 20:25:18] DEBUG: [1mSelect Media Player you want to install
+[2026-08-03 20:26:51] DEBUG: Continuing with answer: 2
+[2026-08-03 20:26:51] DEBUG: [1mSelect Photo Editor[0m
+[2026-08-03 20:27:52] DEBUG: Continuing with answer: 4
+[2026-08-03 20:27:53] DEBUG: [1mDo you want to install wine in termux [0m[36m(without proot-distro)
+[2026-08-03 20:27:53] DEBUG: [0m[34mKnow More About Mobox:- https://github.com/olegos2/mobox/
+[2026-08-03 20:30:29] DEBUG: Continuing with answer: 4
+[2026-08-03 20:31:23] DEBUG: Continuing with answer: y
+[2026-08-03 20:31:23] DEBUG: Confirmation: Do you want to Configure Hardware Acceleration - response: y
+[2026-08-03 20:31:23] DEBUG:  By default, it only adds 4-5 wallpapers
+[2026-08-03 20:31:23] DEBUG: [0m[1m[31mThis is a 1GB+ collection
+[2026-08-03 20:32:04] DEBUG: [0m[36mSkipping this step[0m
+[2026-08-03 20:32:04] DEBUG: Confirmation: Do you want to add some more wallpapers - response: n
+[2026-08-03 20:32:04] DEBUG: [1mSelect Your shell[0m
+[2026-08-03 20:33:03] DEBUG: Continuing with answer: 1
+[2026-08-03 20:33:04] DEBUG: [1m Select zsh theme
+[2026-08-03 20:34:22] DEBUG: Continuing with answer: 1
+[2026-08-03 20:34:23] DEBUG: [0m[34mKnow More About Terminal Utility:- https://github.com/sabamdarif/termux-desktop/blob/main/docs/see-more.md#hammer_and_wrenchlearn-about-terminal-utilities
+[2026-08-03 20:35:17] DEBUG: Continuing with answer: y
+[2026-08-03 20:35:17] DEBUG: Confirmation: Do you want install some terminal utility to make better terminal exprience - response: y
+[2026-08-03 20:35:17] DEBUG: Select nerd font you want to install...[0m[34m
+[2026-08-03 20:36:29] DEBUG: Continuing with answer: 1
+[2026-08-03 20:36:29] DEBUG: [0m[1m[31m[[0m[36m-[0m[1m[31m][0m[34m File Manager Tools Enhancement[0m
+
+[0m[34mOverview:[0m
+This option enhances your file manager with powerful right-click menu features.
+
+[0m[34mKey Features:[0m
+   • Media Operations
+     - Video processing and conversion
+     - Image editing and optimization
+     - Audio file management
+     - PDF manipulation
+
+   • File Management
+     - Archive compression/extraction
+     - File permissions control
+     - Document processing
+     - File encryption
+     - Hash verification
+
+   • Additional Features
+     - Custom scripts integration
+     - Batch processing
+     - Quick actions menu
+
+[0m[34mHow to Access:[0m
+Access these features through the 'Scripts' menu in your file manager's right-click context menu.
+[0m
+[2026-08-03 20:37:12] DEBUG: Continuing with answer: y
+[2026-08-03 20:37:12] DEBUG: Confirmation: Do you want File Manager Tools tailored with powerful extra features - response: y
+[2026-08-03 20:37:12] DEBUG: [1m Select Gui Mode
+[2026-08-03 20:39:28] DEBUG: Continuing with answer: 1
+[2026-08-03 20:40:38] DEBUG: [0m[36mSkipping this step[0m
+[2026-08-03 20:40:38] DEBUG: Confirmation: Do you want to start the desktop at Termux startup - response: n
+[2026-08-03 20:41:50] DEBUG: [0m[36mSkipping this step[0m
+[2026-08-03 20:41:50] DEBUG: Confirmation: Do you want to enable microphone access - response: n
+[2026-08-03 20:41:50] DEBUG: 
+[0m[1m[31m[[0m[36m-[0m[1m[31m][0m[32m[1m Linux Distro Container:- [0m
+
+It will help you to install apps that aren't available in Termux.
+So it will set up a Linux distro container and add options to install those apps.
+Also, you can launch those installed apps from Termux like other apps.
+
+[2026-08-03 20:51:54] DEBUG: Continuing with answer: y
+[2026-08-03 20:51:54] DEBUG: Confirmation: Do you want to add a Linux container - response: y
+[2026-08-03 20:51:54] DEBUG: [1mSelect the distro type
+[2026-08-03 20:53:01] DEBUG: Continuing with answer: 1
+[2026-08-03 20:53:01] DEBUG: [1mSelect Linux Distro You Want To Add
+[2026-08-03 20:54:18] DEBUG: Continuing with answer: 2
+[2026-08-03 20:54:59] DEBUG: Continuing with answer: y
+[2026-08-03 20:55:00] DEBUG: Confirmation: Do you want to configure audio support for Linux distro container - response: y
+[2026-08-03 20:56:09] DEBUG: Continuing with answer: y
+[2026-08-03 20:56:09] DEBUG: Confirmation: Do you want to create a normal user account [0m[36m(Recomended) - response: y
+[2026-08-03 20:56:09] DEBUG: [1mSelect user account type
+[2026-08-03 20:57:32] DEBUG: Continuing with answer: 1
+[2026-08-03 20:57:32] DEBUG: [1mCreate user account
+[2026-08-03 20:57:32] DEBUG: Default Password Will Be Set, Because Sometimes It Might Ask You For Password
+[2026-08-03 20:57:32] DEBUG: Password:-[0m[36mroot
+[2026-08-03 20:59:00] DEBUG: Continuing with answer: y
+[2026-08-03 20:59:01] DEBUG: Continuing with username [0m[36mspeed
+[2026-08-03 20:59:01] DEBUG: [1mFirst Read This
+[2026-08-03 20:59:01] DEBUG: [0m[34mThis:- https://github.com/sabamdarif/termux-desktop/blob/main/docs/hw-acceleration.md
+[2026-08-03 20:59:01] DEBUG: [1mSelect the vulkan driver
+[2026-08-03 20:59:01] DEBUG: For most of the device No.1 vulkan-wrapper-android will work:[0m
+• No.1 vulkan-wrapper-android: Works for most devices\n
+• No.3 pipetto-crypto's fork: Better choice if you have Mali and No.1 didn't work well\n
+• No.4 freedreno: Better choice for Adreno devices\n
+• No.6 mesa-vulkan-icd-freedreno (Kgsl): Gives freedreno access to OpenGL but it's experimental and unmaintained\n
+
+[2026-08-03 21:00:21] DEBUG: Continuing with answer: 1
+[2026-08-03 21:00:21] DEBUG: [1mIt will be used to enable opengl support
+[2026-08-03 21:01:09] DEBUG: Continuing with answer: 1
+[2026-08-03 21:01:10] DEBUG: [1mSelect Hardware Acceleration Driver For Linux Container
+[2026-08-03 21:01:10] DEBUG: If You Skip It, It Will Use The Previous Selection
+[2026-08-03 21:01:57] DEBUG: Continuing with answer: 1
+[2026-08-03 21:01:57] DEBUG: Installation Configuration Summary
+[2026-08-03 21:02:43] DEBUG: /data/data/com.termux/files/usr/etc/termux-desktop/configuration.conf
+[2026-08-03 21:02:43] DEBUG: Starting backup for: /data/data/com.termux/files/usr/etc/termux-desktop/configuration.conf
+[2026-08-03 21:02:43] DEBUG: Backing up /data/data/com.termux/files/usr/etc/termux-desktop/configuration.conf
+[2026-08-03 21:02:43] DEBUG: /data/data/com.termux/files/usr/etc/termux-desktop/configuration.conf /data/data/com.termux/files/usr/etc/termux-desktop/configuration.conf-03-08-2026.bak
+[2026-08-03 21:02:43] DEBUG: [1mConfiguring Storage...
+[2026-08-03 21:03:36] DEBUG: Storage configured successfully
+[2026-08-03 21:03:37] DEBUG: You can't use microphone because you didn't install Termux-Api apk
+[2026-08-03 21:03:40] DEBUG: chosen_shell_name = zsh
+[2026-08-03 21:03:40] DEBUG: [1mConfiguring zsh..
+[2026-08-03 21:03:40] DEBUG: Starting package installation for: zsh git
+[2026-08-03 21:03:40] DEBUG: Installing package: [0m[36mzsh
+[2026-08-03 21:03:40] DEBUG: Successfully install package: [0m[36mzsh
+[2026-08-03 21:03:40] DEBUG: Installing package: [0m[36mgit
+[2026-08-03 21:03:40] DEBUG: Successfully install package: [0m[36mgit
+[2026-08-03 21:03:40] DEBUG: Downloading setup-zsh... (Attempt 1/5)
+[2026-08-03 21:03:41] DEBUG: File downloaded successfully.
+[2026-08-03 21:03:41] DEBUG: Starting backup for: /data/data/com.termux/files/home/.zshrc
+[2026-08-03 21:03:41] DEBUG: Backing up /data/data/com.termux/files/home/.zshrc
+[2026-08-03 21:03:41] DEBUG: /data/data/com.termux/files/home/.zshrc /data/data/com.termux/files/home/.zshrc-03-08-2026.bak
+[2026-08-03 21:03:41] DEBUG: Installing zinit...
+[2026-08-03 21:03:41] DEBUG: Failed to clone zinit repository
+[2026-08-03 21:03:41] DEBUG: Please check your internet connection and try again
+[2026-08-03 21:03:42] DEBUG: Downloading /data/data/com.termux/files/home/.zshenv2... (Attempt 1/5)
+[2026-08-03 21:03:42] DEBUG: File downloaded successfully.
+[2026-08-03 21:03:42] DEBUG: Deleted: /data/data/com.termux/files/home/.zshenv2
+[2026-08-03 21:03:42] DEBUG: Downloading /data/data/com.termux/files/home/.zshrc2... (Attempt 1/5)
+[2026-08-03 21:03:42] DEBUG: File downloaded successfully.
+[2026-08-03 21:03:43] DEBUG: Deleted: /data/data/com.termux/files/home/.zshrc2
+[2026-08-03 21:03:43] DEBUG: Installing zsh theme...
+[2026-08-03 21:03:43] DEBUG: Deleted: setup-zsh
+[2026-08-03 21:03:43] DEBUG: zsh setup successfully
+[2026-08-03 21:03:43] DEBUG: selected_zsh_theme_name = td_zsh
+[2026-08-03 21:03:44] DEBUG: [1mInstalling 0xProto Nerd Font...
+[2026-08-03 21:03:44] DEBUG: Starting package installation for: nerdfix fontconfig-utils
+[2026-08-03 21:03:44] DEBUG: Installing package: [0m[36mnerdfix
+[2026-08-03 21:03:44] DEBUG: Successfully install package: [0m[36mnerdfix
+[2026-08-03 21:03:44] DEBUG: Installing package: [0m[36mfontconfig-utils
+[2026-08-03 21:03:44] DEBUG: Successfully install package: [0m[36mfontconfig-utils
+[2026-08-03 21:03:44] DEBUG: Starting backup for: /data/data/com.termux/files/home/.termux/font.ttf
+[2026-08-03 21:03:44] DEBUG: Backing up /data/data/com.termux/files/home/.termux/font.ttf
+[2026-08-03 21:03:44] DEBUG: /data/data/com.termux/files/home/.termux/font.ttf /data/data/com.termux/files/home/.termux/font.ttf-03-08-2026.bak
+[2026-08-03 21:03:44] DEBUG: sel_base_name = 0xProto
+[2026-08-03 21:03:44] DEBUG: Downloading 0xProto.tar.xz... (Attempt 1/5)
+[2026-08-03 21:03:47] DEBUG: File downloaded successfully.
+[2026-08-03 21:03:47] DEBUG: Extracting [0m[36m0xProto.tar.xz
+[2026-08-03 21:03:47] DEBUG: Successfully extracted [0m[36m0xProto.tar.xz
+[2026-08-03 21:03:47] DEBUG: Extracted: 0xProto.tar.xz
+[2026-08-03 21:03:47] DEBUG: Deleted: 0xProto.tar.xz
+[2026-08-03 21:03:47] DEBUG: Downloaded and extracted: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.5.0/0xProto.tar.xz to /data/data/com.termux/files/home/.fonts
+[2026-08-03 21:03:50] DEBUG: Starting desktop installation
+[2026-08-03 21:03:50] DEBUG: [1mInstalling Xfce4 Desktop
+[2026-08-03 21:03:50] DEBUG: Starting package installation for: xfce4 xfce4-goodies xfce4-pulseaudio-plugin xfce4-battery-plugin xfce4-docklike-plugin xfce4-notifyd-static xfce4-cpugraph-plugin kvantum
+[2026-08-03 21:03:50] DEBUG: Installing package: [0m[36mxfce4
+[2026-08-03 21:03:50] DEBUG: Successfully install package: [0m[36mxfce4
+[2026-08-03 21:03:50] DEBUG: Installing package: [0m[36mxfce4-goodies
+[2026-08-03 21:03:50] DEBUG: Successfully install package: [0m[36mxfce4-goodies
+[2026-08-03 21:03:50] DEBUG: Installing package: [0m[36mxfce4-pulseaudio-plugin
+[2026-08-03 21:03:50] DEBUG: Successfully install package: [0m[36mxfce4-pulseaudio-plugin
+[2026-08-03 21:03:50] DEBUG: Installing package: [0m[36mxfce4-battery-plugin
+[2026-08-03 21:03:51] DEBUG: Successfully install package: [0m[36mxfce4-battery-plugin
+[2026-08-03 21:03:51] DEBUG: Installing package: [0m[36mxfce4-docklike-plugin
+[2026-08-03 21:03:51] DEBUG: Successfully install package: [0m[36mxfce4-docklike-plugin
+[2026-08-03 21:03:51] DEBUG: Installing package: [0m[36mxfce4-notifyd-static
+[2026-08-03 21:03:51] DEBUG: Successfully install package: [0m[36mxfce4-notifyd-static
+[2026-08-03 21:03:51] DEBUG: Installing package: [0m[36mxfce4-cpugraph-plugin
+[2026-08-03 21:03:51] DEBUG: Successfully install package: [0m[36mxfce4-cpugraph-plugin
+[2026-08-03 21:03:51] DEBUG: Installing package: [0m[36mkvantum
+[2026-08-03 21:03:51] DEBUG: Successfully install package: [0m[36mkvantum
+[2026-08-03 21:03:51] DEBUG: Starting package installation for: file-roller pavucontrol gnome-font-viewer evince galculator xorg-xrdb
+[2026-08-03 21:03:51] DEBUG: Installing package: [0m[36mfile-roller
+[2026-08-03 21:03:51] DEBUG: Successfully install package: [0m[36mfile-roller
+[2026-08-03 21:03:51] DEBUG: Installing package: [0m[36mpavucontrol
+[2026-08-03 21:03:51] DEBUG: Successfully install package: [0m[36mpavucontrol
+[2026-08-03 21:03:51] DEBUG: Installing package: [0m[36mgnome-font-viewer
+[2026-08-03 21:03:52] DEBUG: Successfully install package: [0m[36mgnome-font-viewer
+[2026-08-03 21:03:52] DEBUG: Installing package: [0m[36mevince
+[2026-08-03 21:03:52] DEBUG: Successfully install package: [0m[36mevince
+[2026-08-03 21:03:52] DEBUG: Installing package: [0m[36mgalculator
+[2026-08-03 21:03:52] DEBUG: Successfully install package: [0m[36mgalculator
+[2026-08-03 21:03:52] DEBUG: Installing package: [0m[36mxorg-xrdb
+[2026-08-03 21:03:52] DEBUG: Successfully install package: [0m[36mxorg-xrdb
+[2026-08-03 21:03:52] DEBUG: de_startup = startxfce4
+[2026-08-03 21:03:52] DEBUG: de_name = xfce
+[2026-08-03 21:03:52] DEBUG: themes_folder = /data/data/com.termux/files/home/.themes
+[2026-08-03 21:03:52] DEBUG: icons_folder = /data/data/com.termux/files/home/.icons
+[2026-08-03 21:03:52] DEBUG: Desktop installation process done
+[2026-08-03 21:03:52] DEBUG: installed_browser = firefox
+[2026-08-03 21:03:52] DEBUG: Starting package installation for: firefox
+[2026-08-03 21:03:52] DEBUG: Installing package: [0m[36mfirefox
+[2026-08-03 21:03:53] DEBUG: Successfully install package: [0m[36mfirefox
+[2026-08-03 21:03:53] DEBUG: installed_ide = geany
+[2026-08-03 21:03:53] DEBUG: Starting package installation for: geany
+[2026-08-03 21:03:53] DEBUG: Installing package: [0m[36mgeany
+[2026-08-03 21:03:53] DEBUG: Failed to install package: [0m[36mgeany. [0m[33mTrying again... (1)
+[2026-08-03 21:03:56] DEBUG: Installing package: [0m[36mgeany
+[2026-08-03 21:04:00] DEBUG: Successfully install package: [0m[36mgeany
+[2026-08-03 21:04:00] DEBUG: installed_media_player = mpv
+[2026-08-03 21:04:00] DEBUG: Starting package installation for: mpv
+[2026-08-03 21:04:00] DEBUG: Installing package: [0m[36mmpv
+[2026-08-03 21:04:03] DEBUG: Successfully install package: [0m[36mmpv
+[2026-08-03 21:04:03] DEBUG: installed_photo_editor = skip
+[2026-08-03 21:04:03] DEBUG: [0m[36mSkipping Photo Editor Installation...
+[2026-08-03 21:04:05] DEBUG: installed_wine = skip
+[2026-08-03 21:04:06] DEBUG: [0m[36mSkipping wine Installation...
+[2026-08-03 21:04:06] DEBUG: [1mInstalling xfce Style: [0m[36m1
+[2026-08-03 21:04:06] DEBUG: Starting theme installation
+[2026-08-03 21:04:06] DEBUG: [1mConfiguring Theme: [0m[36mBasic Style
+[2026-08-03 21:04:06] DEBUG: Starting package installation for: gnome-themes-extra gtk2-engines-murrine
+[2026-08-03 21:04:06] DEBUG: Installing package: [0m[36mgnome-themes-extra
+[2026-08-03 21:04:06] DEBUG: Successfully install package: [0m[36mgnome-themes-extra
+[2026-08-03 21:04:06] DEBUG: Installing package: [0m[36mgtk2-engines-murrine
+[2026-08-03 21:04:06] DEBUG: Successfully install package: [0m[36mgtk2-engines-murrine
+[2026-08-03 21:04:09] DEBUG: [1mConfiguring Wallpapers...
+[2026-08-03 21:04:09] DEBUG: Downloading wallpaper.tar.gz... (Attempt 1/5)
+[2026-08-03 21:04:10] DEBUG: File downloaded successfully.
+[2026-08-03 21:04:10] DEBUG: Extracting [0m[36mwallpaper.tar.gz
+[2026-08-03 21:04:10] DEBUG: Successfully extracted [0m[36mwallpaper.tar.gz
+[2026-08-03 21:04:10] DEBUG: Extracted: wallpaper.tar.gz
+[2026-08-03 21:04:10] DEBUG: Deleted: wallpaper.tar.gz
+[2026-08-03 21:04:10] DEBUG: Downloaded and extracted: https://raw.githubusercontent.com/sabamdarif/termux-desktop/refs/heads/setup-files/setup-files/xfce/look_1/wallpaper.tar.gz to /data/data/com.termux/files/usr/share/backgrounds/
+[2026-08-03 21:04:10] DEBUG: [1mConfiguring Icon Pack...
+[2026-08-03 21:04:10] DEBUG: Starting package installation for: gdk-pixbuf
+[2026-08-03 21:04:10] DEBUG: Installing package: [0m[36mgdk-pixbuf
+[2026-08-03 21:04:10] DEBUG: Successfully install package: [0m[36mgdk-pixbuf
+[2026-08-03 21:04:10] DEBUG: Downloading icon.tar.gz... (Attempt 1/5)
+[2026-08-03 21:04:17] DEBUG: File downloaded successfully.
+[2026-08-03 21:04:17] DEBUG: Extracting [0m[36micon.tar.gz
+[2026-08-03 21:04:37] DEBUG: Successfully extracted [0m[36micon.tar.gz
+[2026-08-03 21:04:37] DEBUG: Extracted: icon.tar.gz
+[2026-08-03 21:04:38] DEBUG: Deleted: icon.tar.gz
+[2026-08-03 21:04:38] DEBUG: Downloaded and extracted: https://raw.githubusercontent.com/sabamdarif/termux-desktop/refs/heads/setup-files/setup-files/xfce/look_1/icon.tar.gz to /data/data/com.termux/files/home/.icons
+[2026-08-03 21:04:38] DEBUG: Creating icon cache...
+[2026-08-03 21:04:39] DEBUG: Creating icon cache...
+[2026-08-03 21:04:40] DEBUG: Creating icon cache...
+[2026-08-03 21:04:40] DEBUG: Creating icon cache...
+[2026-08-03 21:04:40] DEBUG: Creating icon cache...
+[2026-08-03 21:04:41] DEBUG: Creating icon cache...
+[2026-08-03 21:04:41] DEBUG: Creating icon cache...
+[2026-08-03 21:04:42] DEBUG: Creating icon cache...
+[2026-08-03 21:04:42] DEBUG: Creating icon cache...
+[2026-08-03 21:04:42] DEBUG: Creating icon cache...
+[2026-08-03 21:04:42] DEBUG: Creating icon cache...
+[2026-08-03 21:04:42] DEBUG: Creating icon cache...
+[2026-08-03 21:04:42] DEBUG: Creating icon cache...
+[2026-08-03 21:04:43] DEBUG: [1mInstalling Theme...
+[2026-08-03 21:04:43] DEBUG: Downloading theme.tar.gz... (Attempt 1/5)
+[2026-08-03 21:04:45] DEBUG: File downloaded successfully.
+[2026-08-03 21:04:45] DEBUG: Extracting [0m[36mtheme.tar.gz
+[2026-08-03 21:04:45] DEBUG: Successfully extracted [0m[36mtheme.tar.gz
+[2026-08-03 21:04:45] DEBUG: Extracted: theme.tar.gz
+[2026-08-03 21:04:45] DEBUG: Deleted: theme.tar.gz
+[2026-08-03 21:04:45] DEBUG: Downloaded and extracted: https://raw.githubusercontent.com/sabamdarif/termux-desktop/refs/heads/setup-files/setup-files/xfce/look_1/theme.tar.gz to /data/data/com.termux/files/home/.themes
+[2026-08-03 21:04:45] DEBUG: Creating backup of old config...
+[2026-08-03 21:05:00] DEBUG: Applying Custom Configuration...
+[2026-08-03 21:05:00] DEBUG: Created directory: /data/data/com.termux/files/home/.config
+[2026-08-03 21:05:00] DEBUG: Downloading config.tar.gz... (Attempt 1/5)
+[2026-08-03 21:05:01] DEBUG: File downloaded successfully.
+[2026-08-03 21:05:01] DEBUG: Extracting [0m[36mconfig.tar.gz
+[2026-08-03 21:05:01] DEBUG: Successfully extracted [0m[36mconfig.tar.gz
+[2026-08-03 21:05:01] DEBUG: Extracted: config.tar.gz
+[2026-08-03 21:05:01] DEBUG: Deleted: config.tar.gz
+[2026-08-03 21:05:01] DEBUG: Downloaded and extracted: https://raw.githubusercontent.com/sabamdarif/termux-desktop/refs/heads/setup-files/setup-files/xfce/look_1/config.tar.gz to /data/data/com.termux/files/home/.config/
+[2026-08-03 21:05:01] DEBUG: [1m Installing Additional Packages If Required...[0m
+[2026-08-03 21:05:01] DEBUG: style_answer = 1
+[2026-08-03 21:05:01] DEBUG: [0m[36mSkipping Extra Wallpapers Setup...
+[2026-08-03 21:05:01] DEBUG: distro_add_answer = y
+[2026-08-03 21:05:02] DEBUG: [1mConfiguring Linux Distro Container
+[2026-08-03 21:05:02] DEBUG: Downloading /data/data/com.termux/files/home/distro-container-setup... (Attempt 1/5)
+[2026-08-03 21:05:02] DEBUG: File downloaded successfully.
+[2026-08-03 21:05:02] DEBUG: Setiing up distro related paths
+[2026-08-03 21:05:02] DEBUG: [1mSetting up [0m[36mproot-distro
+[2026-08-03 21:05:02] DEBUG: Starting package installation for: proot-distro
+[2026-08-03 21:05:02] DEBUG: Installing package: [0m[36mproot-distro
+[2026-08-03 21:05:09] DEBUG: Successfully install package: [0m[36mproot-distro
+[2026-08-03 21:05:09] DEBUG: [1mSetting up Selected Linux Distro: [0m[36mubuntu
+[2026-08-03 21:05:09] DEBUG: selected_distro = ubuntu
+[2026-08-03 21:07:50] DEBUG: selected_distro_type = proot
+[2026-08-03 21:07:50] DEBUG: [1mUpdating ubuntu And Installing Required Packages
+[2026-08-03 21:15:35] DEBUG: [1mFixing proot distro Sound Problem...
+[2026-08-03 21:15:35] DEBUG: [1mInstalling package: [0m[36mpulseaudio
+[2026-08-03 21:19:29] DEBUG: pulseaudio [0m[32minstalled successfully
+[2026-08-03 21:19:29] DEBUG: Deleted: install_audio_related_packs.sh
+[2026-08-03 21:19:29] DEBUG: pd_audio_config_answer = y
+[2026-08-03 21:19:29] DEBUG: pd_useradd_answer = y
+[2026-08-03 21:19:29] DEBUG: user_name = speed
+[2026-08-03 21:19:29] DEBUG: pd_pass_type = 1
+[2026-08-03 21:19:29] DEBUG: pass = root
+[2026-08-03 21:19:36] DEBUG: [1mConfiguring Hardware Acceleration
+[2026-08-03 21:19:36] DEBUG: enable_hw_acc = y
+[2026-08-03 21:19:36] DEBUG: Downloading /data/data/com.termux/files/home/enable-hw-acceleration... (Attempt 1/5)
+[2026-08-03 21:19:36] DEBUG: File downloaded successfully.
+[2026-08-03 21:19:37] DEBUG: GPU_NAME = mali
+[2026-08-03 21:19:37] DEBUG: Remove old driver packages and files if installed...
+[2026-08-03 21:19:37] DEBUG: Starting package removal for: vulkan-wrapper-android virglrenderer virglrenderer-android angle-android mesa-vulkan-icd-freedreno mesa-zink-vulkan-icd-freedreno mesa-vulkan-icd-freedreno-dri3
+[2026-08-03 21:19:37] DEBUG: Package [0m[36mvulkan-wrapper-android[0m[32m is not installed. Skipping...[0m
+[2026-08-03 21:19:37] DEBUG: Package [0m[36mvirglrenderer[0m[32m is not installed. Skipping...[0m
+[2026-08-03 21:19:37] DEBUG: Package [0m[36mvirglrenderer-android[0m[32m is not installed. Skipping...[0m
+[2026-08-03 21:19:37] DEBUG: Package [0m[36mangle-android[0m[32m is not installed. Skipping...[0m
+[2026-08-03 21:19:37] DEBUG: Package [0m[36mmesa-vulkan-icd-freedreno[0m[32m is not installed. Skipping...[0m
+[2026-08-03 21:19:37] DEBUG: Package [0m[36mmesa-zink-vulkan-icd-freedreno[0m[32m is not installed. Skipping...[0m
+[2026-08-03 21:19:37] DEBUG: Package [0m[36mmesa-vulkan-icd-freedreno-dri3[0m[32m is not installed. Skipping...[0m
+[2026-08-03 21:19:37] DEBUG: [1mInstalling vulkan-wrapper-android Driver...
+[2026-08-03 21:19:37] DEBUG: Downloading vulkan-wrapper-android.deb... (Attempt 1/5)
+[2026-08-03 21:19:38] DEBUG: File downloaded successfully.
+[2026-08-03 21:19:40] DEBUG: Deleted: vulkan-wrapper-android.deb
+[2026-08-03 21:19:40] DEBUG: exp_termux_vulkan_hw_answer = vulkan_wrapper_android
+[2026-08-03 21:19:40] DEBUG: Starting package installation for: mesa-zink virglrenderer-mesa-zink vulkan-loader-generic angle-android virglrenderer-android
+[2026-08-03 21:19:40] DEBUG: Installing package: [0m[36mmesa-zink
+[2026-08-03 21:19:49] DEBUG: Successfully install package: [0m[36mmesa-zink
+[2026-08-03 21:19:49] DEBUG: Installing package: [0m[36mvirglrenderer-mesa-zink
+[2026-08-03 21:19:51] DEBUG: Successfully install package: [0m[36mvirglrenderer-mesa-zink
+[2026-08-03 21:19:51] DEBUG: Installing package: [0m[36mvulkan-loader-generic
+[2026-08-03 21:19:51] DEBUG: Successfully install package: [0m[36mvulkan-loader-generic
+[2026-08-03 21:19:51] DEBUG: Installing package: [0m[36mangle-android
+[2026-08-03 21:19:54] DEBUG: Successfully install package: [0m[36mangle-android
+[2026-08-03 21:19:54] DEBUG: Installing package: [0m[36mvirglrenderer-android
+[2026-08-03 21:19:56] DEBUG: Successfully install package: [0m[36mvirglrenderer-android
+[2026-08-03 21:19:56] DEBUG: Starting package installation for: clvk
+[2026-08-03 21:19:56] DEBUG: Installing package: [0m[36mclvk
+[2026-08-03 21:20:08] DEBUG: Successfully install package: [0m[36mclvk
+[2026-08-03 21:20:08] DEBUG: termux_hw_answer = zink
+[2026-08-03 21:20:08] DEBUG: pd_hw_answer = zink
+[2026-08-03 21:20:08] DEBUG: Deleted: /data/data/com.termux/files/home/enable-hw-acceleration
+[2026-08-03 21:20:08] DEBUG: /data/data/com.termux/files/home  
+[2026-08-03 21:20:08] DEBUG: [1mSetting up shell for ubuntu...
+[2026-08-03 21:20:09] DEBUG: [1mInstalling package: [0m[36mgit
+[2026-08-03 21:20:33] DEBUG: git [0m[32minstalled successfully
+[2026-08-03 21:20:33] DEBUG: [1mInstalling package: [0m[36mzsh
+[2026-08-03 21:20:57] DEBUG: zsh [0m[32minstalled successfully
+[2026-08-03 21:20:57] DEBUG: [1mInstalling package: [0m[36mwget
+[2026-08-03 21:21:07] DEBUG: wget [0m[32minstalled successfully
+[2026-08-03 21:21:08] DEBUG: Deleted: pd_zsh_install.sh
+[2026-08-03 21:21:08] DEBUG: Configuring Terminal Utility For ubuntu...
+[2026-08-03 21:21:09] DEBUG: [1mInstalling package: [0m[36mzoxide
+[2026-08-03 21:21:19] DEBUG: zoxide [0m[32minstalled successfully
+[2026-08-03 21:21:19] DEBUG: [1mInstalling package: [0m[36mbat
+[2026-08-03 21:21:34] DEBUG: bat [0m[32minstalled successfully
+[2026-08-03 21:21:34] DEBUG: [1mInstalling package: [0m[36mwget
+[2026-08-03 21:21:38] DEBUG: wget [0m[32minstalled successfully
+[2026-08-03 21:21:38] DEBUG: [1mInstalling package: [0m[36mgpg
+[2026-08-03 21:22:01] DEBUG: gpg [0m[32minstalled successfully
+[2026-08-03 21:22:01] DEBUG: [1mInstalling package: [0m[36mfzf
+[2026-08-03 21:22:10] DEBUG: fzf [0m[32minstalled successfully
+[2026-08-03 21:22:11] DEBUG: [1mInstalling package: [0m[36meza
+[2026-08-03 21:22:20] DEBUG: eza [0m[32minstalled successfully
+[2026-08-03 21:22:20] DEBUG: [1mInstalling package: [0m[36mfastfetch
+[2026-08-03 21:22:32] DEBUG: fastfetch [0m[32minstalled successfully
+[2026-08-03 21:22:32] DEBUG: [1mInstalling package: [0m[36mnala
+[2026-08-03 21:23:28] DEBUG: nala [0m[32minstalled successfully
+[2026-08-03 21:23:28] DEBUG: Deleted: pd_setup.sh
+[2026-08-03 21:23:28] DEBUG: [1mCreating distro app manager...
+[2026-08-03 21:23:28] DEBUG: Starting package installation for: zenity
+[2026-08-03 21:23:28] DEBUG: Installing package: [0m[36mzenity
+[2026-08-03 21:23:29] DEBUG: Successfully install package: [0m[36mzenity
+[2026-08-03 21:23:29] DEBUG: Created directory: /data/data/com.termux/files/usr/share/applications/pd_added
+[2026-08-03 21:23:29] DEBUG: Created directory: /data/data/com.termux/files/usr/opt/add2menu
+[2026-08-03 21:23:29] DEBUG: Downloading /data/data/com.termux/files/usr/opt/add2menu/add2menu.py... (Attempt 1/5)
+[2026-08-03 21:23:29] DEBUG: File downloaded successfully.
+[2026-08-03 21:23:29] DEBUG: Downloading /data/data/com.termux/files/usr/opt/add2menu/add2menu_legacy... (Attempt 1/5)
+[2026-08-03 21:23:30] DEBUG: File downloaded successfully.
+[2026-08-03 21:23:30] DEBUG: Downloading /data/data/com.termux/files/usr/share/applications/org.sabamdarif.termux.add2menu.desktop... (Attempt 1/5)
+[2026-08-03 21:23:30] DEBUG: File downloaded successfully.
+[2026-08-03 21:23:31] DEBUG: Adding some useful repos...
+[2026-08-03 21:23:31] DEBUG: [1mInstalling package: [0m[36mwget
+[2026-08-03 21:23:35] DEBUG: wget [0m[32minstalled successfully
+[2026-08-03 21:23:35] DEBUG: [1mInstalling package: [0m[36mgpg
+[2026-08-03 21:23:38] DEBUG: gpg [0m[32minstalled successfully
+[2026-08-03 21:23:38] DEBUG: [1mInstalling package: [0m[36mapt-transport-https
+[2026-08-03 21:23:46] DEBUG: apt-transport-https [0m[32minstalled successfully
+[2026-08-03 21:23:47] DEBUG: Deleted: run_add_useful_repos.sh
+[2026-08-03 21:23:47] DEBUG: Installing some distro specfic required packages
+[2026-08-03 21:23:48] DEBUG: [1mInstalling package: [0m[36mzlib1g
+[2026-08-03 21:23:51] DEBUG: zlib1g [0m[32minstalled successfully
+[2026-08-03 21:23:51] DEBUG: [1mInstalling package: [0m[36mzlib1g-dev
+[2026-08-03 21:24:22] DEBUG: zlib1g-dev [0m[32minstalled successfully
+[2026-08-03 21:24:22] DEBUG: [1mInstalling package: [0m[36mfuse
+[2026-08-03 21:24:34] DEBUG: fuse [0m[32minstalled successfully
+[2026-08-03 21:24:34] DEBUG: [1mInstalling package: [0m[36mxdg-utils
+[2026-08-03 21:26:45] DEBUG: xdg-utils [0m[32minstalled successfully
+[2026-08-03 21:26:45] DEBUG: [1mInstalling package: [0m[36mapt-file
+[2026-08-03 21:26:48] DEBUG: apt-file [0m[32minstalled successfully
+[2026-08-03 21:26:48] DEBUG: [1mInstalling package: [0m[36mdbus
+[2026-08-03 21:26:52] DEBUG: dbus [0m[32minstalled successfully
+[2026-08-03 21:26:52] DEBUG: [1mInstalling package: [0m[36mdbus-x11
+[2026-08-03 21:27:02] DEBUG: dbus-x11 [0m[32minstalled successfully
+[2026-08-03 21:27:02] DEBUG: [1mInstalling package: [0m[36mlibnss3
+[2026-08-03 21:27:16] DEBUG: libnss3 [0m[32minstalled successfully
+[2026-08-03 21:27:16] DEBUG: [1mInstalling package: [0m[36mlibgtk-3-0
+[2026-08-03 21:27:58] DEBUG: libgtk-3-0 [0m[32minstalled successfully
+[2026-08-03 21:27:58] DEBUG: [1mInstalling package: [0m[36mlibx11-xcb1
+[2026-08-03 21:28:01] DEBUG: libx11-xcb1 [0m[32minstalled successfully
+[2026-08-03 21:28:01] DEBUG: [1mInstalling package: [0m[36mlibxext6
+[2026-08-03 21:28:04] DEBUG: libxext6 [0m[32minstalled successfully
+[2026-08-03 21:28:04] DEBUG: [1mInstalling package: [0m[36mlibxrender1
+[2026-08-03 21:28:07] DEBUG: libxrender1 [0m[32minstalled successfully
+[2026-08-03 21:28:07] DEBUG: [1mInstalling package: [0m[36mlibxrandr2
+[2026-08-03 21:28:11] DEBUG: libxrandr2 [0m[32minstalled successfully
+[2026-08-03 21:28:11] DEBUG: [1mInstalling package: [0m[36mlibxi6
+[2026-08-03 21:28:14] DEBUG: libxi6 [0m[32minstalled successfully
+[2026-08-03 21:28:14] DEBUG: [1mInstalling package: [0m[36mlibxtst6
+[2026-08-03 21:28:18] DEBUG: libxtst6 [0m[32minstalled successfully
+[2026-08-03 21:28:18] DEBUG: [1mInstalling package: [0m[36mlibatk1.0-0
+[2026-08-03 21:28:24] DEBUG: libatk1.0-0 [0m[32minstalled successfully
+[2026-08-03 21:28:24] DEBUG: [1mInstalling package: [0m[36mlibatk-bridge2.0-0
+[2026-08-03 21:28:30] DEBUG: libatk-bridge2.0-0 [0m[32minstalled successfully
+[2026-08-03 21:28:30] DEBUG: [1mInstalling package: [0m[36mlibglib2.0-0
+[2026-08-03 21:28:37] DEBUG: libglib2.0-0 [0m[32minstalled successfully
+[2026-08-03 21:28:37] DEBUG: [1mInstalling package: [0m[36mlibglib2.0-bin
+[2026-08-03 21:28:47] DEBUG: libglib2.0-bin [0m[32minstalled successfully
+[2026-08-03 21:28:47] DEBUG: [1mInstalling package: [0m[36mlibpango-1.0-0
+[2026-08-03 21:28:51] DEBUG: libpango-1.0-0 [0m[32minstalled successfully
+[2026-08-03 21:28:51] DEBUG: [1mInstalling package: [0m[36mlibcairo2
+[2026-08-03 21:28:54] DEBUG: libcairo2 [0m[32minstalled successfully
+[2026-08-03 21:28:54] DEBUG: [1mInstalling package: [0m[36mlibfreetype6
+[2026-08-03 21:28:57] DEBUG: libfreetype6 [0m[32minstalled successfully
+[2026-08-03 21:28:57] DEBUG: [1mInstalling package: [0m[36mlibfontconfig1
+[2026-08-03 21:29:01] DEBUG: libfontconfig1 [0m[32minstalled successfully
+[2026-08-03 21:29:01] DEBUG: [1mInstalling package: [0m[36mlibcups2
+[2026-08-03 21:29:07] DEBUG: libcups2 [0m[32minstalled successfully
+[2026-08-03 21:29:07] DEBUG: [1mInstalling package: [0m[36mlibdbus-1-3
+[2026-08-03 21:29:11] DEBUG: libdbus-1-3 [0m[32minstalled successfully
+[2026-08-03 21:29:11] DEBUG: [1mInstalling package: [0m[36mlibdrm2
+[2026-08-03 21:29:14] DEBUG: libdrm2 [0m[32minstalled successfully
+[2026-08-03 21:29:14] DEBUG: [1mInstalling package: [0m[36mlibgbm1
+[2026-08-03 21:29:17] DEBUG: libgbm1 [0m[32minstalled successfully
+[2026-08-03 21:29:18] DEBUG: [1mInstalling package: [0m[36mlibxcomposite1
+[2026-08-03 21:29:21] DEBUG: libxcomposite1 [0m[32minstalled successfully
+[2026-08-03 21:29:21] DEBUG: [1mInstalling package: [0m[36mlibxdamage1
+[2026-08-03 21:29:24] DEBUG: libxdamage1 [0m[32minstalled successfully
+[2026-08-03 21:29:24] DEBUG: [1mInstalling package: [0m[36mlibxcb-dri3-0
+[2026-08-03 21:29:28] DEBUG: libxcb-dri3-0 [0m[32minstalled successfully
+[2026-08-03 21:29:28] DEBUG: [1mInstalling package: [0m[36mlibxshmfence1
+[2026-08-03 21:29:31] DEBUG: libxshmfence1 [0m[32minstalled successfully
+[2026-08-03 21:29:31] DEBUG: Deleted: some_required_pack.sh
+[2026-08-03 21:29:32] DEBUG: [1m ubuntu container setup successfully
+[2026-08-03 21:29:32] DEBUG: Deleted: /data/data/com.termux/files/home/distro-container-setup
+[2026-08-03 21:29:32] DEBUG: /data/data/com.termux/files/home y 
+[2026-08-03 21:29:32] DEBUG: Starting package installation for: xorg-xhost
+[2026-08-03 21:29:32] DEBUG: Installing package: [0m[36mxorg-xhost
+[2026-08-03 21:29:34] DEBUG: Successfully install package: [0m[36mxorg-xhost
+[2026-08-03 21:29:34] DEBUG: [1mConfiguring Termux:X11
+[2026-08-03 21:29:34] DEBUG: Starting package installation for: termux-x11-nightly
+[2026-08-03 21:29:34] DEBUG: Installing package: [0m[36mtermux-x11-nightly
+[2026-08-03 21:29:35] DEBUG: Successfully install package: [0m[36mtermux-x11-nightly
+[2026-08-03 21:29:35] DEBUG: enable_mic = n
+[2026-08-03 21:29:36] DEBUG: gui_mode = termux_x11
+[2026-08-03 21:29:36] DEBUG: display_number = 0
+[2026-08-03 21:29:36] DEBUG: [0m[36m[1mConfiguring Terminal Utility For Termux...
+[2026-08-03 21:29:36] DEBUG: Starting package installation for: bat eza zoxide fastfetch openssh fzf git-delta
+[2026-08-03 21:29:36] DEBUG: Installing package: [0m[36mbat
+[2026-08-03 21:29:39] DEBUG: Successfully install package: [0m[36mbat
+[2026-08-03 21:29:39] DEBUG: Installing package: [0m[36meza
+[2026-08-03 21:29:41] DEBUG: Successfully install package: [0m[36meza
+[2026-08-03 21:29:41] DEBUG: Installing package: [0m[36mzoxide
+[2026-08-03 21:29:42] DEBUG: Successfully install package: [0m[36mzoxide
+[2026-08-03 21:29:42] DEBUG: Installing package: [0m[36mfastfetch
+[2026-08-03 21:29:44] DEBUG: Successfully install package: [0m[36mfastfetch
+[2026-08-03 21:29:44] DEBUG: Installing package: [0m[36mopenssh
+[2026-08-03 21:29:44] DEBUG: Successfully install package: [0m[36mopenssh
+[2026-08-03 21:29:44] DEBUG: Installing package: [0m[36mfzf
+[2026-08-03 21:29:46] DEBUG: Successfully install package: [0m[36mfzf
+[2026-08-03 21:29:46] DEBUG: Installing package: [0m[36mgit-delta
+[2026-08-03 21:29:49] DEBUG: Successfully install package: [0m[36mgit-delta
+[2026-08-03 21:29:49] DEBUG: Starting package installation for: nala
+[2026-08-03 21:29:49] DEBUG: Installing package: [0m[36mnala
+[2026-08-03 21:30:03] DEBUG: Successfully install package: [0m[36mnala
+[2026-08-03 21:30:03] DEBUG: Starting backup for: /data/data/com.termux/files/usr/etc/motd
+[2026-08-03 21:30:03] DEBUG: Backing up /data/data/com.termux/files/usr/etc/motd
+[2026-08-03 21:30:03] DEBUG: /data/data/com.termux/files/usr/etc/motd /data/data/com.termux/files/usr/etc/motd-03-08-2026.bak
+[2026-08-03 21:30:03] DEBUG: Starting backup for: /data/data/com.termux/files/usr/etc/motd-playstore
+[2026-08-03 21:30:03] DEBUG: Backing up /data/data/com.termux/files/usr/etc/motd-playstore
+[2026-08-03 21:30:03] DEBUG: /data/data/com.termux/files/usr/etc/motd-playstore /data/data/com.termux/files/usr/etc/motd-playstore-03-08-2026.bak
+[2026-08-03 21:30:03] DEBUG: Starting backup for: /data/data/com.termux/files/usr/etc/motd.sh
+[2026-08-03 21:30:03] DEBUG: Backing up /data/data/com.termux/files/usr/etc/motd.sh
+[2026-08-03 21:30:03] DEBUG: /data/data/com.termux/files/usr/etc/motd.sh /data/data/com.termux/files/usr/etc/motd.sh-03-08-2026.bak
+[2026-08-03 21:30:03] DEBUG: Downloading /data/data/com.termux/files/usr/etc/motd.sh... (Attempt 1/5)
+[2026-08-03 21:30:04] DEBUG: File downloaded successfully.
+[2026-08-03 21:30:04] DEBUG: Starting backup for: /data/data/com.termux/files/usr/etc/termux-login.sh
+[2026-08-03 21:30:04] DEBUG: Backing up /data/data/com.termux/files/usr/etc/termux-login.sh
+[2026-08-03 21:30:04] DEBUG: /data/data/com.termux/files/usr/etc/termux-login.sh /data/data/com.termux/files/usr/etc/termux-login.sh-03-08-2026.bak
+[2026-08-03 21:30:04] DEBUG: Starting backup for: /data/data/com.termux/files/home/.termux/colors.properties /data/data/com.termux/files/home/.termux/termux.properties /data/data/com.termux/files/home/.aliases /data/data/com.termux/files/home/.nanorc
+[2026-08-03 21:30:04] DEBUG: Path /data/data/com.termux/files/home/.termux/colors.properties does not exist
+[2026-08-03 21:30:04] DEBUG: Backing up /data/data/com.termux/files/home/.termux/termux.properties
+[2026-08-03 21:30:04] DEBUG: /data/data/com.termux/files/home/.termux/termux.properties /data/data/com.termux/files/home/.termux/termux.properties-03-08-2026.bak
+[2026-08-03 21:30:04] DEBUG: Path /data/data/com.termux/files/home/.aliases does not exist
+[2026-08-03 21:30:04] DEBUG: Path /data/data/com.termux/files/home/.nanorc does not exist
+[2026-08-03 21:30:04] DEBUG: Created directory: /data/data/com.termux/files/home/.config/fastfetch
+[2026-08-03 21:30:04] DEBUG: Downloading /data/data/com.termux/files/home/.config/fastfetch/config.jsonc... (Attempt 1/5)
+[2026-08-03 21:30:05] DEBUG: File downloaded successfully.
+[2026-08-03 21:30:05] DEBUG: Downloading /data/data/com.termux/files/home/.termux/termux.properties... (Attempt 1/5)
+[2026-08-03 21:30:05] DEBUG: File downloaded successfully.
+[2026-08-03 21:30:05] DEBUG: Downloading /data/data/com.termux/files/home/.aliases... (Attempt 1/5)
+[2026-08-03 21:30:06] DEBUG: File downloaded successfully.
+[2026-08-03 21:30:06] DEBUG: Downloading /data/data/com.termux/files/home/.nanorc... (Attempt 1/5)
+[2026-08-03 21:30:06] DEBUG: File downloaded successfully.
+[2026-08-03 21:30:06] DEBUG: Downloading /data/data/com.termux/files/home/.termux/colors.properties... (Attempt 1/5)
+[2026-08-03 21:30:06] DEBUG: File downloaded successfully.
+[2026-08-03 21:30:06] DEBUG: Downloading /data/data/com.termux/files/usr/bin/termux-ssh... (Attempt 1/5)
+[2026-08-03 21:30:07] DEBUG: File downloaded successfully.
+[2026-08-03 21:30:07] DEBUG: Downloading /data/data/com.termux/files/usr/bin/termux-fastest-repo... (Attempt 1/5)
+[2026-08-03 21:30:07] DEBUG: File downloaded successfully.
+[2026-08-03 21:30:07] DEBUG: Downloading /data/data/com.termux/files/usr/bin/termux-color... (Attempt 1/5)
+[2026-08-03 21:30:08] DEBUG: File downloaded successfully.
+[2026-08-03 21:30:08] DEBUG: Downloading /data/data/com.termux/files/usr/bin/termux-nf... (Attempt 1/5)
+[2026-08-03 21:30:09] DEBUG: File downloaded successfully.
+[2026-08-03 21:30:09] DEBUG: Created directory: /data/data/com.termux/files/home/.config/git/conf.d
+[2026-08-03 21:30:09] DEBUG: Downloading /data/data/com.termux/files/home/.config/git/conf.d... (Attempt 1/5)
+[2026-08-03 21:30:09] DEBUG: Deleted: /data/data/com.termux/files/home/.config/git/conf.d
+[2026-08-03 21:30:09] DEBUG: File downloaded successfully.
+[2026-08-03 21:30:09] DEBUG: Starting backup for: /data/data/com.termux/files/home/.zshrc
+[2026-08-03 21:30:09] DEBUG: Backup /data/data/com.termux/files/home/.zshrc-03-08-2026.bak already exists
+[2026-08-03 21:30:10] DEBUG: terminal_utility_setup_answer = y
+[2026-08-03 21:30:10] DEBUG: Setting up AppStore...
+[2026-08-03 21:30:10] DEBUG: Downloading termux-appstore_1.1.0_aarch64.deb... (Attempt 1/5)
+[2026-08-03 21:30:11] DEBUG: File downloaded successfully.
+[2026-08-03 21:30:11] DEBUG: Do you want to run a speed test to find the fastest repo for you?
+[2026-08-03 21:32:15] DEBUG: [0m[36mSkipping this step[0m
+[2026-08-03 21:32:15] DEBUG: Confirmation: Do you want to continue - response: n
+[2026-08-03 21:32:15] DEBUG: [1mUpdating System....
+[2026-08-03 21:32:28] DEBUG: Deleted: termux-appstore_1.1.0_aarch64.deb
+[2026-08-03 21:32:28] DEBUG: de_on_startup = n
+[2026-08-03 21:32:28] DEBUG: Checking Termux:X11 and xfce setup or not...
+[2026-08-03 21:32:29] DEBUG: Found tx11start file.
+[2026-08-03 21:32:29] DEBUG: Starting Termux:X11 for checkup...
+[2026-08-03 21:32:39] DEBUG: #!/data/data/com.termux/files/usr/bin/bash
+
+source /data/data/com.termux/files/usr/etc/termux-desktop/common_functions
+
+if [[ ! -f "/data/data/com.termux/files/usr/etc/termux-desktop/configuration.conf" ]]; then
+print_failed " Configuration file /data/data/com.termux/files/usr/etc/termux-desktop/configuration.conf not found"
+exit 0
+fi
+# shellcheck disable=SC1090
+source "/data/data/com.termux/files/usr/etc/termux-desktop/configuration.conf"
+
+initialize_server_cmd="virgl_test_server --use-egl-surfaceless --use-gles"
+
+# This code block is taken from:- https://github.com/termux/proot-distro/blob/master/proot-distro.sh#L172C1-L184C1
+TRACER_PID=$(grep TracerPid "/proc/$$/status" | cut -d $'\t' -f 2)
+if [ "$TRACER_PID" != 0 ]; then
+TRACER_NAME=$(grep Name "/proc/${TRACER_PID}/status" | cut -d $'\t' -f 2)
+if [ "$TRACER_NAME" = "proot" ]; then
+print_msg
+print_failed "tx11start command should not be executed under PRoot.${W}"
+print_msg
+exit 1
+fi
+unset TRACER_NAME
+fi
+unset TRACER_PID
+
+    # Initialize flags
+    use_nogpu=false
+    use_nodbus=false
+    use_legacy=false
+    use_debug=false
+    de_startup="startxfce4"
+
+    # Function to show help
+    function show_tx11start_help() {
+cat <<HELP_EOF
+tx11start                               - start Termux:X11 with GPU acceleration
+tx11start --nogpu                       - start without GPU acceleration
+tx11start --nodbus                      - start without dbus
+tx11start --legacy                      - start with -legacy-drawing
+tx11start --debug                       - show debug log
+tx11start --xstartup "xstartup-name"    - launch another desktop environment
+HELP_EOF
+exit 0
+}
+
+    # Parse arguments
+    while (($# >= 1)); do
+      case "$1" in
+      --help)
+        show_tx11start_help
+        ;;
+      --xstartup | -xstartup)
+          shift
+          de_startup="$1"
+          echo "$de_startup" > "/data/data/com.termux/files/home/.xstartup"
+          ;;
+      --nogpu | --no-gpu)
+        use_nogpu=true
+        ;;
+      --nodbus | --no-dbus)
+        use_nodbus=true
+        ;;
+      --legacy)
+        use_legacy=true
+        ;;
+      --debug)
+        use_debug=true
+        ;;
+      *)
+        echo "Invalid option: $1"
+        show_tx11start_help
+        ;;
+      esac
+      shift
+    done
+
+    # Kill existing Termux X11 processes
+    pkill -f com.termux.x11 >/dev/null 2>&1
+    pkill -9 "$de_startup" >/dev/null 2>&1
+
+    # Ensure XDG_RUNTIME_DIR exists
+    export XDG_RUNTIME_DIR=/data/data/com.termux/files/usr/tmp
+    mkdir -p "$XDG_RUNTIME_DIR"
+
+    # Export DISPLAY variable
+    export DISPLAY=:0
+
+    # Start pulseaudio unless --help was given
+if [[ "$1" != "--help" && "$1" != "-h" ]]; then
+  termux-wake-lock
+
+  # Kill any existing pulseaudio gracefully first, then wait briefly
+  # before force-killing, so we don't leave inconsistent state behind.
+  if $use_debug; then
+    pulseaudio --kill 2>&1 || true
+  else
+    pulseaudio --kill >/dev/null 2>&1 || true
+  fi
+
+  for i in 1 2 3; do
+    pulseaudio --check >/dev/null 2>&1 || break
+    sleep 0.5
+  done
+  pkill -9 pulseaudio >/dev/null 2>&1 || true
+
+  if $use_debug; then
+    rm -rf "/data/data/com.termux/files/home/.config/pulse/"*-runtime/
+rm -rf "$TMPDIR/pulse/"
+  else
+    rm -rf "/data/data/com.termux/files/home/.config/pulse/"*-runtime/ >/dev/null 2>&1
+rm -rf "$TMPDIR/pulse/" >/dev/null 2>&1
+  fi
+
+  if $use_debug; then
+    pulseaudio --start --exit-idle-time=-1
+pacmd load-module module-native-protocol-tcp auth-ip-acl=127.0.0.1 auth-anonymous=1
+  else
+    pulseaudio --start --exit-idle-time=-1 >/dev/null 2>&1
+pacmd load-module module-native-protocol-tcp auth-ip-acl=127.0.0.1 auth-anonymous=1 >/dev/null 2>&1
+  fi
+
+  # pulseaudio --start forks into the background — give it a few
+  # seconds to actually come up instead of checking immediately.
+  pulse_ready=false
+  for i in 1 2 3 4 5; do
+    if pulseaudio --check >/dev/null 2>&1; then
+      pulse_ready=true
+      break
+    fi
+    sleep 1
+  done
+
+  if ! $pulse_ready; then
+      print_failed "pulseaudio failed to start." >&2
+      pgrep -a pulseaudio >&2 || true
+    exit 1
+  fi
+
+  if [[ "$enable_mic" == "y" ]]; then
+  if $use_debug; then
+  pactl load-module module-sles-source
+  else
+  pactl load-module module-sles-source >/dev/null 2>&1
+  fi
+  fi
+fi
+
+    # Set environment variables if NOT using --nogpu
+    if ! $use_nogpu; then
+      export MESA_NO_ERROR=1 GALLIUM_DRIVER=zink MESA_GL_VERSION_OVERRIDE=4.3COMPAT MESA_GLES_VERSION_OVERRIDE=3.2 ZINK_DESCRIPTORS=lazy VK_ICD_FILENAMES=/data/data/com.termux/files/usr/share/vulkan/icd.d/wrapper_icd.aarch64.json MESA_VK_WSI_PRESENT_MODE=mailbox MESA_VK_WSI_DEBUG=blit MESA_SHADER_CACHE=512MB MESA_SHADER_CACHE_DISABLE=false vblank_mode=0
+      if [[ -n "${initialize_server_cmd// /}" ]]; then
+        if $use_debug; then
+          eval "$initialize_server_cmd" &
+        else
+          eval "$initialize_server_cmd" >/dev/null 2>&1 &
+        fi
+      fi
+  else
+        export LIBGL_ALWAYS_SOFTWARE=1 MESA_LOADER_DRIVER_OVERRIDE=llvmpipe GALLIUM_DRIVER=llvmpipe
+    fi
+
+    sleep 1
+
+    # Construct X11 command
+    # x11_cmd="XDG_RUNTIME_DIR=${XDG_RUNTIME_DIR} termux-x11 :0" # Comment this because i found that the sound doesn't working if i set this XDG_RUNTIME_DIR=${XDG_RUNTIME_DIR}
+     if $use_nogpu; then
+         x11_cmd="LIBGL_ALWAYS_SOFTWARE=1 termux-x11 :0"
+     else
+         x11_cmd="termux-x11 :0"
+     fi
+
+    if $use_legacy; then
+      x11_cmd+=" -legacy-drawing"
+    fi
+
+    # Start X11
+    if $use_debug; then
+      eval "$x11_cmd" &
+    else
+      eval "$x11_cmd" >/dev/null 2>&1 &
+    fi
+    sleep 1
+
+    # Start X11 Main Activity
+    if $use_debug; then
+      am start --user 0 -n com.termux.x11/com.termux.x11.MainActivity
+    else
+      am start --user 0 -n com.termux.x11/com.termux.x11.MainActivity >/dev/null 2>&1
+    fi
+    sleep 1
+
+    # Start the desktop environment
+    if $use_nodbus; then
+      if $use_debug; then
+        env DISPLAY=:0 XDG_CONFIG_DIRS=/data/data/com.termux/files/usr/etc/xdg $de_startup &
+      else
+        env DISPLAY=:0 XDG_CONFIG_DIRS=/data/data/com.termux/files/usr/etc/xdg $de_startup >/dev/null 2>&1 &
+      fi
+    else
+      if $use_debug; then
+        env DISPLAY=:0 XDG_CONFIG_DIRS=/data/data/com.termux/files/usr/etc/xdg dbus-launch --exit-with-session $de_startup &
+      else
+        env DISPLAY=:0 XDG_CONFIG_DIRS=/data/data/com.termux/files/usr/etc/xdg dbus-launch --exit-with-session $de_startup >/dev/null 2>&1 &
+      fi
+    fi
+
+# Kill xfce4-screensaver if running
+sleep 5
+process_id=$(ps aux | grep '[x]fce4-screensaver' | awk '{print $2}')
+if [[ -n "$process_id" ]]; then
+if $use_debug; then
+kill "$process_id"
+else
+     kill "$process_id" > /dev/null 2>&1
+fi
+fi
+[2026-08-03 21:32:40] DEBUG: No Termux:X11 process found
+[2026-08-03 21:32:40] DEBUG: No xfce process found, attempting to reinstall...
+[2026-08-03 21:32:40] DEBUG: Starting desktop installation
+[2026-08-03 21:32:40] DEBUG: [1mInstalling Xfce4 Desktop
+[2026-08-03 21:32:40] DEBUG: Starting package installation for: xfce4 xfce4-goodies xfce4-pulseaudio-plugin xfce4-battery-plugin xfce4-docklike-plugin xfce4-notifyd-static xfce4-cpugraph-plugin kvantum
+[2026-08-03 21:32:40] DEBUG: Installing package: [0m[36mxfce4
+[2026-08-03 21:32:40] DEBUG: Successfully install package: [0m[36mxfce4
+[2026-08-03 21:32:40] DEBUG: Installing package: [0m[36mxfce4-goodies
+[2026-08-03 21:32:40] DEBUG: Successfully install package: [0m[36mxfce4-goodies
+[2026-08-03 21:32:40] DEBUG: Installing package: [0m[36mxfce4-pulseaudio-plugin
+[2026-08-03 21:32:41] DEBUG: Successfully install package: [0m[36mxfce4-pulseaudio-plugin
+[2026-08-03 21:32:41] DEBUG: Installing package: [0m[36mxfce4-battery-plugin
+[2026-08-03 21:32:41] DEBUG: Successfully install package: [0m[36mxfce4-battery-plugin
+[2026-08-03 21:32:41] DEBUG: Installing package: [0m[36mxfce4-docklike-plugin
+[2026-08-03 21:32:41] DEBUG: Successfully install package: [0m[36mxfce4-docklike-plugin
+[2026-08-03 21:32:41] DEBUG: Installing package: [0m[36mxfce4-notifyd-static
+[2026-08-03 21:32:41] DEBUG: Successfully install package: [0m[36mxfce4-notifyd-static
+[2026-08-03 21:32:41] DEBUG: Installing package: [0m[36mxfce4-cpugraph-plugin
+[2026-08-03 21:32:41] DEBUG: Successfully install package: [0m[36mxfce4-cpugraph-plugin
+[2026-08-03 21:32:41] DEBUG: Installing package: [0m[36mkvantum
+[2026-08-03 21:32:41] DEBUG: Successfully install package: [0m[36mkvantum
+[2026-08-03 21:32:41] DEBUG: Starting package installation for: file-roller pavucontrol gnome-font-viewer evince galculator xorg-xrdb
+[2026-08-03 21:32:41] DEBUG: Installing package: [0m[36mfile-roller
+[2026-08-03 21:32:41] DEBUG: Successfully install package: [0m[36mfile-roller
+[2026-08-03 21:32:41] DEBUG: Installing package: [0m[36mpavucontrol
+[2026-08-03 21:32:42] DEBUG: Successfully install package: [0m[36mpavucontrol
+[2026-08-03 21:32:42] DEBUG: Installing package: [0m[36mgnome-font-viewer
+[2026-08-03 21:32:42] DEBUG: Successfully install package: [0m[36mgnome-font-viewer
+[2026-08-03 21:32:42] DEBUG: Installing package: [0m[36mevince
+[2026-08-03 21:32:42] DEBUG: Successfully install package: [0m[36mevince
+[2026-08-03 21:32:42] DEBUG: Installing package: [0m[36mgalculator
+[2026-08-03 21:32:42] DEBUG: Successfully install package: [0m[36mgalculator
+[2026-08-03 21:32:42] DEBUG: Installing package: [0m[36mxorg-xrdb
+[2026-08-03 21:32:42] DEBUG: Successfully install package: [0m[36mxorg-xrdb
+[2026-08-03 21:32:42] DEBUG: de_startup = startxfce4
+[2026-08-03 21:32:42] DEBUG: de_name = xfce
+[2026-08-03 21:32:42] DEBUG: themes_folder = /data/data/com.termux/files/home/.themes
+[2026-08-03 21:32:43] DEBUG: icons_folder = /data/data/com.termux/files/home/.icons
+[2026-08-03 21:32:43] DEBUG: Desktop installation process done
+[2026-08-03 21:32:43] DEBUG: xfce failed to install or start, still after re-installation
+[2026-08-03 21:32:43] DEBUG: [1mInstalling File Manager Tools...
+[2026-08-03 21:32:43] DEBUG: Starting backup for: /data/data/com.termux/files/home/.local/share/nautilus/scripts
+[2026-08-03 21:32:43] DEBUG: Path /data/data/com.termux/files/home/.local/share/nautilus/scripts does not exist
+[2026-08-03 21:32:43] DEBUG: Created directory: /data/data/com.termux/files/home/.local/share/nautilus/scripts
+[2026-08-03 21:32:43] DEBUG: Starting package installation for: axel bzip2 cabextract cpio cups curl ffmpeg file-roller filelight go-findimagedupes ghex git gnupg gzip id3v2 imagemagick inetutils libarchive exiftool liblzma sox lrzip lz4 lzip lzop mediainfo mp3gain nmap openssl optipng p7zip pandoc perl poppler qpdf rdfind rhash squashfs-tools-ng tar tesseract texlive-bin unar unrar unzip xclip xorriso xz-utils zip zpaq zstd
+[2026-08-03 21:32:43] DEBUG: Installing package: [0m[36maxel
+[2026-08-03 21:32:44] DEBUG: Successfully install package: [0m[36maxel
+[2026-08-03 21:32:44] DEBUG: Installing package: [0m[36mbzip2
+[2026-08-03 21:32:44] DEBUG: Successfully install package: [0m[36mbzip2
+[2026-08-03 21:32:44] DEBUG: Installing package: [0m[36mcabextract
+[2026-08-03 21:32:45] DEBUG: Successfully install package: [0m[36mcabextract
+[2026-08-03 21:32:45] DEBUG: Installing package: [0m[36mcpio
+[2026-08-03 21:32:46] DEBUG: Successfully install package: [0m[36mcpio
+[2026-08-03 21:32:47] DEBUG: Installing package: [0m[36mcups
+[2026-08-03 21:32:47] DEBUG: Successfully install package: [0m[36mcups
+[2026-08-03 21:32:47] DEBUG: Installing package: [0m[36mcurl
+[2026-08-03 21:32:47] DEBUG: Successfully install package: [0m[36mcurl
+[2026-08-03 21:32:47] DEBUG: Installing package: [0m[36mffmpeg
+[2026-08-03 21:32:47] DEBUG: Successfully install package: [0m[36mffmpeg
+[2026-08-03 21:32:47] DEBUG: Installing package: [0m[36mfile-roller
+[2026-08-03 21:32:47] DEBUG: Successfully install package: [0m[36mfile-roller
+[2026-08-03 21:32:47] DEBUG: Installing package: [0m[36mfilelight
+[2026-08-03 21:33:34] DEBUG: Successfully install package: [0m[36mfilelight
+[2026-08-03 21:33:34] DEBUG: Installing package: [0m[36mgo-findimagedupes
+[2026-08-03 21:33:36] DEBUG: Successfully install package: [0m[36mgo-findimagedupes
+[2026-08-03 21:33:36] DEBUG: Installing package: [0m[36mghex
+[2026-08-03 21:33:40] DEBUG: Successfully install package: [0m[36mghex
+[2026-08-03 21:33:40] DEBUG: Installing package: [0m[36mgit
+[2026-08-03 21:33:40] DEBUG: Successfully install package: [0m[36mgit
+[2026-08-03 21:33:40] DEBUG: Installing package: [0m[36mgnupg
+[2026-08-03 21:33:40] DEBUG: Successfully install package: [0m[36mgnupg
+[2026-08-03 21:33:40] DEBUG: Installing package: [0m[36mgzip
+[2026-08-03 21:33:40] DEBUG: Successfully install package: [0m[36mgzip
+[2026-08-03 21:33:40] DEBUG: Installing package: [0m[36mid3v2
+[2026-08-03 21:33:42] DEBUG: Successfully install package: [0m[36mid3v2
+[2026-08-03 21:33:42] DEBUG: Installing package: [0m[36mimagemagick
+[2026-08-03 21:33:49] DEBUG: Successfully install package: [0m[36mimagemagick
+[2026-08-03 21:33:49] DEBUG: Installing package: [0m[36minetutils
+[2026-08-03 21:33:50] DEBUG: Successfully install package: [0m[36minetutils
+[2026-08-03 21:33:50] DEBUG: Installing package: [0m[36mlibarchive
+[2026-08-03 21:33:50] DEBUG: Successfully install package: [0m[36mlibarchive
+[2026-08-03 21:33:50] DEBUG: Installing package: [0m[36mexiftool
+[2026-08-03 21:33:52] DEBUG: Successfully install package: [0m[36mexiftool
+[2026-08-03 21:33:52] DEBUG: Installing package: [0m[36mliblzma
+[2026-08-03 21:33:52] DEBUG: Successfully install package: [0m[36mliblzma
+[2026-08-03 21:33:52] DEBUG: Installing package: [0m[36msox
+[2026-08-03 21:33:54] DEBUG: Successfully install package: [0m[36msox
+[2026-08-03 21:33:54] DEBUG: Installing package: [0m[36mlrzip
+[2026-08-03 21:33:56] DEBUG: Successfully install package: [0m[36mlrzip
+[2026-08-03 21:33:56] DEBUG: Installing package: [0m[36mlz4
+[2026-08-03 21:33:56] DEBUG: Successfully install package: [0m[36mlz4
+[2026-08-03 21:33:56] DEBUG: Installing package: [0m[36mlzip
+[2026-08-03 21:33:57] DEBUG: Successfully install package: [0m[36mlzip
+[2026-08-03 21:33:57] DEBUG: Installing package: [0m[36mlzop
+[2026-08-03 21:33:58] DEBUG: Successfully install package: [0m[36mlzop
+[2026-08-03 21:33:58] DEBUG: Installing package: [0m[36mmediainfo
+[2026-08-03 21:34:01] DEBUG: Successfully install package: [0m[36mmediainfo
+[2026-08-03 21:34:01] DEBUG: Installing package: [0m[36mmp3gain
+[2026-08-03 21:34:02] DEBUG: Successfully install package: [0m[36mmp3gain
+[2026-08-03 21:34:02] DEBUG: Installing package: [0m[36mnmap
+[2026-08-03 21:34:05] DEBUG: Successfully install package: [0m[36mnmap
+[2026-08-03 21:34:05] DEBUG: Installing package: [0m[36mopenssl
+[2026-08-03 21:34:05] DEBUG: Successfully install package: [0m[36mopenssl
+[2026-08-03 21:34:05] DEBUG: Installing package: [0m[36moptipng
+[2026-08-03 21:34:06] DEBUG: Successfully install package: [0m[36moptipng
+[2026-08-03 21:34:06] DEBUG: Installing package: [0m[36mp7zip
+[2026-08-03 21:34:09] DEBUG: Successfully install package: [0m[36mp7zip
+[2026-08-03 21:34:10] DEBUG: Installing package: [0m[36mpandoc
+[2026-08-03 21:34:27] DEBUG: Successfully install package: [0m[36mpandoc
+[2026-08-03 21:34:27] DEBUG: Installing package: [0m[36mperl
+[2026-08-03 21:34:28] DEBUG: Successfully install package: [0m[36mperl
+[2026-08-03 21:34:28] DEBUG: Installing package: [0m[36mpoppler
+[2026-08-03 21:34:28] DEBUG: Successfully install package: [0m[36mpoppler
+[2026-08-03 21:34:28] DEBUG: Installing package: [0m[36mqpdf
+[2026-08-03 21:34:29] DEBUG: Successfully install package: [0m[36mqpdf
+[2026-08-03 21:34:29] DEBUG: Installing package: [0m[36mrdfind
+[2026-08-03 21:34:30] DEBUG: Successfully install package: [0m[36mrdfind
+[2026-08-03 21:34:30] DEBUG: Installing package: [0m[36mrhash
+[2026-08-03 21:34:31] DEBUG: Successfully install package: [0m[36mrhash
+[2026-08-03 21:34:31] DEBUG: Installing package: [0m[36msquashfs-tools-ng
+[2026-08-03 21:34:31] DEBUG: Successfully install package: [0m[36msquashfs-tools-ng
+[2026-08-03 21:34:31] DEBUG: Installing package: [0m[36mtar
+[2026-08-03 21:34:32] DEBUG: Successfully install package: [0m[36mtar
+[2026-08-03 21:34:32] DEBUG: Installing package: [0m[36mtesseract
+[2026-08-03 21:34:36] DEBUG: Successfully install package: [0m[36mtesseract
+[2026-08-03 21:34:36] DEBUG: Installing package: [0m[36mtexlive-bin
+[2026-08-03 21:34:36] DEBUG: Successfully install package: [0m[36mtexlive-bin
+[2026-08-03 21:34:36] DEBUG: Installing package: [0m[36munar
+[2026-08-03 21:34:40] DEBUG: Successfully install package: [0m[36munar
+[2026-08-03 21:34:40] DEBUG: Installing package: [0m[36munrar
+[2026-08-03 21:34:41] DEBUG: Successfully install package: [0m[36munrar
+[2026-08-03 21:34:41] DEBUG: Installing package: [0m[36munzip
+[2026-08-03 21:34:42] DEBUG: Successfully install package: [0m[36munzip
+[2026-08-03 21:34:42] DEBUG: Installing package: [0m[36mxclip
+[2026-08-03 21:34:43] DEBUG: Successfully install package: [0m[36mxclip
+[2026-08-03 21:34:43] DEBUG: Installing package: [0m[36mxorriso
+[2026-08-03 21:34:44] DEBUG: Successfully install package: [0m[36mxorriso
+[2026-08-03 21:34:44] DEBUG: Installing package: [0m[36mxz-utils
+[2026-08-03 21:34:45] DEBUG: Successfully install package: [0m[36mxz-utils
+[2026-08-03 21:34:45] DEBUG: Installing package: [0m[36mzip
+[2026-08-03 21:34:46] DEBUG: Successfully install package: [0m[36mzip
+[2026-08-03 21:34:46] DEBUG: Installing package: [0m[36mzpaq
+[2026-08-03 21:34:47] DEBUG: Successfully install package: [0m[36mzpaq
+[2026-08-03 21:34:47] DEBUG: Installing package: [0m[36mzstd
+[2026-08-03 21:34:47] DEBUG: Successfully install package: [0m[36mzstd
+[2026-08-03 21:36:11] DEBUG: Deleted: nautilus-scripts
+[2026-08-03 21:36:11] DEBUG: fm_tools = y
+[2026-08-03 21:36:11] DEBUG: Adding USB auto filemanager bookmarks utility...
+[2026-08-03 21:36:11] DEBUG: Downloading /data/data/com.termux/files/usr/bin/usb-bookmarks... (Attempt 1/5)
+[2026-08-03 21:36:12] DEBUG: File downloaded successfully.
+[2026-08-03 21:36:12] DEBUG: Created directory: /data/data/com.termux/files/home/.config/autostart
+[2026-08-03 21:36:12] DEBUG: Adding auto completions...
+[2026-08-03 21:36:12] DEBUG: Downloading _setup-termux-desktop... (Attempt 1/5)
+[2026-08-03 21:36:12] DEBUG: File downloaded successfully.
+[2026-08-03 21:36:13] DEBUG: Downloading _tx11start... (Attempt 1/5)
+[2026-08-03 21:36:13] DEBUG: File downloaded successfully.
+[2026-08-03 21:36:13] DEBUG: Downloading _tx11stop... (Attempt 1/5)
+[2026-08-03 21:36:13] DEBUG: File downloaded successfully.
+[2026-08-03 21:36:13] DEBUG: Downloading _ubuntu... (Attempt 1/5)
+[2026-08-03 21:36:14] DEBUG: File downloaded successfully.
+[2026-08-03 21:36:14] DEBUG: Downloading _add2menu... (Attempt 1/5)
+[2026-08-03 21:36:14] DEBUG: File downloaded successfully.
+[2026-08-03 21:36:14] DEBUG: Downloading setup-termux-desktop... (Attempt 1/5)
+[2026-08-03 21:36:15] DEBUG: File downloaded successfully.
+[2026-08-03 21:36:15] DEBUG: Downloading tx11start... (Attempt 1/5)
+[2026-08-03 21:36:16] DEBUG: File downloaded successfully.
+[2026-08-03 21:36:16] DEBUG: Downloading tx11stop... (Attempt 1/5)
+[2026-08-03 21:36:16] DEBUG: File downloaded successfully.
+[2026-08-03 21:36:16] DEBUG: Downloading ubuntu... (Attempt 1/5)
+[2026-08-03 21:36:17] DEBUG: File downloaded successfully.
+[2026-08-03 21:36:17] DEBUG: Downloading add2menu... (Attempt 1/5)
+[2026-08-03 21:36:17] DEBUG: File downloaded successfully.
+[2026-08-03 21:36:17] DEBUG: Cleaning up the cache...
+[2026-08-03 21:36:19] DEBUG: Adding setup-termux-desktop installer to bin
+[2026-08-03 21:36:19] DEBUG: Downloading /data/data/com.termux/files/usr/bin/setup-termux-desktop... (Attempt 1/5)
+[2026-08-03 21:36:21] DEBUG: File downloaded successfully.
+[2026-08-03 21:36:21] DEBUG: Installation Successfull...
+[2026-08-03 21:36:23] DEBUG: [0m[36m[1mNow Restart Termux [0m[32m(Must)
+[2026-08-03 21:36:23] DEBUG: [0m[36m[1mSome basic commands:-[0m[32m(Must know)
+[2026-08-03 21:36:23] DEBUG: tx11start        to start the gui with termux:x11
+[2026-08-03 21:36:23] DEBUG: tx11stop         to stop the gui with termux:x11
+[2026-08-03 21:36:23] DEBUG: tx11stop -f      to force stop the gui with termux:x11
+[2026-08-03 21:36:23] DEBUG: [0m[36mrun:- ubuntu, to login into ubuntu
+[2026-08-03 21:36:23] DEBUG: [0m[36m[1mSee Uses Section in github to know how to use it
+[2026-08-03 21:36:23] DEBUG: [0m[36mURL:- [0m[34mhttps://github.com/sabamdarif/termux-desktop/blob/main/README.md#5-usage-instructions
+[2026-08-03 21:36:23] DEBUG: [0m[36m[1mSee how to use Linux distro container
+[2026-08-03 21:36:23] DEBUG: [0m[36mURL:- [0m[34mhttps://github.com/sabamdarif/termux-desktop/blob/main/docs/proot-container.md
+[2026-08-03 21:36:23] DEBUG: ####################################
+########## Termux Desktop ##########
+####################################
+
+########################
+#  -:Device Details:-  #
+########################
+#
+# Termux Version: 0.119.0-beta.3-
+# Device Model: motorola moto g54 5G
+# Android Version: 15
+# Free Space: 3.0G
+# Total Ram: 7.4Gi
+# Architecture: aarch64
+# System CPU Architecture: arm64-v8a,armeabi-v7a,armeabi
+# Processor: Mediatek MT6855V/AZA
+# GPU: mali
+# Network Condition: Unknown,Unknown
+# Country: ,
+#
+########################
+
+##### Please don't modify this file otherwise some functions won't work #####
+
+chosen_shell_name=zsh
+selected_zsh_theme_name=td_zsh
+sel_base_name=0xProto
+de_startup=startxfce4
+de_name=xfce
+themes_folder=/data/data/com.termux/files/home/.themes
+icons_folder=/data/data/com.termux/files/home/.icons
+installed_browser=firefox
+installed_ide=geany
+installed_media_player=mpv
+installed_photo_editor=skip
+installed_wine=skip
+style_answer=1
+distro_add_answer=y
+selected_distro=ubuntu
+selected_distro_type=proot
+pd_audio_config_answer=y
+pd_useradd_answer=y
+user_name=speed
+pd_pass_type=1
+pass=root
+enable_hw_acc=y
+GPU_NAME=mali
+exp_termux_vulkan_hw_answer=vulkan_wrapper_android
+termux_hw_answer=zink
+pd_hw_answer=zink
+enable_mic=n
+gui_mode=termux_x11
+display_number=0
+terminal_utility_setup_answer=y
+de_on_startup=n
+fm_tools=y
+[2026-08-04 21:18:27] DEBUG: [0m[32mTermux:X11 Stopped Successfully [0m
+[2026-08-04 21:18:27] DEBUG: gui services killed successfully

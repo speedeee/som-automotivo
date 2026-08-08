@@ -1,0 +1,1 @@
+alias ligar-radio='pkill -9 node 2>/dev/null; pkill -9 cloudflared 2>/dev/null; cd ~/minha-radio && node server.js > /dev/null 2>&1 & sleep 2 && cloudflared tunnel --url http://localhost:3000 2>&1 | grep -o "https://[a-zA-Z0-9-]*\.trycloudflare\.com"'

@@ -1,0 +1,10 @@
+
+export DISPLAY=:1
+sed -i  "s|<name>.*</name>|<name>Prismatic-Night</name>|g" ~/.config/openbox/rc.xml
+xcompmgr &
+feh --randomize --bg-fill /data/data/com.termux/files/usr/share/app/wall/* &
+cd /data/data/com.termux/files/usr/share/app/ && python app.py &
+(sleep 2 && ~/.config/polybar/docky/launch.sh &>/dev/null &) &
+exec openbox-session &
+sleep 2
+openbox --reconfigure &

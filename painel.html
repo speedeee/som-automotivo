@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Admin - SPEED STORE</title>
+    <style>
+        :root { --accent: #ff4500; --bg: #121212; --card: #1e1e1e; --text: #ffffff; }
+        body { font-family: 'Arial', sans-serif; background-color: var(--bg); color: var(--text); margin: 0; padding: 20px; }
+        .container { max-width: 600px; margin: auto; }
+        .card { background: var(--card); padding: 20px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid var(--accent); }
+        input, button { width: 100%; padding: 12px; margin-top: 10px; margin-bottom: 10px; border-radius: 5px; border: none; box-sizing: border-box; }
+        input { background: #2a2a2a; color: white; }
+        button { background: var(--accent); color: white; font-weight: bold; cursor: pointer; }
+        button:hover { opacity: 0.9; }
+        .produto-item { display: flex; justify-content: space-between; align-items: center; background: #2a2a2a; padding: 10px; margin-top: 5px; border-radius: 4px; }
+        .produto-item button { width: auto; padding: 5px 10px; background: #ff3333; margin: 0; }
+        #painel-conteudo { display: none; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Tela de Login -->
+        <div id="tela-login" class="card">
+            <h2>Painel Administrativo</h2>
+            <p>Entre com suas credenciais</p>
+            <input type="email" id="loginUser" placeholder="E-mail">
+            <input type="password" id="loginSenha" placeholder="Senha">
+            <button onclick="fazerLogin()">Entrar</button>
+        </div>
+
+        <!-- Painel de Controle (Oculto até logar) -->
+        <div id="painel-conteudo">
+            <div class="card">
+                <h2>Configurações e Contatos</h2>
+                <label>E-mail de Contato:</label>
+                <input type="text" id="cfgEmail">
+                <label>Link do TikTok:</label>
+                <input type="text" id="cfgTiktok">
+                <label>Chave Pix:</label>
+                <input type="text" id="cfgPix">
+                <label>Nova Senha (opcional):</label>
+                <input type="password" id="cfgNovaSenha" placeholder="Deixe em branco para não alterar">
+                <button onclick="salvarConfig()">Salvar Alterações</button>
+            </div>
+
+            <div class="card">
+                <h2>Gerenciar Produtos</h2>
+                <input type="text" id="prodNome" placeholder="Nome do Produto">
+                <input type="number" id="prodPreco" placeholder="Preço (Ex: 29.90)" step="0.01">
+                <input type="text" id="prodImg" placeholder="Caminho da imagem (Ex: /produto1.jpg)">
+                <button onclick="adicionarProduto()">Adicionar Produto</button>
+                
+                <h3>Produtos Cadastrados:</h3>
+                <div id="listaAdminProdutos"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let credenciais = { usuario: "", senha: "" };
+
+        async function fazerLogin() {
+            credenciais.usuario = document.getElementById('loginUser').value;
+            credenciais.senha = document.getElementById('loginSenha').value;
+
+            const res = await fetch('/api/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(credenciais)
+            });
+            const data = await res.json();
+
+            if (data.autorizado) {
+                document.getElementById('tela-login').style.display = 'none';
+                document.getElementById('painel-conteudo').style.display = 'block';
+                carregarDadosPainel();
+            } else {
+                alert('E-mail ou senha incorretos!');
+            }
+        }
+
+        async function carregarDadosPainel() {
+            const res = await fetch('/api/dados');
+            const data = await res.json();
+            
+            document.getElementById('cfgEmail').value = data.config.emailContato || '';
+            document.getElementById('cfgTiktok').value = data.config.tiktokPerfil || '';
+            document.getElementById('cfgPix').value = data.config.chavePix || '';
+
+            const lista = document.getElementById('listaAdminProdutos');
+            lista.innerHTML = '';
+            data.produtos.forEach(p => {
+                lista.innerHTML += `
+                    <div class="produto-item">
+                        <span>${p.nome} - R$ ${p.preco.toFixed(2)}</span>
+                        <button onclick="removerProduto(${p.id})">Excluir</button>
+                    </div>
+                `;
+            });
+        }
+
+        async function salvarConfig() {
+            const config = {
+                emailContato: document.getElementById('cfgEmail').value,
+                tiktokPerfil: document.getElementById('cfgTiktok').value,
+                chavePix: document.getElementById('cfgPix').value,
+                novaSenha: document.getElementById('cfgNovaSenha').value
+            };
+
+            const res = await fetch('/api/salvar', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ usuario: credenciais.usuario, senha: credenciais.senha, config })
+            });
+            const data = await res.json();
+
+            if (data.sucesso) {
+                alert('Configurações salvas com sucesso!');
+                if(config.novaSenha) credenciais.senha = config.novaSenha;
+            } else {
+                alert('Erro ao salvar.');
+            }
+        }
+
+        async function adicionarProduto() {
+            const nome = document.getElementById('prodNome').value;
+            const preco = document.getElementById('prodPreco').value;
+            const img = document.getElementById('prodImg').value;
+
+            if(!nome || !preco) {
+                alert('Preencha pelo menos o nome e o preço!');
+                return;
+            }
+
+            const res = await fetch('/api/adicionar-produto', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ usuario: credenciais.usuario, senha: credenciais.senha, nome, preco, img })
+            });
+            const data = await res.json();
+
+            if(data.sucesso) {
+                alert('Produto adicionado!');
+                document.getElementById('prodNome').value = '';
+                document.getElementById('prodPreco').value = '';
+                document.getElementById('prodImg').value = '';
+                carregarDadosPainel();
+            } else {
+                alert('Erro ao adicionar produto.');
+            }
+        }
+
+        async function removerProduto(id) {
+            if(!confirm('Tem certeza que deseja apagar este produto?')) return;
+
+            const res = await fetch(`/api/remover-produto/${id}`, { method: 'DELETE' });
+            const data = await res.json();
+
+            if(data.sucesso) {
+                alert('Produto removido!');
+                carregarDadosPainel();
+            }
+        }
+    </script>
+</body>
+</html>

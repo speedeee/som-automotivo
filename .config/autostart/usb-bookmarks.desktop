@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=USB Bookmarks Sync
+Comment=Keep File Manager bookmarks in sync with mounted USB volumes
+Exec=usb-bookmarks --watch
+X-GNOME-Autostart-enabled=true
+OnlyShowIn=XFCE;
+NoDisplay=true

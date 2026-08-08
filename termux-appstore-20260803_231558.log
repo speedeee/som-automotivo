@@ -1,0 +1,3 @@
+2026-08-03 23:15:58 - Downloading YouTube-Music-3.11.0-arm64.AppImage...
+2026-08-03 23:16:41 - File downloaded successfully.
+2026-08-03 23:16:41 - ERR trap: line 1075 exit 127: "${SELECTED_DISTRO_TYPE}"-distro login "$SELECTED_DISTRO" -- /bin/bash "/root/$script_name" 2>&1

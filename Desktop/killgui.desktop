@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Stop Desktop
+Comment=Kill or stop termux desktop
+Exec=gui --kill
+Icon=system-shutdown
+Categories=System;
+Path=
+Terminal=false
+StartupNotify=false

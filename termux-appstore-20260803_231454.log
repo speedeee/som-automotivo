@@ -1,0 +1,3 @@
+2026-08-03 23:14:54 - Downloading mGBA-0.10.5-appimage-arm64.appimage...
+2026-08-03 23:15:03 - File downloaded successfully.
+2026-08-03 23:15:04 - ERR trap: line 1075 exit 127: "${SELECTED_DISTRO_TYPE}"-distro login "$SELECTED_DISTRO" -- /bin/bash "/root/$script_name" 2>&1
