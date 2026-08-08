@@ -3,706 +3,321 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Simulador Master PRO - Som Automotivo Realista</title>
+  <title>SIMULADOR MASTER PRO</title>
   <style>
-    :root {
-      --bg-dark: #04060c;
-      --card-bg: #0b1120;
-      --border-color: #1e293b;
-      --accent-red: #ff0055;
-      --neon-cyan: #00f0ff;
-      --neon-yellow: #ffcc00;
-      --neon-green: #00ff66;
-      --led-color1: #00f0ff;
-      --led-color2: #ff0055;
-      --player-led-color: #00f0ff;
-      --caixa-bg-color: #18181b;
-      --caixa-texture: none;
-      --text-main: #f8fafc;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    body { background-color: #080c14; color: #e2e8f0; padding-bottom: 75px; }
+    header { text-align: center; padding: 15px; background: #0f172a; border-bottom: 2px solid #00f2ff; }
+    header h1 { font-size: 1.2rem; color: #ff0055; text-transform: uppercase; letter-spacing: 1px; }
+    .container { padding: 12px; max-width: 600px; margin: 0 auto; }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+    
+    .card { background: #111827; border: 1px solid #1e293b; border-radius: 10px; padding: 12px; margin-bottom: 12px; }
+    .card-title { font-size: 0.85rem; font-weight: bold; color: #00f2ff; margin-bottom: 10px; text-transform: uppercase; display: flex; align-items: center; gap: 6px; }
+    
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .field { margin-bottom: 8px; }
+    label { font-size: 0.7rem; color: #94a3b8; display: block; margin-bottom: 3px; font-weight: bold; text-transform: uppercase; }
+    select, input[type="text"], input[type="file"], input[type="color"] { width: 100%; padding: 8px; background: #0b0f19; border: 1px solid #334155; border-radius: 6px; color: #fff; font-size: 0.8rem; }
+    
+    /* Palco Virtual */
+    .stage-box { width: 100%; height: 210px; background: #05070a; border: 3px solid #00f2ff; border-radius: 12px; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; padding: 10px; }
+    .volts-display { position: absolute; top: 8px; right: 8px; background: #000; color: #ff0000; font-family: monospace; font-size: 0.8rem; padding: 2px 6px; border: 1px solid #ff0000; border-radius: 4px; }
+    .speakers-row { display: flex; gap: 10px; justify-content: center; width: 100%; }
+    .driver-item { width: 45px; height: 45px; border: 2px solid #00f2ff; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 0.55rem; color: #00f2ff; background: #0b0f19; font-weight: bold; }
+    .woofer-item { width: 75px; height: 75px; border: 3px solid #ff0055; border-radius: 50%; background: #1e293b; display: flex; align-items: center; justify-content: center; font-size: 0.65rem; color: #fff; font-weight: bold; box-shadow: 0 0 10px rgba(255,0,85,0.3); }
+    .duto-item { width: 35px; height: 35px; border: 2px solid #00f2ff; border-radius: 50%; background: #000; }
+    
+    /* Player Pioneer Display & Controles */
+    .pioneer-display { background: #000; border: 2px solid #00f2ff; border-radius: 6px; padding: 10px; text-align: center; color: #00f2ff; font-family: monospace; font-size: 0.85rem; margin-top: 8px; }
+    .player-controls { display: flex; gap: 6px; justify-content: center; margin-top: 8px; }
+    .btn-control { flex: 1; padding: 10px; background: #0b0f19; border: 1px solid #00f2ff; color: #00f2ff; font-size: 1.1rem; border-radius: 6px; cursor: pointer; text-align: center; }
+    .btn-control:active { background: #00f2ff; color: #000; }
+    .btn-action { width: 100%; padding: 10px; background: #1e293b; border: 1px solid #00f2ff; color: #00f2ff; font-weight: bold; border-radius: 6px; font-size: 0.8rem; margin-top: 8px; cursor: pointer; }
+    .btn-dj { background: #1e293b; border: 1px solid #ff0055; color: #fff; padding: 12px; border-radius: 6px; font-weight: bold; font-size: 0.75rem; text-align: center; cursor: pointer; }
 
-    body {
-      background-color: var(--bg-dark);
-      background-size: cover;
-      background-position: center;
-      background-attachment: fixed;
-      color: var(--text-main);
-      font-family: 'Segoe UI', Roboto, sans-serif;
-      margin: 0;
-      padding: 10px;
-      padding-bottom: 75px;
-    }
+    /* Playlist List */
+    .playlist-info { font-size: 0.75rem; color: #94a3b8; margin-top: 6px; word-break: break-all; }
 
-    h1 {
-      text-align: center;
-      color: var(--accent-red);
-      font-size: 16px;
-      margin: 6px 0 12px 0;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      text-shadow: 0 0 10px var(--led-color1);
-    }
-
-    .tab-bar {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: #020617;
-      border-top: 2px solid var(--border-color);
-      display: flex;
-      justify-content: space-around;
-      padding: 8px 4px;
-      z-index: 1000;
-      backdrop-filter: blur(10px);
-    }
-
-    .tab-btn {
-      background: none;
-      border: none;
-      color: #64748b;
-      font-size: 10px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 3px;
-      cursor: pointer;
-      font-weight: bold;
-      text-transform: uppercase;
-      flex: 1;
-    }
-
-    .tab-btn span { font-size: 16px; }
-
-    .tab-btn.active {
-      color: var(--neon-cyan);
-      text-shadow: 0 0 8px var(--neon-cyan);
-    }
-
-    .screen { display: none; }
-    .screen.active { display: block; animation: fadeIn 0.2s ease-in-out; }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(4px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .card {
-      background: rgba(11, 17, 32, 0.92);
-      border: 1px solid var(--border-color);
-      border-radius: 10px;
-      padding: 12px;
-      margin-bottom: 12px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.8);
-    }
-
-    .card h3 {
-      font-size: 12px;
-      color: var(--neon-cyan);
-      text-transform: uppercase;
-      margin-top: 0;
-      border-bottom: 1px solid var(--border-color);
-      padding-bottom: 6px;
-      margin-bottom: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .palco-container {
-      background: #000;
-      border: 3px solid var(--led-color1);
-      border-radius: 12px;
-      padding: 15px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 12px;
-      position: relative;
-      box-shadow: inset 0 0 30px rgba(0,0,0,0.9), 0 0 15px var(--led-color1);
-      transition: border-color 0.3s, box-shadow 0.3s;
-    }
-
-    .palco-container.led-giratorio { animation: rotateRainbow 3s linear infinite; }
-    .palco-container.led-pisca { animation: stroboEffect 0.15s infinite alternate; }
-
-    @keyframes rotateRainbow {
-      0% { filter: hue-rotate(0deg); }
-      100% { filter: hue-rotate(360deg); }
-    }
-
-    @keyframes stroboEffect {
-      0% { opacity: 0.3; }
-      100% { opacity: 1; }
-    }
-
-    .caixa-acustica {
-      background-color: var(--caixa-bg-color);
-      background-image: var(--caixa-texture);
-      background-size: cover;
-      background-position: center;
-      border: 4px solid #27272a;
-      border-radius: 10px;
-      padding: 15px;
-      width: 100%;
-      box-sizing: border-box;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 12px;
-      position: relative;
-      box-shadow: inset 0 0 25px #000;
-    }
-
-    .voltimetro-embutido {
-      position: absolute;
-      top: 8px;
-      right: 12px;
-      background: #000;
-      border: 1.5px solid #222;
-      padding: 3px 8px;
-      border-radius: 4px;
-      box-shadow: inset 0 0 8px rgba(255,0,0,0.8);
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
-
-    .voltimetro-embutido-texto {
-      font-family: 'Courier New', Courier, monospace;
-      font-size: 13px;
-      font-weight: 900;
-      color: #ff0033;
-      text-shadow: 0 0 8px #ff0000;
-      letter-spacing: 1px;
-    }
-
-    .painel-cornetas, .painel-woofers, .painel-dutos {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 10px;
-      width: 100%;
-    }
-
-    .duto-redondo {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background: radial-gradient(circle, #000 35%, #18181b 75%, #3f3f46 100%);
-      border: 3px solid var(--led-color1);
-      box-shadow: inset 0 0 8px #000, 0 0 10px var(--led-color1);
-    }
-
-    .duto-quadrado {
-      width: 90%;
-      height: 20px;
-      background: linear-gradient(180deg, #000 0%, #18181b 100%);
-      border: 2px solid var(--led-color1);
-      border-radius: 4px;
-      box-shadow: inset 0 0 10px #000, 0 0 10px var(--led-color1);
-    }
-
-    .duto-triangular {
-      width: 0;
-      height: 0;
-      border-left: 18px solid transparent;
-      border-right: 18px solid transparent;
-      border-bottom: 30px solid #111;
-      filter: drop-shadow(0 0 4px var(--led-color1));
-    }
-
-    .real-woofer {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      background: radial-gradient(circle, #27272a 15%, #09090b 55%, #18181b 85%, #000 100%);
-      border: 5px solid #3f3f46;
-      outline: 2px solid var(--led-color2);
-      box-shadow: inset 0 0 12px #000, 0 0 10px var(--led-color2);
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 8px;
-      font-weight: 900;
-      color: #e4e4e7;
-      text-transform: uppercase;
-      will-change: transform;
-      transition: transform 0.02s linear;
-    }
-
-    .real-woofer::after {
-      content: '';
-      width: 26px;
-      height: 26px;
-      border-radius: 50%;
-      background: radial-gradient(circle, #52525b 0%, #18181b 100%);
-      border: 1px solid #71717a;
-    }
-
-    .real-driver {
-      width: 55px;
-      height: 55px;
-      background: linear-gradient(135deg, #3f3f46 0%, #09090b 60%, #000 100%);
-      border: 2px solid #a1a1aa;
-      border-radius: 6px;
-      color: var(--neon-cyan);
-      font-size: 7px;
-      font-weight: bold;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      overflow: hidden;
-      box-shadow: inset -4px -4px 8px #000, 0 0 8px var(--led-color1);
-    }
-
-    .real-driver.round { border-radius: 50%; }
-    .real-driver.guia { width: 90%; height: 30px; border-radius: 4px; }
-
-    .real-driver-led-throat {
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      background: #000;
-      border: 1px solid var(--led-color1);
-      box-shadow: inset 0 0 6px var(--led-color1);
-      margin-bottom: 2px;
-    }
-
-    .player-hardware-case {
-      background: linear-gradient(180deg, #18181b 0%, #09090b 100%);
-      border: 3px solid #3f3f46;
-      border-radius: 10px;
-      padding: 10px;
-      box-shadow: inset 0 0 15px #000, 0 8px 20px rgba(0,0,0,0.9);
-      width: 100%;
-      box-sizing: border-box;
-      position: relative;
-    }
-
-    .pioneer-face { display: flex; flex-direction: column; gap: 8px; }
-
-    .pioneer-top-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-    }
-
-    .pioneer-knob-btn {
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      background: radial-gradient(circle, #52525b 10%, #18181b 70%, #000 100%);
-      border: 2px solid var(--player-led-color);
-      box-shadow: 0 0 10px var(--player-led-color), inset 0 0 5px #000;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 10px;
-      color: var(--player-led-color);
-      font-weight: bold;
-    }
-
-    .pioneer-screen-blue {
-      flex: 1;
-      background: #020b14;
-      border: 2px solid var(--player-led-color);
-      border-radius: 6px;
-      padding: 6px 10px;
-      box-shadow: inset 0 0 10px var(--player-led-color);
-      color: var(--player-led-color);
-      font-family: monospace;
-      font-size: 10px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      min-height: 40px;
-      text-shadow: 0 0 5px var(--player-led-color);
-    }
-
-    .android-screen-container {
-      background: #000;
-      border: 2px solid var(--player-led-color);
-      border-radius: 8px;
-      padding: 8px;
-      box-shadow: 0 0 12px var(--player-led-color);
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .android-display-hdr {
-      background: linear-gradient(135deg, #0f172a 0%, #020617 100%);
-      border: 1px solid var(--player-led-color);
-      border-radius: 6px;
-      padding: 8px;
-      display: flex;
-      gap: 10px;
-      align-items: center;
-    }
-
-    .android-album-art {
-      width: 45px;
-      height: 45px;
-      border-radius: 6px;
-      background: radial-gradient(circle, var(--accent-red), #000);
-      border: 1px solid #fff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 18px;
-    }
-
-    .btn-hw {
-      background: linear-gradient(180deg, #27272a 0%, #0f0f11 100%);
-      border: 1px solid #52525b;
-      color: var(--player-led-color);
-      font-size: 9px;
-      padding: 6px 10px;
-      border-radius: 4px;
-      cursor: pointer;
-      font-weight: bold;
-      flex: 1;
-      text-align: center;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.8);
-      user-select: none;
-    }
-
-    .btn-hw:active {
-      transform: translateY(1px);
-      background: var(--player-led-color);
-      color: #000;
-    }
-
-    .grid-pads {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin-top: 8px;
-    }
-    .pad {
-      padding: 15px 8px;
-      font-size: 11px;
-      font-weight: bold;
-      border: 1px solid #334155;
-      border-radius: 8px;
-      color: white;
-      cursor: pointer;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-      text-transform: uppercase;
-    }
-    .pad:active { transform: scale(0.96); }
-    .pad-red { background: linear-gradient(180deg, #e63946, #800f14); }
-    .pad-blue { background: linear-gradient(180deg, #00b4d8, #0077b6); }
-    .pad-yellow { background: linear-gradient(180deg, #ffb703, #fb8500); }
-    .pad-green { background: linear-gradient(180deg, #2a9d8f, #134e4a); }
-    .pad-purple { background: linear-gradient(180deg, #7209b7, #3a0ca3); }
-
-    label {
-      display: block;
-      font-size: 10px;
-      color: #94a3b8;
-      margin-top: 6px;
-      text-transform: uppercase;
-      font-weight: 600;
-    }
-
-    select, input[type="text"], input[type="number"], input[type="range"], input[type="color"] {
-      width: 100%;
-      padding: 8px;
-      margin-top: 3px;
-      background: #020617;
-      border: 1px solid #334155;
-      color: #fff;
-      border-radius: 6px;
-      box-sizing: border-box;
-      font-size: 11px;
-    }
-
-    .grid-2 { display: flex; gap: 8px; }
-    .grid-2 > div { flex: 1; }
-
-    .btn-xtreme {
-      width: 100%;
-      background: #1e293b;
-      color: #888;
-      border: 2px solid #334155;
-      padding: 10px;
-      font-weight: 900;
-      border-radius: 6px;
-      font-size: 12px;
-      cursor: pointer;
-      margin-top: 10px;
-      text-transform: uppercase;
-    }
-
-    .btn-xtreme.active {
-      background: linear-gradient(90deg, #ff0055, #ff5500);
-      color: #fff;
-      border-color: #ff0055;
-      box-shadow: 0 0 15px rgba(255, 0, 85, 0.8);
-    }
-
-    .playlist-box {
-      background: #020617;
-      border: 1px solid #1e293b;
-      border-radius: 6px;
-      padding: 6px;
-      max-height: 90px;
-      overflow-y: auto;
-      font-size: 10px;
-      margin-top: 6px;
-    }
+    /* Bottom Nav Navigational Bar */
+    .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; height: 60px; background: #0b0f19; border-top: 1px solid #1e293b; display: flex; justify-content: space-around; align-items: center; z-index: 1000; }
+    .nav-item { display: flex; flex-direction: column; align-items: center; color: #64748b; font-size: 0.65rem; font-weight: bold; text-decoration: none; cursor: pointer; }
+    .nav-item.active { color: #00f2ff; }
+    .nav-icon { font-size: 1.2rem; margin-bottom: 2px; }
   </style>
 </head>
 <body>
 
-  <h1>🔊 SIMULADOR MASTER PRO</h1>
+  <header>
+    <h1>🔊 SIMULADOR MASTER PRO</h1>
+  </header>
 
-  <div class="tab-bar">
-    <button class="tab-btn active" onclick="trocarAba('screen-palco', this)"><span>📻</span> Palco</button>
-    <button class="tab-btn" onclick="trocarAba('screen-caixa', this)"><span>📦</span> Caixa</button>
-    <button class="tab-btn" onclick="trocarAba('screen-efeitos', this)"><span>🎛️</span> Mesa/DSP</button>
-    <button class="tab-btn" onclick="trocarAba('screen-leds', this)"><span>💡</span> LEDs</button>
-  </div>
-
-  <div id="screen-palco" class="screen active">
-    <div class="card">
-      <h3>
-        <span>📻 PALCO DO SOM REALISTA</span>
-        <select id="quickPlayerSelect" style="width: auto; padding: 2px 6px; font-size: 10px;" onchange="trocarPlayerPeloMenu(this.value)">
-          <option value="pioneer">Pioneer Golfinho 1DIN</option>
-          <option value="android">Central Multimídia Touchscreen</option>
-          <option value="reddvd">Player DVD Red 1DIN</option>
-        </select>
-      </h3>
-
-      <div class="palco-container" id="palcoVirtual">
-        <div class="caixa-acustica" id="caixaAcustica">
-          <div class="voltimetro-embutido">
-            <span style="color:#888; font-size:7px; font-weight:bold;">VOLTS</span>
-            <span class="voltimetro-embutido-texto" id="voltsEmbutido">12.6V</span>
+  <div class="container">
+    
+    <!-- ABA 1: PALCO -->
+    <div id="tab-palco" class="tab-content active">
+      <div class="card">
+        <div class="card-title">📻 PALCO DO SOM REALISTA</div>
+        <div class="field">
+          <label>Modelo Player:</label>
+          <select><option>Pioneer Golfinho 1DIN</option><option>Central Multimídia Android 2DIN</option></select>
+        </div>
+        <div class="stage-box">
+          <div class="volts-display">VOLTS 12.6V</div>
+          <div class="speakers-row">
+            <div class="driver-item">DRIVER</div>
+            <div class="driver-item">DRIVER</div>
           </div>
-
-          <div class="painel-cornetas" id="painelCornetas"></div>
-          <div class="painel-woofers" id="painelWoofers"></div>
-          <div class="painel-dutos" id="painelDutos"></div>
+          <div class="speakers-row">
+            <div class="woofer-item">EROS</div>
+            <div class="woofer-item">EROS</div>
+          </div>
+          <div class="speakers-row">
+            <div class="duto-item"></div>
+            <div class="duto-item"></div>
+          </div>
         </div>
+        
+        <!-- DISPLAY PIONEER & CONTROLES MULTIMÍDIA -->
+        <div class="pioneer-display" id="player-display">PIONEER - 12.6V<br><span id="track-name">NENHUMA MÚSICA CARREGADA</span></div>
+        
+        <div class="player-controls">
+          <button class="btn-control" onclick="prevTrack()">⏮️</button>
+          <button class="btn-control" onclick="togglePlay()" id="btn-play">▶️</button>
+          <button class="btn-control" onclick="nextTrack()">⏭️</button>
+        </div>
+
+        <button class="btn-action">⚡ BASS BOOST XTREME (DESLIGADO)</button>
       </div>
 
-      <div style="margin-top: 12px;">
-        <div class="player-hardware-case" id="playerHardwareContainer"></div>
+      <div class="card">
+        <div class="card-title">🎵 ADICIONAR MÚSICAS / PLAYLIST</div>
+        <div class="field">
+          <label>Selecione arquivos de áudio (.mp3, .wav):</label>
+          <input type="file" id="audio-input" multiple accept="audio/*" onchange="loadPlaylist(event)">
+        </div>
+        <div class="playlist-info" id="playlist-count">Nenhum arquivo selecionado.</div>
       </div>
 
-      <button id="btnXtreme" class="btn-xtreme" onclick="alternarXtreme()">⚡ BASS BOOST XTREME (DESLIGADO)</button>
-    </div>
-
-    <div class="card">
-      <h3>📡 Controle de Longa Distância (Até 500m)</h3>
-      <div class="grid-2">
-        <div>
+      <div class="card">
+        <div class="card-title">📡 CONTROLE DE LONGA DISTÂNCIA</div>
+        <div class="field">
           <label>Marca do Controle:</label>
-          <select id="remoteBrand">
-            <option value="JFA Eletrônicos">JFA Eletrônicos K1200 / RED</option>
-            <option value="Stetsom SX2">Stetsom SX2 / Longa Distância</option>
-            <option value="Taramps TLC3000">Taramps TLC3000 / Connect</option>
-          </select>
-        </div>
-        <div>
-          <label>Status do Sinal:</label>
-          <button class="btn-hw" style="margin-top:4px; height:32px;" onclick="alert('📡 Sinal do Controle OK (Alcance: 500 Metros)!')">📶 TESTAR FREQUÊNCIA</button>
+          <select><option>JFA Eletrônicos K1200 / RED</option><option>Stetsom SX2 / 500M</option></select>
         </div>
       </div>
     </div>
 
-    <div class="card">
-      <h3>🎵 Playlist & Arquivos do Celular</h3>
-      <input type="file" id="audioFiles" multiple accept="audio/*" onchange="carregarPlaylist(event)">
-      <audio id="audioPlayer" style="display:none;" crossorigin="anonymous"></audio>
-      <div class="playlist-box" id="playlistContainer">
-        <div style="color: #64748b;">Nenhum áudio (.mp3) selecionado...</div>
+    <!-- ABA 2: CAIXA -->
+    <div id="tab-caixa" class="tab-content">
+      <div class="card">
+        <div class="card-title">📦 ESTRUTURA ACÚSTICA DA CAIXA</div>
+        <div class="grid-2">
+          <div class="field">
+            <label>Modelo de Caixa:</label>
+            <select><option>Dutada Tradicional (Reta)</option><option>Euclides / Manifold</option></select>
+          </div>
+          <div class="field">
+            <label>Tipo de Duto:</label>
+            <select><option>Redondo com LED</option><option>Régua Vertical</option></select>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">🎨 REVESTIMENTO & PINTURA</div>
+        <div class="grid-2">
+          <div class="field">
+            <label>Revestimento:</label>
+            <select><option>Padrão Grafitado</option><option>Pintura Automotiva Brilhante</option></select>
+          </div>
+          <div class="field">
+            <label>Cor Interna:</label>
+            <input type="color" value="#00f2ff">
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">🔊 ALTO-FALANTES & CORNETAS</div>
+        <div class="grid-2">
+          <div class="field">
+            <label>Marca Woofers:</label>
+            <select><option>Eros Target Bass / Hammer</option><option>Triton Shocker / AK600</option><option>Vulkano / Hard Power</option></select>
+          </div>
+          <div class="field">
+            <label>Qtd Woofers:</label>
+            <select><option>2</option><option>4</option></select>
+          </div>
+        </div>
       </div>
     </div>
+
+    <!-- ABA 3: MÓDULOS -->
+    <div id="tab-modulos" class="tab-content">
+      <div class="card">
+        <div class="card-title">🎛️ AMPLIFICADORES & MÓDULOS</div>
+        <div class="field">
+          <label>Módulo para Grave (Woofers):</label>
+          <select><option>Taramps MD 8000.1 (1 Ohm)</option><option>Stetsom Vulcan 8000 EQ</option><option>Banda Viking 7000</option></select>
+        </div>
+        <div class="field">
+          <label>Módulo para Médio/Cornetas:</label>
+          <select><option>Taramps DS 800x4 PRO</option><option>Stetsom Iron Line IR 400</option></select>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">🔋 FONTE & ALIMENTAÇÃO ELÉTRICA</div>
+        <div class="field">
+          <label>Fonte Automotiva:</label>
+          <select><option>Usina 200A Spark Digital</option><option>JFA Storm 200A</option><option>Overloud / Heavy Duty</option></select>
+        </div>
+        <div class="field">
+          <label>Banco de Baterias:</label>
+          <select><option>1x Bateria Moura Clean 100Ah</option><option>2x Baterias AGM 150Ah</option><option>Bateria Lítio LifePO4</option></select>
+        </div>
+      </div>
+    </div>
+
+    <!-- ABA 4: MESA/DSP -->
+    <div id="tab-mesadsp" class="tab-content">
+      <div class="card">
+        <div class="card-title">📣 MESA DE VINHETAS & EFEITOS DJ</div>
+        <div class="grid-2">
+          <div class="btn-dj">📯 BUZINA / AIRHORN</div>
+          <div class="btn-dj">💥 BASS DROP (GRAVE)</div>
+          <div class="btn-dj">🚨 SIRENE POLÍCIA</div>
+          <div class="btn-dj">⚡ LASER DJ</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">🎛️ PROCESSADOR DSP & MESA</div>
+        <div class="field">
+          <label>Marca da Mesa / DSP:</label>
+          <select><option>Taramps Pro 2.4S</option><option>Expert Electronics X8</option><option>Stetsom STX2448</option></select>
+        </div>
+      </div>
+    </div>
+
+    <!-- ABA 5: LEDS -->
+    <div id="tab-leds" class="tab-content">
+      <div class="card">
+        <div class="card-title">💡 CENTRAL DE LEDS RGB</div>
+        <div class="grid-2">
+          <div class="field">
+            <label>Central de LED:</label>
+            <select><option>AJK Sound Strobo Rítmico</option><option>Taramps RGB Digital</option></select>
+          </div>
+          <div class="field">
+            <label>Efeito do LED:</label>
+            <select><option>Estático</option><option>Strobo Rítmico</option><option>Vu Meter</option></select>
+          </div>
+        </div>
+        <div class="grid-2">
+          <div class="field">
+            <label>Cor LED 1:</label>
+            <input type="color" value="#00f2ff">
+          </div>
+          <div class="field">
+            <label>Cor LED 2:</label>
+            <input type="color" value="#ff0055">
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 
-  <div id="screen-caixa" class="screen">
-    <div class="card">
-      <h3>📦 Estrutura Acústica, Projeto & Marca</h3>
-      <div class="grid-2">
-        <div>
-          <label>Modelo de Caixa:</label>
-          <select id="boxStructure" onchange="atualizarPalco()">
-            <option value="dutada">Dutada Tradicional (Reta)</option>
-            <option value="labirinto">Dutada Labirinto (Grave Profundo)</option>
-            <option value="euclides">Euclides Turbo (Pancadão)</option>
-            <option value="corneteira">Corneteira Isolada (Régua)</option>
-            <option value="manifold">Manifold / Bandpass</option>
-            <option value="canhao">Canhão / T18 / Turbina</option>
-            <option value="bob">Bob Sponge / Residencial</option>
-          </select>
-        </div>
-        <div>
-          <label>Fabricante / Convertedor:</label>
-          <select id="boxMaker">
-            <option value="Sob Medida Local">Sob Medida (Lojas / Convertedor)</option>
-            <option value="Regsom Caixas">Regsom Caixas Especiais</option>
-            <option value="Bomber">Bomber Acoustic</option>
-            <option value="Falcon Design">Falcon Sound</option>
-          </select>
-        </div>
-      </div>
+  <audio id="audio-player"></audio>
 
-      <div class="grid-2">
-        <div>
-          <label>Tipo de Duto:</label>
-          <select id="dutoType" onchange="atualizarPalco()">
-            <option value="redondo">Redondo com LED</option>
-            <option value="quadrado">Régua / Retangular</option>
-            <option value="triangular">Triangular / Canto</option>
-          </select>
-        </div>
-      </div>
+  <!-- NAVEGAÇÃO DO RODAPÉ -->
+  <nav class="bottom-nav">
+    <div class="nav-item active" onclick="switchTab('palco', this)">
+      <span class="nav-icon">📻</span>
+      <span>PALCO</span>
     </div>
-
-    <div class="card">
-      <h3>🎨 Revestimento & Foto da Caixa</h3>
-      <div class="grid-2">
-        <div>
-          <label>Revestimento:</label>
-          <select id="boxMaterial" onchange="alterarMaterialCaixa()">
-            <option value="padrao">Padrão Grafitado</option>
-            <option value="couro">Couro Preto Costurado</option>
-            <option value="carbono">Vinil Fibra de Carbono 3D</option>
-            <option value="mdf">Madeira / MDF Cru</option>
-            <option value="liso">Pintura Liso Gloss</option>
-          </select>
-        </div>
-        <div>
-          <label>Cor Interna:</label>
-          <input type="color" id="caixaBgColor" value="#18181b" onchange="alterarCorCaixa()">
-        </div>
-      </div>
-      <label>📸 Foto da Galeria na Caixa:</label>
-      <input type="file" id="boxBgFile" accept="image/*" onchange="alterarFotoCaixa(event)">
+    <div class="nav-item" onclick="switchTab('caixa', this)">
+      <span class="nav-icon">📦</span>
+      <span>CAIXA</span>
     </div>
-
-    <div class="card">
-      <h3>🔊 Alto-Falantes & Cornetas</h3>
-      <div class="grid-2">
-        <div>
-          <label>Marca Woofers:</label>
-          <select id="wooferBrand" onchange="atualizarPalco()">
-            <option value="Eros">Eros Target Bass / Hammer</option>
-            <option value="Triton">Triton Shocker / Vulcano</option>
-            <option value="Hard Power">Hard Power HP</option>
-            <option value="JBL">JBL Vulcano / Tornado</option>
-            <option value="7Driver">7Driver Bass / Thunder</option>
-          </select>
-        </div>
-        <div>
-          <label>Qtd Woofers:</label>
-          <input type="number" id="wooferQty" value="2" min="1" max="8" onchange="atualizarPalco()">
-        </div>
-      </div>
-
-      <div class="grid-2">
-        <div>
-          <label>Qtd Cornetas:</label>
-          <input type="number" id="driverQty" value="2" min="0" max="8" onchange="atualizarPalco()">
-        </div>
-        <div>
-          <label>Formato Corneta:</label>
-          <select id="hornFormat" onchange="atualizarPalco()">
-            <option value="square">Jararaca / Perfil 3D</option>
-            <option value="round">Redonda / Oval</option>
-            <option value="guia">Guia de Onda Trio</option>
-          </select>
-        </div>
-      </div>
+    <div class="nav-item" onclick="switchTab('modulos', this)">
+      <span class="nav-icon">⚡</span>
+      <span>MÓDULOS</span>
     </div>
-  </div>
-
-  <div id="screen-efeitos" class="screen">
-    <div class="card">
-      <h3>🎛️ Mesa de Vinhetas & Efeitos DJ</h3>
-      <div class="grid-pads">
-        <button class="pad pad-red" onclick="tocarEfeito('airhorn')">📯 BUZINA / AIRHORN</button>
-        <button class="pad pad-blue" onclick="tocarEfeito('grave')">💥 BASS DROP (GRAVE)</button>
-        <button class="pad pad-yellow" onclick="tocarEfeito('sirene')">🚨 SIRENE POLÍCIA</button>
-        <button class="pad pad-green" onclick="tocarEfeito('laser')">⚡ LASER DJ</button>
-        <button class="pad pad-purple" onclick="tocarEfeito('paredao')">🗣️ CHAMADA PAREDÃO</button>
-        <button class="pad pad-red" onclick="tocarEfeito('maritima')">🚢 BUZINA MARÍTIMA</button>
-      </div>
+    <div class="nav-item" onclick="switchTab('mesadsp', this)">
+      <span class="nav-icon">🎛️</span>
+      <span>MESA/DSP</span>
     </div>
-
-    <div class="card">
-      <h3>🎛️ Módulo Mesa de Som DSP</h3>
-      <div class="grid-2">
-        <div>
-          <label>Marca da Mesa:</label>
-          <select id="dspBrand">
-            <option value="Taramps Expert">Taramps Pro 2.4S</option>
-            <option value="Stetsom STX">Stetsom STX2448</option>
-            <option value="Expert Electronics">Expert PX2 Connect</option>
-          </select>
-        </div>
-        <div>
-          <label>Ganho Principal:</label>
-          <input type="range" min="0" max="100" value="80">
-        </div>
-      </div>
+    <div class="nav-item" onclick="switchTab('leds', this)">
+      <span class="nav-icon">💡</span>
+      <span>LEDS</span>
     </div>
-  </div>
+  </nav>
 
-  <div id="screen-leds" class="screen">
-    <div class="card">
-      <h3>💡 Central de Efeitos LED RGB (AJK / Taramps)</h3>
-      <div class="grid-2">
-        <div>
-          <label>Central de LED:</label>
-          <select id="ledCentralBrand">
-            <option value="AJK Sound Strobo Bluetooth">AJK Sound Strobo Rítmico</option>
-            <option value="Taramps LED RGB Digital">Taramps Digital RGB Controller</option>
-          </select>
-        </div>
-        <div>
-          <label>Efeito do LED Caixa:</label>
-          <select id="ledMode" onchange="atualizarLeds()">
-            <option value="estatico">Estático</option>
-            <option value="pisca">Strobo / Sincronizado Áudio</option>
-            <option value="giratorio">Rainbow Giratório</option>
-          </select>
-        </div>
-      </div>
+  <script>
+    let playlist = [];
+    let currentTrack = 0;
+    const audioPlayer = document.getElementById('audio-player');
+    const trackNameDisplay = document.getElementById('track-name');
+    const btnPlay = document.getElementById('btn-play');
 
-      <div class="grid-2">
-        <div>
-          <label>Cor LED 1:</label>
-          <input type="color" id="ledColor1" value="#00f0ff" onchange="atualizarLeds()">
-        </div>
-        <div>
-          <label>Cor LED 2:</label>
-          <input type="color" id="ledColor2" value="#ff0055" onchange="atualizarLeds()">
-        </div>
-      </div>
+    function switchTab(tabId, element) {
+      document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+      document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
+      
+      document.getElementById('tab-' + tabId).classList.add('active');
+      element.classList.add('active');
+    }
 
-      <div class="grid-2">
-        <div>
-          <label>Cor do LED do Player:</label>
-          <input type="color" id="playerLedColor" value="#00f0ff" onchange="alterarCorPlayerLed(this.value)">
-        </div>
-      </div>
+    function loadPlaylist(event) {
+      const files = event.target.files;
+      if (files.length > 0) {
+        playlist = Array.from(files);
+        currentTrack = 0;
+        document.getElementById('playlist-count').innerText = playlist.length + ' música(s) carregada(s).';
+        playCurrentTrack();
+      }
+    }
 
-      <label>Fundo App (Foto/GIF):</label>
-      <input type="file" id="bgFile" accept="image/*" onchange="alterarFundoApp(event)">
-    </div>
-  </div>
+    function playCurrentTrack() {
+      if (playlist.length === 0) return;
+      const file = playlist[currentTrack];
+      trackNameDisplay.innerText = file.name.substring(0, 25).toUpperCase();
+      audioPlayer.src = URL.createObjectURL(file);
+      audioPlayer.play();
+      btnPlay.innerText = '⏸️';
+    }
 
-  <script src="main.js"></script>
+    function togglePlay() {
+      if (playlist.length === 0) {
+        alert('Por favor, adicione músicas primeiro no botão de seleção de arquivos!');
+        return;
+      }
+      if (audioPlayer.paused) {
+        audioPlayer.play();
+        btnPlay.innerText = '⏸️';
+      } else {
+        audioPlayer.pause();
+        btnPlay.innerText = '▶️';
+      }
+    }
+
+    function nextTrack() {
+      if (playlist.length === 0) return;
+      currentTrack = (currentTrack + 1) % playlist.length;
+      playCurrentTrack();
+    }
+
+    function prevTrack() {
+      if (playlist.length === 0) return;
+      currentTrack = (currentTrack - 1 + playlist.length) % playlist.length;
+      playCurrentTrack();
+    }
+
+    audioPlayer.onended = () => { nextTrack(); };
+  </script>
 </body>
 </html>
