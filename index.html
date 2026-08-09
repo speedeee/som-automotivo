@@ -1,1431 +1,167 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Simulador Master PRO - Som Automotivo Realista</title>
-  <style>
-    :root {
-      --bg-dark: #04060c;
-      --card-bg: #0b1120;
-      --border-color: #1e293b;
-      --accent-red: #ff0055;
-      --neon-cyan: #00f0ff;
-      --neon-yellow: #ffcc00;
-      --neon-green: #00ff66;
-      --led-color1: #00f0ff;
-      --led-color2: #ff0055;
-      --player-led-color: #00f0ff;
-      --caixa-bg-color: #18181b;
-      --caixa-texture: none;
-      --text-main: #f8fafc;
-    }
-
-    body {
-      background-color: var(--bg-dark);
-      background-size: cover;
-      background-position: center;
-      background-attachment: fixed;
-      color: var(--text-main);
-      font-family: 'Segoe UI', Roboto, sans-serif;
-      margin: 0;
-      padding: 10px;
-      padding-bottom: 75px;
-    }
-
-    h1 {
-      text-align: center;
-      color: var(--accent-red);
-      font-size: 16px;
-      margin: 6px 0 12px 0;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      text-shadow: 0 0 10px var(--led-color1);
-    }
-
-    .tab-bar {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: #020617;
-      border-top: 2px solid var(--border-color);
-      display: flex;
-      justify-content: space-around;
-      padding: 8px 4px;
-      z-index: 1000;
-      backdrop-filter: blur(10px);
-    }
-
-    .tab-btn {
-      background: none;
-      border: none;
-      color: #64748b;
-      font-size: 10px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 3px;
-      cursor: pointer;
-      font-weight: bold;
-      text-transform: uppercase;
-      flex: 1;
-    }
-
-    .tab-btn span { font-size: 16px; }
-
-    .tab-btn.active {
-      color: var(--neon-cyan);
-      text-shadow: 0 0 8px var(--neon-cyan);
-    }
-
-    .screen { display: none; }
-    .screen.active { display: block; animation: fadeIn 0.2s ease-in-out; }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(4px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .card {
-      background: rgba(11, 17, 32, 0.92);
-      border: 1px solid var(--border-color);
-      border-radius: 10px;
-      padding: 12px;
-      margin-bottom: 12px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.8);
-    }
-
-    .card h3 {
-      font-size: 12px;
-      color: var(--neon-cyan);
-      text-transform: uppercase;
-      margin-top: 0;
-      border-bottom: 1px solid var(--border-color);
-      padding-bottom: 6px;
-      margin-bottom: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .palco-container {
-      background: #000;
-      border: 3px solid var(--led-color1);
-      border-radius: 12px;
-      padding: 15px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 12px;
-      position: relative;
-      box-shadow: inset 0 0 30px rgba(0,0,0,0.9), 0 0 15px var(--led-color1);
-      transition: border-color 0.3s, box-shadow 0.3s;
-      min-height: 180px;
-    }
-
-    .palco-container.led-giratorio { animation: rotateRainbow 3s linear infinite; }
-    .palco-container.led-pisca { animation: stroboEffect 0.15s infinite alternate; }
-
-    @keyframes rotateRainbow {
-      0% { filter: hue-rotate(0deg); }
-      100% { filter: hue-rotate(360deg); }
-    }
-
-    @keyframes stroboEffect {
-      0% { opacity: 0.3; }
-      100% { opacity: 1; }
-    }
-
-    .caixa-acustica {
-      background-color: var(--caixa-bg-color);
-      background-image: var(--caixa-texture);
-      background-size: cover;
-      background-position: center;
-      border: 4px solid #27272a;
-      border-radius: 10px;
-      padding: 15px;
-      width: 100%;
-      min-height: 150px;
-      box-sizing: border-box;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 12px;
-      position: relative;
-      box-shadow: inset 0 0 25px #000;
-    }
-
-    .caixa-acustica.type-trapezoidal { clip-path: polygon(8% 0%, 92% 0%, 100% 100%, 0% 100%); }
-    .caixa-acustica.type-scooper { border-bottom: 14px solid #111; }
-
-    .voltimetro-embutido {
-      position: absolute;
-      top: 8px;
-      right: 12px;
-      background: #000;
-      border: 1.5px solid #222;
-      padding: 3px 8px;
-      border-radius: 4px;
-      box-shadow: inset 0 0 8px rgba(255,0,0,0.8);
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      z-index: 5;
-    }
-
-    .voltimetro-embutido-texto {
-      font-family: 'Courier New', Courier, monospace;
-      font-size: 13px;
-      font-weight: 900;
-      color: #ff0033;
-      text-shadow: 0 0 8px #ff0000;
-      letter-spacing: 1px;
-    }
-
-    .painel-cornetas, .painel-woofers, .painel-dutos {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 10px;
-      width: 100%;
-      min-height: 20px;
-    }
-
-    .duto-redondo {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background: radial-gradient(circle, #000 35%, #18181b 75%, #3f3f46 100%);
-      border: 3px solid var(--led-color1);
-      box-shadow: inset 0 0 8px #000, 0 0 10px var(--led-color1);
-    }
-
-    .duto-quadrado {
-      width: 85%;
-      height: 20px;
-      background: linear-gradient(180deg, #000 0%, #18181b 100%);
-      border: 2px solid var(--led-color1);
-      border-radius: 4px;
-      box-shadow: inset 0 0 10px #000, 0 0 10px var(--led-color1);
-    }
-
-    .duto-triangular {
-      width: 0;
-      height: 0;
-      border-left: 18px solid transparent;
-      border-right: 18px solid transparent;
-      border-bottom: 30px solid #111;
-      filter: drop-shadow(0 0 4px var(--led-color1));
-    }
-
-    .real-woofer {
-      width: 85px;
-      height: 85px;
-      border-radius: 50%;
-      background: radial-gradient(circle, #27272a 15%, #09090b 55%, #18181b 85%, #000 100%);
-      border: 5px solid #3f3f46;
-      outline: 2px solid var(--led-color2);
-      box-shadow: inset 0 0 12px #000, 0 0 10px var(--led-color2);
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      will-change: transform;
-      transition: transform 0.02s linear;
-    }
-
-    .real-woofer.inverted {
-      border: 4px dashed #ff9800 !important;
-      outline: none;
-    }
-    .real-woofer.inverted::before {
-      content: 'ÍMÃ';
-      position: absolute;
-      width: 45%;
-      height: 45%;
-      background: #424242;
-      border-radius: 50%;
-      border: 2px solid #ff9800;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 8px;
-      font-weight: bold;
-      color: #fff;
-      z-index: 2;
-    }
-
-    .real-woofer-cap {
-      width: 38px;
-      height: 38px;
-      border-radius: 50%;
-      background: radial-gradient(circle, #00ff66 0%, #008000 70%, #004d00 100%);
-      border: 1.5px solid #003300;
-      box-shadow: inset 0 0 6px #000, 0 0 4px rgba(0, 255, 102, 0.5);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 2px;
-      box-sizing: border-box;
-    }
-
-    .real-woofer-text {
-      font-size: 7px;
-      font-weight: 900;
-      color: #ffffff;
-      text-transform: uppercase;
-      text-shadow: 0 0 3px #000, 0 0 1px #000;
-      line-height: 1;
-      word-break: break-word;
-      text-align: center;
-    }
-
-    .real-driver {
-      width: 55px;
-      height: 55px;
-      background: linear-gradient(135deg, #3f3f46 0%, #09090b 60%, #000 100%);
-      border: 2px solid #a1a1aa;
-      border-radius: 6px;
-      color: var(--neon-cyan);
-      font-size: 7px;
-      font-weight: bold;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      overflow: hidden;
-      box-shadow: inset -4px -4px 8px #000, 0 0 8px var(--led-color1);
-    }
-
-    .real-driver-led-throat {
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      background: #000;
-      border: 1px solid var(--led-color1);
-      box-shadow: inset 0 0 6px var(--led-color1);
-      margin-bottom: 2px;
-    }
-
-    .player-hardware-case {
-      background: linear-gradient(180deg, #18181b 0%, #09090b 100%);
-      border: 3px solid #3f3f46;
-      border-radius: 10px;
-      padding: 10px;
-      box-shadow: inset 0 0 15px #000, 0 8px 20px rgba(0,0,0,0.9);
-      width: 100%;
-      box-sizing: border-box;
-      position: relative;
-      min-height: 80px;
-    }
-
-    .player-hardware-case.player-led-rainbow { animation: rotateRainbow 3s linear infinite; }
-
-    .pioneer-face { display: flex; flex-direction: column; gap: 8px; }
-
-    .pioneer-top-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-    }
-
-    .pioneer-knob-btn {
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      background: radial-gradient(circle, #52525b 10%, #18181b 70%, #000 100%);
-      border: 2px solid var(--player-led-color);
-      box-shadow: 0 0 10px var(--player-led-color), inset 0 0 5px #000;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 10px;
-      color: var(--player-led-color);
-      font-weight: bold;
-    }
-
-    .pioneer-screen-blue {
-      flex: 1;
-      background: #020b14;
-      border: 2px solid var(--player-led-color);
-      border-radius: 6px;
-      padding: 6px 10px;
-      box-shadow: inset 0 0 10px var(--player-led-color);
-      color: var(--player-led-color);
-      font-family: monospace;
-      font-size: 10px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      min-height: 40px;
-      text-shadow: 0 0 5px var(--player-led-color);
-    }
-
-    .android-screen-container {
-      background: #000;
-      border: 2px solid var(--player-led-color);
-      border-radius: 8px;
-      padding: 8px;
-      box-shadow: 0 0 12px var(--player-led-color);
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .android-display-hdr {
-      background: linear-gradient(135deg, #0f172a 0%, #020617 100%);
-      border: 1px solid var(--player-led-color);
-      border-radius: 6px;
-      padding: 8px;
-      display: flex;
-      gap: 10px;
-      align-items: center;
-    }
-
-    .android-album-art {
-      width: 45px;
-      height: 45px;
-      border-radius: 6px;
-      background: radial-gradient(circle, var(--accent-red), #000);
-      border: 1px solid #fff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 18px;
-    }
-
-    .pioneer-controls-row { display: flex; justify-content: space-between; gap: 4px; }
-
-    .btn-hw {
-      background: linear-gradient(180deg, #27272a 0%, #0f0f11 100%);
-      border: 1px solid #52525b;
-      color: var(--player-led-color);
-      font-size: 9px;
-      padding: 6px 10px;
-      border-radius: 4px;
-      cursor: pointer;
-      font-weight: bold;
-      flex: 1;
-      text-align: center;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.8);
-      user-select: none;
-    }
-
-    .btn-hw:active {
-      transform: translateY(1px);
-      background: var(--player-led-color);
-      color: #000;
-    }
-
-    label {
-      display: block;
-      font-size: 10px;
-      color: #94a3b8;
-      margin-top: 6px;
-      text-transform: uppercase;
-      font-weight: 600;
-    }
-
-    select, input[type="text"], input[type="number"], input[type="range"] {
-      width: 100%;
-      padding: 8px;
-      margin-top: 3px;
-      background: #020617;
-      border: 1px solid #334155;
-      color: #fff;
-      border-radius: 6px;
-      box-sizing: border-box;
-      font-size: 11px;
-    }
-
-    .grid-2 { display: flex; gap: 8px; }
-    .grid-2 > div { flex: 1; }
-
-    .btn-xtreme {
-      width: 100%;
-      background: #1e293b;
-      color: #888;
-      border: 2px solid #334155;
-      padding: 10px;
-      font-weight: 900;
-      border-radius: 6px;
-      font-size: 12px;
-      cursor: pointer;
-      margin-top: 10px;
-      text-transform: uppercase;
-    }
-
-    .btn-xtreme.active {
-      background: linear-gradient(90deg, #ff0055, #ff5500);
-      color: #fff;
-      border-color: #ff0055;
-      box-shadow: 0 0 15px rgba(255, 0, 85, 0.8);
-    }
-
-    .playlist-box {
-      background: #020617;
-      border: 1px solid #1e293b;
-      border-radius: 6px;
-      padding: 6px;
-      max-height: 90px;
-      overflow-y: auto;
-      font-size: 10px;
-      margin-top: 6px;
-    }
-
-    .playlist-item {
-      padding: 4px;
-      border-bottom: 1px solid #0f172a;
-      cursor: pointer;
-      color: #94a3b8;
-    }
-
-    .playlist-item.ativo {
-      color: #fff;
-      background: var(--accent-red);
-      font-weight: bold;
-      border-radius: 3px;
-    }
-
-    textarea {
-      width: 100%;
-      height: 180px;
-      background: #020617;
-      color: #00ffcc;
-      border: 1px solid var(--neon-cyan);
-      border-radius: 6px;
-      padding: 8px;
-      font-family: monospace;
-      font-size: 10px;
-      box-sizing: border-box;
-      margin-top: 6px;
-    }
-
-    .reg-panel {
-      background: #020617;
-      border: 1px dashed var(--neon-cyan);
-      border-radius: 6px;
-      padding: 8px;
-      margin-top: 8px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Admin - SPEED STORE</title>
+    <style>
+        :root { --accent: #ff4500; --bg: #121212; --card: #1e1e1e; --text: #ffffff; }
+        body { font-family: 'Arial', sans-serif; background-color: var(--bg); color: var(--text); margin: 0; padding: 20px; }
+        .container { max-width: 600px; margin: auto; }
+        .card { background: var(--card); padding: 20px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid var(--accent); }
+        input, button { width: 100%; padding: 12px; margin-top: 10px; margin-bottom: 10px; border-radius: 5px; border: none; box-sizing: border-box; }
+        input { background: #2a2a2a; color: white; }
+        button { background: var(--accent); color: white; font-weight: bold; cursor: pointer; }
+        button:hover { opacity: 0.9; }
+        .produto-item { display: flex; justify-content: space-between; align-items: center; background: #2a2a2a; padding: 10px; margin-top: 5px; border-radius: 4px; }
+        .produto-item button { width: auto; padding: 5px 10px; background: #ff3333; margin: 0; }
+        #painel-conteudo { display: none; }
+    </style>
 </head>
 <body>
-
-  <h1>🔊 SIMULADOR MASTER PRO</h1>
-
-  <div id="screen-palco" class="screen active">
-    <div class="card">
-      <h3>
-        <span>📻 PALCO DO SOM REALISTA</span>
-        <select id="quickPlayerSelect" style="width: auto; padding: 2px 6px; font-size: 10px;" onchange="trocarPlayerPeloMenu(this.value)">
-          <option value="pioneer">Pioneer Golfinho 1DIN</option>
-          <option value="android">Central Multimídia Touchscreen</option>
-          <option value="reddvd">Player DVD Red 1DIN</option>
-        </select>
-      </h3>
-
-      <div class="palco-container" id="palcoVirtual">
-        <div class="caixa-acustica" id="caixaAcustica">
-          <div class="voltimetro-embutido">
-            <span style="color:#888; font-size:7px; font-weight:bold;">VOLTS</span>
-            <span class="voltimetro-embutido-texto" id="voltsEmbutido">12.6V</span>
-          </div>
-
-          <div class="painel-cornetas" id="painelCornetas"></div>
-          <div class="painel-woofers" id="painelWoofers"></div>
-          <div class="painel-dutos" id="painelDutos"></div>
+    <div class="container">
+        <!-- Tela de Login -->
+        <div id="tela-login" class="card">
+            <h2>Painel Administrativo</h2>
+            <p>Entre com suas credenciais</p>
+            <input type="email" id="loginUser" placeholder="E-mail">
+            <input type="password" id="loginSenha" placeholder="Senha">
+            <button onclick="fazerLogin()">Entrar</button>
         </div>
-      </div>
 
-      <div style="margin-top: 12px;">
-        <div class="player-hardware-case" id="playerHardwareContainer"></div>
-      </div>
-    </div>
-
-    <div class="card">
-      <h3>📡 Controle de Longa Distância (Até 500m)</h3>
-      <div class="grid-2">
-        <div>
-          <label>Marca do Controle:</label>
-          <select id="remoteBrand">
-            <option value="JFA Eletrônicos">JFA Eletrônicos K1200 / RED</option>
-            <option value="Stetsom SX2">Stetsom SX2 / Longa Distância</option>
-            <option value="Taramps TLC3000">Taramps TLC3000 / Connect</option>
-          </select>
-        </div>
-        <div>
-          <label>Status do Sinal:</label>
-          <button class="btn-hw" style="margin-top:4px; height:32px;" onclick="alert('📡 Sinal do Controle OK (Alcance: 500 Metros)!')">📶 TESTAR FREQUÊNCIA</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="card">
-      <h3>🎵 Playlist & Arquivos do Celular</h3>
-      <input type="file" id="audioFiles" multiple accept="audio/*" onchange="carregarPlaylist(event)">
-      <audio id="audioPlayer" style="display:none;" crossorigin="anonymous"></audio>
-      <div class="playlist-box" id="playlistContainer">
-        <div style="color: #64748b;">Nenhum áudio (.mp3) selecionado...</div>
-      </div>
-    </div>
-  </div>
-
-  <div id="screen-caixa" class="screen">
-    <div class="card">
-      <h3>📦 Estrutura Acústica, Projeto & Marca</h3>
-      <div class="grid-2">
-        <div>
-          <label>Modelo de Caixa:</label>
-          <select id="boxStructure" onchange="atualizarPalco()">
-            <option value="dutada">Caixa Trio / Bob</option>
-            <option value="scooper">Scooper / Horn Dobrada</option>
-            <option value="trapezoidal">Trapezoidal / Line Array</option>
-            <option value="manifold">Manifold / Euclides</option>
-            <option value="paredao">Paredão Completo</option>
-            <option value="corneteira">Régua de Cornetas</option>
-          </select>
-        </div>
-        <div>
-          <label>Fabricante / Convertedor:</label>
-          <select id="boxMaker">
-            <option value="Sob Medida Local">Sob Medida (Lojas / Convertedor)</option>
-            <option value="Regsom Caixas">Regsom Caixas Especiais</option>
-            <option value="Bomber">Bomber Acoustic</option>
-            <option value="Falcon Design">Falcon Sound</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="grid-2">
-        <div>
-          <label>Tipo de Duto:</label>
-          <select id="dutoType" onchange="atualizarPalco()">
-            <option value="redondo">Redondo (Cilíndrico)</option>
-            <option value="quadrado">Régua / Slot (Retangular)</option>
-            <option value="triangular">Triangular (Canto)</option>
-            <option value="none">Caixa Selada (Sem Duto)</option>
-          </select>
-        </div>
-        <div>
-          <label>Qtd Dutos:</label>
-          <input type="number" id="dutoQty" value="2" min="1" max="4" onchange="atualizarPalco()">
-        </div>
-      </div>
-    </div>
-
-    <div class="card">
-      <h3>🎨 Material & Fundo da Caixa</h3>
-      <div class="grid-2">
-        <div>
-          <label>Revestimento:</label>
-          <select id="boxMaterial" onchange="alterarMaterialCaixa()">
-            <option value="padrao">Padrão Grafitado</option>
-            <option value="couro">Couro Preto Costurado</option>
-            <option value="carbono">Vinil Fibra de Carbono 3D</option>
-            <option value="mdf">Madeira / MDF Cru</option>
-            <option value="liso">Pintura Liso Gloss</option>
-          </select>
-        </div>
-        <div>
-          <label>Cor Interna:</label>
-          <input type="color" id="caixaBgColor" value="#18181b" onchange="alterarCorCaixa()">
-        </div>
-      </div>
-      <label>📸 Foto da sua Galeria na Caixa:</label>
-      <input type="file" id="boxBgFile" accept="image/*" onchange="alterarFotoCaixa(event)">
-    </div>
-
-    <div class="card">
-      <h3>🔊 Alto-Falantes & Cornetas</h3>
-      <div class="grid-2">
-        <div>
-          <label>Modelo / Marca Woofer:</label>
-          <select id="selectWooferModel" onchange="aoTrocarComponente('woofers', this.value)">
-          </select>
-        </div>
-        <div>
-          <label>Orientação do Woofer:</label>
-          <select id="driverOrientation" onchange="atualizarPalco()">
-            <option value="normal">Normal (Frontal)</option>
-            <option value="inverted">Invertido (Ímã para fora)</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="grid-2">
-        <div>
-          <label>Qtd Woofers:</label>
-          <input type="number" id="wooferQty" value="2" min="1" max="8" onchange="atualizarPalco()">
-        </div>
-      </div>
-
-      <div class="reg-panel" id="wooferRegPanel">
-        <h4 style="margin:0 0 6px 0; color:var(--neon-green); font-size:11px;">🎛 REGULAGEM INDIVIDUAL DO WOOFER</h4>
-        <div class="grid-2">
-          <div>
-            <label>Corte Frequência:</label>
-            <input type="text" id="regWooferFreq" onchange="salvarRegulagemComponente('woofers', 'freqCut', this.value)">
-          </div>
-          <div>
-            <label>Crossover:</label>
-            <select id="regWooferCross" onchange="salvarRegulagemComponente('woofers', 'crossover', this.value)">
-              <option value="HPF">HPF</option>
-              <option value="LPF">LPF</option>
-              <option value="BPF">BPF</option>
-            </select>
-          </div>
-        </div>
-      </div>
-
-      <div class="grid-2" style="margin-top: 10px;">
-        <div>
-          <label>Modelo Tweeter/Driver:</label>
-          <select id="selectDriverModel" onchange="aoTrocarComponente('tweeters', this.value)">
-          </select>
-        </div>
-        <div>
-          <label>Qtd Drivers:</label>
-          <input type="number" id="driverQty" value="2" min="0" max="8" onchange="atualizarPalco()">
-        </div>
-      </div>
-
-      <div class="grid-2">
-        <div>
-          <label>Formato Corneta:</label>
-          <select id="hornFormat" onchange="atualizarPalco()">
-            <option value="square">Jararaca / Perfil 3D</option>
-            <option value="round">Redonda / Oval</option>
-            <option value="guia">Guia de Onda Trio</option>
-          </select>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div id="screen-leds" class="screen">
-    <div class="card">
-      <h3>💡 Central de Efeitos LED RGB (AJK / Taramps)</h3>
-      <div class="grid-2">
-        <div>
-          <label>Central de LED:</label>
-          <select id="ledCentralBrand">
-            <option value="AJK Sound Strobo Bluetooth">AJK Sound Strobo Rítmico</option>
-            <option value="Taramps LED RGB Digital">Taramps Digital RGB Controller</option>
-          </select>
-        </div>
-        <div>
-          <label>Efeito do LED Caixa:</label>
-          <select id="ledMode" onchange="atualizarLeds()">
-            <option value="estatico">Cor Única Fixa</option>
-            <option value="pisca">Bater no Ritmo da Música</option>
-            <option value="giratorio">Giratório Rainbow</option>
-            <option value="none">Desligado</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="grid-2">
-        <div>
-          <label>Cor LED 1:</label>
-          <input type="color" id="ledColor1" value="#00f0ff" onchange="atualizarLeds()">
-        </div>
-        <div>
-          <label>Cor LED 2:</label>
-          <input type="color" id="ledColor2" value="#ff0055" onchange="atualizarLeds()">
-        </div>
-      </div>
-      <label>Fundo App (Foto/GIF):</label>
-      <input type="file" id="bgFile" accept="image/*" onchange="alterarFundoApp(event)">
-    </div>
-
-    <div class="card">
-      <h3>🎛 Iluminação e LEDs do Player</h3>
-      <div class="grid-2">
-        <div>
-          <label>Cor do LED do Player:</label>
-          <input type="color" id="playerLedColor" value="#00f0ff" onchange="alterarCorPlayerLed(this.value)">
-        </div>
-        <div>
-          <label>Modo LED Player:</label>
-          <select id="playerLedMode" onchange="atualizarModoLedPlayer()">
-            <option value="normal">Cor Única Fixa</option>
-            <option value="rainbow">Giratório Rainbow</option>
-            <option value="ritmo">Bater no Ritmo da Música</option>
-          </select>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div id="screen-audio" class="screen">
-    <div class="card">
-      <h3>🎙️ Mesa de Som Automotiva</h3>
-      <div class="grid-2">
-        <div>
-          <label>Modelo da Mesa:</label>
-          <select id="mixerBrand">
-            <option value="Taramps MX1 / MX2">Taramps MX1 / MX2 Pro</option>
-            <option value="Stetsom STM1003">Stetsom STM1003 3 Vias</option>
-            <option value="Expert MX-AIR">Expert Electronics MX-AIR</option>
-          </select>
-        </div>
-        <div>
-          <label>Ganho do Microfone/Aux:</label>
-          <input type="range" min="0" max="100" value="75">
-        </div>
-      </div>
-    </div>
-
-    <div class="card">
-      <h3>🎛 Amplificador & Regulagem</h3>
-      <label>Modelo Amplificador:</label>
-      <select id="selectAmpModel" onchange="aoTrocarComponente('amplifiers', this.value)">
-      </select>
-      <div class="reg-panel" id="ampRegPanel">
-        <h4 style="margin:0 0 6px 0; color:var(--neon-green); font-size:11px;">🎛 REGULAGEM DO AMPLIFICADOR</h4>
-        <div class="grid-2">
-          <div>
-            <label>HPF:</label>
-            <input type="text" id="regAmpHpf" onchange="salvarRegulagemComponente('amplifiers', 'hpf', this.value)">
-          </div>
-          <div>
-            <label>LPF:</label>
-            <input type="text" id="regAmpLpf" onchange="salvarRegulagemComponente('amplifiers', 'lpf', this.value)">
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="card">
-      <h3>🎛 Processador DSP / Crossover</h3>
-      <label>Modelo do DSP Processador:</label>
-      <select id="dspModel">
-        <option value="Stetsom STX2448 Digital">Stetsom STX2448 / STX2848</option>
-        <option value="Expert PX-2 PRO Bluetooth">Expert PX-1 / PX-2 PRO</option>
-        <option value="JFA X5 Crossover">JFA X5 Crossover 4 Vias</option>
-        <option value="Taramps Pro 2.4S DSP">Taramps Pro 2.4S DSP</option>
-      </select>
-    </div>
-
-    <div class="card">
-      <h3>🎛 Equalização & Bass Xtreme</h3>
-      <div class="grid-2">
-        <div>
-          <label>Grave (Bass):</label>
-          <input type="range" id="eqBass" min="-20" max="20" value="0" oninput="atualizarFiltrosAudio()">
-        </div>
-        <div>
-          <label>Médio (Mid):</label>
-          <input type="range" id="eqMid" min="-20" max="20" value="0" oninput="atualizarFiltrosAudio()">
-        </div>
-      </div>
-      <label>Agudo (High):</label>
-      <input type="range" id="eqHigh" min="-20" max="20" value="0" oninput="atualizarFiltrosAudio()">
-
-      <button class="btn-xtreme" id="btnXtreme" onclick="toggleBassXtreme()">🔥 BASS XTREME: DESATIVADO</button>
-    </div>
-  </div>
-
-  <div id="screen-eletrica" class="screen">
-    <div class="card">
-      <h3>🔋 Regulagem & Fonte / Bateria</h3>
-      <div class="grid-2">
-        <div>
-          <label>Fonte / Usina:</label>
-          <select id="selectPowerSupply" onchange="aoTrocarComponente('powerSupplies', this.value)">
-          </select>
-        </div>
-        <div>
-          <label>Modelo Bateria:</label>
-          <select id="batteryModel" onchange="calcularEletrica()">
-            <option value="moura">Moura Clean / Chumbo-Ácido</option>
-            <option value="litio">Bateria de Lítio (LiFePO4 HQ)</option>
-            <option value="agm">Bateria de Gel / AGM Deep Cycle</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="grid-2">
-        <div>
-          <label>Capacidade (Ah):</label>
-          <input type="number" id="batteryAh" value="150" min="40" max="1000" oninput="calcularEletrica()">
-        </div>
-        <div>
-          <label>Tensão Nominal (Volts):</label>
-          <input type="number" id="batteryVolts" value="12.6" step="0.1" min="10" max="15" oninput="calcularEletrica()">
-        </div>
-      </div>
-    </div>
-
-    <div class="card">
-      <h3>📊 Dimensionamento & Relatório Técnico</h3>
-      <button style="width:100%; padding:10px; background:var(--neon-cyan); border:none; font-weight:bold; border-radius:6px;" onclick="gerarProjeto()">GERAR RELATÓRIO TÉCNICO</button>
-      <textarea id="relatorioOutput" readonly placeholder="O relatório detalhado aparecerá aqui..."></textarea>
-    </div>
-  </div>
-
-  <nav class="tab-bar">
-    <button class="tab-btn active" id="btnTabPalco" onclick="trocarTela('screen-palco', this)">
-      <span>📻</span> Palco
-    </button>
-    <button class="tab-btn" onclick="trocarTela('screen-caixa', this)">
-      <span>⚙️</span> Caixa
-    </button>
-    <button class="tab-btn" onclick="trocarTela('screen-leds', this)">
-      <span>💡</span> LEDs
-    </button>
-    <button class="tab-btn" id="btnTabAudio" onclick="trocarTela('screen-audio', this)">
-      <span>🎛</span> Áudio
-    </button>
-    <button class="tab-btn" onclick="trocarTela('screen-eletrica', this)">
-      <span>⚡</span> Elétrica
-    </button>
-  </nav>
-
-  <script>
-    const audioComponents = {
-      woofers: [
-        { id: 'jbl_tornado_3000', name: 'JBL Tornado 3000', brand: 'JBL', params: { freqCut: '50Hz-120Hz', crossover: 'HPF' } },
-        { id: 'triton_sb1650', name: 'Triton SB 1650', brand: 'Triton', params: { freqCut: '45Hz-100Hz', crossover: 'HPF' } },
-        { id: 'triton_ak60', name: 'Triton AK 6.0', brand: 'Triton', params: { freqCut: '50Hz-150Hz', crossover: 'HPF' } },
-        { id: 'triton_mg510x', name: 'Triton MG510x', brand: 'Triton', params: { freqCut: '150Hz-1500Hz', crossover: 'BPF' } },
-        { id: 'magnum_rex', name: 'Magnum Rex', brand: 'Magnum', params: { freqCut: '40Hz-120Hz', crossover: 'HPF' } },
-        { id: 'eros_sds27k', name: 'Eros SDS 2.7K', brand: 'Eros', params: { freqCut: '50Hz-160Hz', crossover: 'HPF' } },
-        { id: 'zetta_m12', name: 'Zetta Audio M12', brand: 'Zetta', params: { freqCut: '35Hz-90Hz', crossover: 'LPF' } }
-      ],
-      tweeters: [
-        { id: 'jbl_st400_black', name: 'JBL ST400 Trio (Preto)', brand: 'JBL', params: { freqCut: '5kHz-20kHz' } },
-        { id: 'jbl_st400_white', name: 'JBL ST400 Trio (Branco)', brand: 'JBL', params: { freqCut: '5kHz-20kHz' } }
-      ],
-      amplifiers: [
-        { id: 'taramps_hd3000', name: 'Taramps HD 3000', brand: 'Taramps', params: { hpf: '8Hz', lpf: '250Hz' } },
-        { id: 'taramps_md5000', name: 'Taramps MD 5000.1', brand: 'Taramps', params: { hpf: '10Hz', lpf: '10kHz' } },
-        { id: 'stetsom_v5000', name: 'Stetsom Vulcan 5000', brand: 'Stetsom', params: { hpf: '10Hz', lpf: '12kHz' } }
-      ],
-      powerSupplies: [
-        { id: 'jfa_bob_storm_120a', name: 'JFA Bob Storm 120A', brand: 'JFA', params: { targetVoltage: '14.4V' } },
-        { id: 'jfa_storm_line', name: 'JFA Storm Multiamperagem', brand: 'JFA', params: { targetVoltage: '14.4V' } },
-        { id: 'switched_50a', name: 'Fonte Chaveada 600W', brand: 'Outras', params: { targetVoltage: '12.6V' } }
-      ]
-    };
-
-    let selectedComponents = {
-      woofers: 'jbl_tornado_3000',
-      tweeters: 'jbl_st400_black',
-      amplifiers: 'taramps_hd3000',
-      powerSupplies: 'jfa_bob_storm_120a'
-    };
-
-    let componentSettingsState = {};
-
-    function initSettings() {
-      const saved = localStorage.getItem('audio_app_settings');
-      if (saved) {
-        componentSettingsState = JSON.parse(saved);
-      } else {
-        Object.keys(audioComponents).forEach(cat => {
-          audioComponents[cat].forEach(item => {
-            componentSettingsState[item.id] = { ...item.params };
-          });
-        });
-        saveSettings();
-      }
-    }
-
-    function saveSettings() {
-      localStorage.setItem('audio_app_settings', JSON.stringify(componentSettingsState));
-    }
-
-    function salvarRegulagemComponente(cat, paramKey, val) {
-      const activeId = selectedComponents[cat];
-      if (!componentSettingsState[activeId]) componentSettingsState[activeId] = {};
-      componentSettingsState[activeId][paramKey] = val;
-      saveSettings();
-    }
-
-    function preencherSelects() {
-      const fill = (selectId, list) => {
-        const el = document.getElementById(selectId);
-        if (!el) return;
-        el.innerHTML = '';
-        list.forEach(item => {
-          const opt = document.createElement('option');
-          opt.value = item.id;
-          opt.innerText = item.name;
-          el.appendChild(opt);
-        });
-      };
-
-      fill('selectWooferModel', audioComponents.woofers);
-      fill('selectDriverModel', audioComponents.tweeters);
-      fill('selectAmpModel', audioComponents.amplifiers);
-      fill('selectPowerSupply', audioComponents.powerSupplies);
-
-      carregarCamposRegulagem();
-    }
-
-    function aoTrocarComponente(cat, id) {
-      selectedComponents[cat] = id;
-      carregarCamposRegulagem();
-      if (cat === 'woofers') atualizarPalco();
-    }
-
-    function carregarCamposRegulagem() {
-      const wooferId = selectedComponents.woofers;
-      const wParams = componentSettingsState[wooferId] || {};
-      if (document.getElementById('regWooferFreq')) document.getElementById('regWooferFreq').value = wParams.freqCut || '';
-      if (document.getElementById('regWooferCross')) document.getElementById('regWooferCross').value = wParams.crossover || 'HPF';
-
-      const ampId = selectedComponents.amplifiers;
-      const aParams = componentSettingsState[ampId] || {};
-      if (document.getElementById('regAmpHpf')) document.getElementById('regAmpHpf').value = aParams.hpf || '';
-      if (document.getElementById('regAmpLpf')) document.getElementById('regAmpLpf').value = aParams.lpf || '';
-    }
-
-    let playlist = [];
-    let currentIndex = 0;
-    let isXtremeActive = false;
-    let currentPlayerModel = 'pioneer';
-    const audio = document.getElementById('audioPlayer');
-    let audioCtx, source, analyser, bassFilter, midFilter, highFilter;
-    let isAudioSetup = false;
-    let animationFrameId;
-
-    function trocarTela(screenId, btn) {
-      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-      document.getElementById(screenId).classList.add('active');
-      if (btn) btn.classList.add('active');
-    }
-
-    function irParaTelaAudio() {
-      trocarTela('screen-audio', document.getElementById('btnTabAudio'));
-    }
-
-    function initWebAudio() {
-      if (isAudioSetup) return;
-      const AudioContext = window.AudioContext || window.webkitAudioContext;
-      audioCtx = new AudioContext();
-      source = audioCtx.createMediaElementSource(audio);
-
-      analyser = audioCtx.createAnalyser();
-      analyser.fftSize = 64;
-
-      bassFilter = audioCtx.createBiquadFilter();
-      bassFilter.type = 'lowshelf';
-      bassFilter.frequency.value = 80;
-
-      midFilter = audioCtx.createBiquadFilter();
-      midFilter.type = 'peaking';
-      midFilter.frequency.value = 1000;
-
-      highFilter = audioCtx.createBiquadFilter();
-      highFilter.type = 'highshelf';
-      highFilter.frequency.value = 6000;
-
-      source.connect(bassFilter);
-      bassFilter.connect(midFilter);
-      midFilter.connect(highFilter);
-      highFilter.connect(analyser);
-      analyser.connect(audioCtx.destination);
-
-      isAudioSetup = true;
-      processAudioRealtime();
-    }
-
-    function processAudioRealtime() {
-      if (!analyser) return;
-
-      const bufferLength = analyser.frequencyBinCount;
-      const dataArray = new Uint8Array(bufferLength);
-      analyser.getByteFrequencyData(dataArray);
-
-      let bassSum = 0;
-      for (let i = 0; i < 4; i++) bassSum += dataArray[i];
-      let bassAvg = bassSum / 4;
-
-      let trebleSum = 0;
-      for (let i = 12; i < 24; i++) trebleSum += dataArray[i];
-      let trebleAvg = trebleSum / 12;
-
-      let bassScale = 1 + (bassAvg / 255) * (isXtremeActive ? 0.42 : 0.25);
-      document.querySelectorAll('.real-woofer').forEach(w => {
-        w.style.transform = `scale(${bassScale})`;
-      });
-
-      let driverGlow = trebleAvg / 255;
-      document.querySelectorAll('.real-driver-led-throat').forEach(led => {
-        led.style.background = `rgba(0, 240, 255, ${driverGlow})`;
-        led.style.boxShadow = `0 0 ${driverGlow * 12}px #00f0ff`;
-      });
-
-      let baseVolts = parseFloat(document.getElementById('batteryVolts').value) || 12.6;
-      let drop = (bassAvg / 255) * (isXtremeActive ? 2.8 : 1.6);
-      let realVolts = Math.max(8.5, (baseVolts - drop)).toFixed(1);
-      document.getElementById('voltsEmbutido').innerText = realVolts + 'V';
-
-      const playerLedMode = document.getElementById('playerLedMode').value;
-      if (playerLedMode === 'ritmo') {
-        let currentColor = document.getElementById('playerLedColor').value || '#00f0ff';
-        document.documentElement.style.setProperty('--player-led-color', currentColor);
-      }
-
-      animationFrameId = requestAnimationFrame(processAudioRealtime);
-    }
-
-    function atualizarFiltrosAudio() {
-      if (!isAudioSetup) initWebAudio();
-      const valBass = parseFloat(document.getElementById('eqBass').value);
-      const valMid = parseFloat(document.getElementById('eqMid').value);
-      const valHigh = parseFloat(document.getElementById('eqHigh').value);
-
-      bassFilter.gain.value = valBass + (isXtremeActive ? 15 : 0);
-      midFilter.gain.value = valMid;
-      highFilter.gain.value = valHigh;
-    }
-
-    function toggleBassXtreme() {
-      isXtremeActive = !isXtremeActive;
-      const btn = document.getElementById('btnXtreme');
-      if (isXtremeActive) {
-        btn.classList.add('active');
-        btn.innerText = '🔥 BASS XTREME: ATIVADO (+15dB SUBGUTURAL)';
-      } else {
-        btn.classList.remove('active');
-        btn.innerText = '🔥 BASS XTREME: DESATIVADO';
-      }
-      atualizarFiltrosAudio();
-    }
-
-    function trocandoMusica(dir) {
-      if (!playlist.length) return;
-      let newIdx = currentIndex + dir;
-      if (newIdx < 0) newIdx = playlist.length - 1;
-      if (newIdx >= playlist.length) newIdx = 0;
-      tocarMusica(newIdx);
-    }
-
-    function togglePlayPause() {
-      if (!playlist.length) return;
-      if (audio.paused) {
-        if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
-        audio.play();
-      } else {
-        audio.pause();
-      }
-      renderPlayerHardware();
-    }
-
-    function trocarPlayerPeloMenu(val) {
-      currentPlayerModel = val;
-      renderPlayerHardware();
-    }
-
-    function alterarCorPlayerLed(hex) {
-      document.documentElement.style.setProperty('--player-led-color', hex);
-    }
-
-    function atualizarModoLedPlayer() {
-      const playerCase = document.getElementById('playerHardwareContainer');
-      const mode = document.getElementById('playerLedMode').value;
-      if (mode === 'rainbow') {
-        playerCase.classList.add('player-led-rainbow');
-      } else {
-        playerCase.classList.remove('player-led-rainbow');
-      }
-    }
-
-    function renderPlayerHardware() {
-      const container = document.getElementById('playerHardwareContainer');
-      if (!container) return;
-      
-      const trackName = playlist[currentIndex] ? playlist[currentIndex].name : "NENHUMA MÚSICA";
-      const isPlaying = !audio.paused && audio.src !== "";
-
-      if (currentPlayerModel === 'pioneer') {
-        container.innerHTML = `
-          <div class="pioneer-face">
-            <div class="pioneer-top-row">
-              <button class="pioneer-knob-btn" onclick="togglePlayPause()" title="Play/Pause">
-                ${isPlaying ? '❚❚' : '▶'}
-              </button>
-              <div class="pioneer-screen-blue">
-                <div style="font-weight:bold; font-size:9px; display:flex; justify-content:space-between;">
-                  <span>🐬 PIONEER BT</span>
-                  <span>${isPlaying ? '▶ PLAY' : '❚❚ PAUSE'}</span>
-                </div>
-                <div style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis; margin-top:2px; font-weight:bold;">
-                  ${trackName}
-                </div>
-              </div>
+        <!-- Painel de Controle (Oculto até logar) -->
+        <div id="painel-conteudo">
+            <div class="card">
+                <h2>Configurações e Contatos</h2>
+                <label>E-mail de Contato:</label>
+                <input type="text" id="cfgEmail">
+                <label>Link do TikTok:</label>
+                <input type="text" id="cfgTiktok">
+                <label>Chave Pix:</label>
+                <input type="text" id="cfgPix">
+                <label>Nova Senha (opcional):</label>
+                <input type="password" id="cfgNovaSenha" placeholder="Deixe em branco para não alterar">
+                <button onclick="salvarConfig()">Salvar Alterações</button>
             </div>
 
-            <div class="pioneer-controls-row">
-              <button class="btn-hw" onclick="trocandoMusica(-1)">⏮ VOLTAR</button>
-              <button class="btn-hw" onclick="togglePlayPause()">${isPlaying ? 'PAUSE' : 'PLAY'}</button>
-              <button class="btn-hw" onclick="trocandoMusica(1)">AVANÇAR ⏭</button>
-              <button class="btn-hw" onclick="irParaTelaAudio()">EQ/BASS 🎛</button>
+            <div class="card">
+                <h2>Gerenciar Produtos</h2>
+                <input type="text" id="prodNome" placeholder="Nome do Produto">
+                <input type="number" id="prodPreco" placeholder="Preço (Ex: 29.90)" step="0.01">
+                <input type="text" id="prodImg" placeholder="Caminho da imagem (Ex: /produto1.jpg)">
+                <button onclick="adicionarProduto()">Adicionar Produto</button>
+                
+                <h3>Produtos Cadastrados:</h3>
+                <div id="listaAdminProdutos"></div>
             </div>
-          </div>
-        `;
-      } else if (currentPlayerModel === 'android') {
-        container.innerHTML = `
-          <div class="android-screen-container">
-            <div class="android-display-hdr">
-              <div class="android-album-art">🎵</div>
-              <div style="flex:1; overflow:hidden;">
-                <div style="font-size:9px; color:var(--player-led-color); font-weight:bold;">ANDROID TOUCH MULTIMÍDIA</div>
-                <div style="font-size:11px; color:#fff; font-weight:bold; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">
-                  ${trackName}
-                </div>
-                <div style="font-size:8px; color:#aaa; margin-top:2px;">
-                  ${isPlaying ? '▶ Reproduzindo em Alta Fidelidade' : '❚❚ Em Pausa'}
-                </div>
-              </div>
-            </div>
+        </div>
+    </div>
 
-            <div class="pioneer-controls-row">
-              <button class="btn-hw" onclick="trocandoMusica(-1)">⏮ ANTERIOR</button>
-              <button class="btn-hw" onclick="togglePlayPause()">${isPlaying ? '❚❚ PAUSE' : '▶ PLAY'}</button>
-              <button class="btn-hw" onclick="trocandoMusica(1)">PRÓXIMA ⏭</button>
-              <button class="btn-hw" onclick="irParaTelaAudio()">DSP 🎛</button>
-            </div>
-          </div>
-        `;
-      } else {
-        container.innerHTML = `
-          <div class="pioneer-face">
-            <div class="pioneer-top-row">
-              <div class="pioneer-screen-blue">
-                <div style="font-weight:bold; font-size:9px;">🔴 DVD PLAYER 1DIN NEON</div>
-                <div style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis; margin-top:2px;">
-                  ${trackName}
-                </div>
-              </div>
-            </div>
+    <script>
+        let credenciais = { usuario: "", senha: "" };
 
-            <div class="pioneer-controls-row" style="margin-top:6px;">
-              <button class="btn-hw" onclick="trocandoMusica(-1)">⏮ ANTERIOR</button>
-              <button class="btn-hw" onclick="togglePlayPause()">${isPlaying ? 'PAUSE' : 'PLAY'}</button>
-              <button class="btn-hw" onclick="trocandoMusica(1)">PRÓXIMA ⏭</button>
-              <button class="btn-hw" onclick="irParaTelaAudio()">EQ 🎛</button>
-            </div>
-          </div>
-        `;
-      }
-      atualizarModoLedPlayer();
-    }
+        async function fazerLogin() {
+            credenciais.usuario = document.getElementById('loginUser').value;
+            credenciais.senha = document.getElementById('loginSenha').value;
 
-    function atualizarLeds() {
-      const mode = document.getElementById('ledMode').value;
-      const c1 = document.getElementById('ledColor1').value;
-      const c2 = document.getElementById('ledColor2').value;
-      const palco = document.getElementById('palcoVirtual');
+            const res = await fetch('/api/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(credenciais)
+            });
+            const data = await res.json();
 
-      document.documentElement.style.setProperty('--led-color1', c1);
-      document.documentElement.style.setProperty('--led-color2', c2);
-
-      palco.classList.remove('led-pisca', 'led-giratorio');
-      if (mode === 'pisca') palco.classList.add('led-pisca');
-      if (mode === 'giratorio') palco.classList.add('led-giratorio');
-    }
-
-    function alterarCorCaixa() {
-      const color = document.getElementById('caixaBgColor').value;
-      document.documentElement.style.setProperty('--caixa-bg-color', color);
-    }
-
-    function alterarMaterialCaixa() {
-      const mat = document.getElementById('boxMaterial').value;
-      let texture = 'none';
-
-      if (mat === 'couro') {
-        texture = 'radial-gradient(circle, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.9) 100%)';
-        document.documentElement.style.setProperty('--caixa-bg-color', '#111113');
-      } else if (mat === 'carbono') {
-        texture = 'linear-gradient(45deg, #111 25%, #222 25%, #222 50%, #111 50%, #111 75%, #222 75%, #222 100%)';
-        document.documentElement.style.setProperty('--caixa-bg-color', '#0a0a0c');
-      } else if (mat === 'mdf') {
-        texture = 'linear-gradient(180deg, rgba(160,82,45,0.8) 0%, rgba(110,50,20,0.9) 100%)';
-        document.documentElement.style.setProperty('--caixa-bg-color', '#8B4513');
-      } else {
-        texture = 'radial-gradient(circle, #18181b 0%, #09090b 100%)';
-        document.documentElement.style.setProperty('--caixa-bg-color', '#18181b');
-      }
-
-      document.documentElement.style.setProperty('--caixa-texture', texture);
-    }
-
-    function alterarFotoCaixa(event) {
-      const file = event.target.files[0];
-      if (file) {
-        const url = URL.createObjectURL(file);
-        document.documentElement.style.setProperty('--caixa-texture', `url('${url}')`);
-      }
-    }
-
-    function alterarFundoApp(event) {
-      const file = event.target.files[0];
-      if (file) {
-        const url = URL.createObjectURL(file);
-        document.body.style.backgroundImage = `url('${url}')`;
-      }
-    }
-
-    function atualizarPalco() {
-      const boxStruct = document.getElementById('boxStructure').value;
-      const caixaEl = document.getElementById('caixaAcustica');
-      
-      caixaEl.classList.remove('type-scooper', 'type-trapezoidal');
-      if (boxStruct === 'scooper') caixaEl.classList.add('type-scooper');
-      if (boxStruct === 'trapezoidal') caixaEl.classList.add('type-trapezoidal');
-
-      const wooferQty = parseInt(document.getElementById('wooferQty').value) || 2;
-      const wooferObj = audioComponents.woofers.find(w => w.id === selectedComponents.woofers) || audioComponents.woofers[0];
-      const driverQty = parseInt(document.getElementById('driverQty').value) || 2;
-      const dutoType = document.getElementById('dutoType').value;
-      const dutoQty = parseInt(document.getElementById('dutoQty').value) || 2;
-      const orientation = document.getElementById('driverOrientation').value;
-
-      const pCornetas = document.getElementById('painelCornetas');
-      const pWoofers = document.getElementById('painelWoofers');
-      const pDutos = document.getElementById('painelDutos');
-
-      pCornetas.innerHTML = '';
-      pWoofers.innerHTML = '';
-      pDutos.innerHTML = '';
-
-      for(let i = 0; i < driverQty; i++) {
-        const driver = document.createElement('div');
-        driver.className = 'real-driver';
-        driver.innerHTML = `<div class="real-driver-led-throat"></div><span>CORNETA</span>`;
-        pCornetas.appendChild(driver);
-      }
-
-      for(let i = 0; i < wooferQty; i++) {
-        const woofer = document.createElement('div');
-        woofer.className = `real-woofer ${orientation === 'inverted' ? 'inverted' : ''}`;
-        
-        if (orientation !== 'inverted') {
-          const cap = document.createElement('div');
-          cap.className = 'real-woofer-cap';
-          
-          const txt = document.createElement('span');
-          txt.className = 'real-woofer-text';
-          txt.innerText = wooferObj.name;
-          
-          cap.appendChild(txt);
-          woofer.appendChild(cap);
+            if (data.autorizado) {
+                document.getElementById('tela-login').style.display = 'none';
+                document.getElementById('painel-conteudo').style.display = 'block';
+                carregarDadosPainel();
+            } else {
+                alert('E-mail ou senha incorretos!');
+            }
         }
-        pWoofers.appendChild(woofer);
-      }
 
-      if (dutoType !== 'none') {
-        for(let i = 0; i < (dutoType === 'quadrado' ? 1 : dutoQty); i++) {
-          const duto = document.createElement('div');
-          duto.className = `duto-${dutoType}`;
-          pDutos.appendChild(duto);
+        async function carregarDadosPainel() {
+            const res = await fetch('/api/dados');
+            const data = await res.json();
+            
+            document.getElementById('cfgEmail').value = data.config.emailContato || '';
+            document.getElementById('cfgTiktok').value = data.config.tiktokPerfil || '';
+            document.getElementById('cfgPix').value = data.config.chavePix || '';
+
+            const lista = document.getElementById('listaAdminProdutos');
+            lista.innerHTML = '';
+            data.produtos.forEach(p => {
+                lista.innerHTML += `
+                    <div class="produto-item">
+                        <span>${p.nome} - R$ ${p.preco.toFixed(2)}</span>
+                        <button onclick="removerProduto(${p.id})">Excluir</button>
+                    </div>
+                `;
+            });
         }
-      }
 
-      renderPlayerHardware();
-    }
+        async function salvarConfig() {
+            const config = {
+                emailContato: document.getElementById('cfgEmail').value,
+                tiktokPerfil: document.getElementById('cfgTiktok').value,
+                chavePix: document.getElementById('cfgPix').value,
+                novaSenha: document.getElementById('cfgNovaSenha').value
+            };
 
-    function carregarPlaylist(event) {
-      const files = event.target.files;
-      if (!files.length) return;
-      playlist = Array.from(files);
-      currentIndex = 0;
-      renderPlaylist();
-      tocarMusica(currentIndex);
-    }
+            const res = await fetch('/api/salvar', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ usuario: credenciais.usuario, senha: credenciais.senha, config })
+            });
+            const data = await res.json();
 
-    function renderPlaylist() {
-      const container = document.getElementById('playlistContainer');
-      container.innerHTML = '';
-      playlist.forEach((file, index) => {
-        const item = document.createElement('div');
-        item.className = 'playlist-item' + (index === currentIndex ? ' ativo' : '');
-        item.innerText = `${index + 1}. ${file.name}`;
-        item.onclick = () => tocarMusica(index);
-        container.appendChild(item);
-      });
-    }
+            if (data.sucesso) {
+                alert('Configurações salvas com sucesso!');
+                if(config.novaSenha) credenciais.senha = config.novaSenha;
+            } else {
+                alert('Erro ao salvar.');
+            }
+        }
 
-    function tocarMusica(index) {
-      if (index < 0 || index >= playlist.length) return;
-      currentIndex = index;
-      const file = playlist[currentIndex];
-      audio.src = URL.createObjectURL(file);
-      if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
-      audio.play();
-      renderPlaylist();
-      renderPlayerHardware();
-    }
+        async function adicionarProduto() {
+            const nome = document.getElementById('prodNome').value;
+            const preco = document.getElementById('prodPreco').value;
+            const img = document.getElementById('prodImg').value;
 
-    audio.onplay = () => {
-      if (!isAudioSetup) initWebAudio();
-      renderPlayerHardware();
-    };
+            if(!nome || !preco) {
+                alert('Preencha pelo menos o nome e o preço!');
+                return;
+            }
 
-    audio.onpause = () => {
-      renderPlayerHardware();
-    };
+            const res = await fetch('/api/adicionar-produto', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ usuario: credenciais.usuario, senha: credenciais.senha, nome, preco, img })
+            });
+            const data = await res.json();
 
-    function calcularEletrica() {
-      const v = parseFloat(document.getElementById('batteryVolts').value) || 12.6;
-      document.getElementById('voltsEmbutido').innerText = v.toFixed(1) + 'V';
-    }
+            if(data.sucesso) {
+                alert('Produto adicionado!');
+                document.getElementById('prodNome').value = '';
+                document.getElementById('prodPreco').value = '';
+                document.getElementById('prodImg').value = '';
+                carregarDadosPainel();
+            } else {
+                alert('Erro ao adicionar produto.');
+            }
+        }
 
-    function gerarProjeto() {
-      const dsp = document.getElementById('dspModel').value;
-      const mixer = document.getElementById('mixerBrand').value;
-      const remote = document.getElementById('remoteBrand').value;
-      const ledCentral = document.getElementById('ledCentralBrand').value;
-      const boxMaker = document.getElementById('boxMaker').value;
-      const boxStructure = document.getElementById('boxStructure').value;
-      
-      const wObj = audioComponents.woofers.find(w => w.id === selectedComponents.woofers) || {};
-      const ampObj = audioComponents.amplifiers.find(a => a.id === selectedComponents.amplifiers) || {};
-      const srcObj = audioComponents.powerSupplies.find(p => p.id === selectedComponents.powerSupplies) || {};
+        async function removerProduto(id) {
+            if(!confirm('Tem certeza que deseja apagar este produto?')) return;
 
-      const qty = parseInt(document.getElementById('wooferQty').value) || 2;
-      const driverQty = parseInt(document.getElementById('driverQty').value) || 0;
-      const batModel = document.getElementById('batteryModel').value;
-      const batAh = document.getElementById('batteryAh').value;
+            const res = await fetch(`/api/remover-produto/${id}`, { method: 'DELETE' });
+            const data = await res.json();
 
-      const totalRmsGeral = (qty * 1500) + (driverQty * 160);
-
-      document.getElementById('relatorioOutput').value = 
-`======================================================
-🔊 RELATÓRIO COMPLETO E CALCULADO MASTER PRO
-======================================================
-• Caixa: ${boxStructure.toUpperCase()} (${boxMaker})
-• Woofer Ativo: ${wObj.name || 'Padrão'} (Qtd: ${qty})
-• Drivers / Tweeters: Qtd ${driverQty}
-• Amplificador: ${ampObj.name || 'Padrão'}
-• Fonte / Alimentação: ${srcObj.name || 'Padrão'}
-• Mesa de Som: ${mixer}
-• Processador DSP: ${dsp}
-• Controle Longa Distância: ${remote}
-• Central de LED RGB: ${ledCentral}
-• Bateria Auxiliar: ${batModel.toUpperCase()} - ${batAh}Ah
-• Potência Estimada: ~${totalRmsGeral}W RMS`;
-    }
-
-    window.onload = function() {
-      initSettings();
-      preencherSelects();
-      atualizarPalco();
-      atualizarLeds();
-      renderPlayerHardware();
-    };
-  </script>
+            if(data.sucesso) {
+                alert('Produto removido!');
+                carregarDadosPainel();
+            }
+        }
+    </script>
 </body>
 </html>
