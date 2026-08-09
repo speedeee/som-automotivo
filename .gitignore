@@ -1,0 +1,4 @@
+.zshrc*
+senhas.txt
+*.log
+*.save
