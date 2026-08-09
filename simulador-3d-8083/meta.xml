@@ -1,0 +1,9 @@
+<meta>
+    <script src="client.lua" type="client" />
+    <file src="som.mp3" />
+    <file src="caixa.dff" />
+    <file src="caixa.txd" />
+    <file src="skin.dff" />
+    <file src="skin.txd" />
+</meta>
+

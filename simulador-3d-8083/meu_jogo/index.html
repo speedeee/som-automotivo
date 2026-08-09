@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Brasil Street Sound - REB Ultra Edition</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; overflow: hidden; font-family: 'Arial', sans-serif; background: #87ceeb; user-select: none; }
+    
+    #top-bar { position: absolute; top: 10px; left: 10px; right: 10px; display: flex; justify-content: space-between; align-items: center; z-index: 10; }
+    .hud-title { color: #fff; text-shadow: 2px 2px 4px #000; font-size: 16px; font-weight: bold; }
+    .hud-sub { color: #00e5ff; font-size: 11px; display: block; }
+    
+    #music-panel { background: rgba(0, 0, 0, 0.8); padding: 8px 12px; border-radius: 12px; border: 1px solid #00e5ff; color: #fff; backdrop-filter: blur(5px); }
+    #music-panel label { font-size: 11px; display: block; margin-bottom: 3px; color: #ffeb3b; font-weight: bold; }
+    #music-panel input { font-size: 11px; color: #fff; }
+
+    /* Botões de Ação Visual */
+    #action-btns { position: absolute; top: 75px; right: 10px; z-index: 10; display: flex; flex-direction: column; gap: 8px; }
+    .act-btn { background: rgba(0, 0, 0, 0.7); border: 1px solid #ff9800; color: #fff; font-size: 11px; font-weight: bold; padding: 8px 12px; border-radius: 20px; text-transform: uppercase; }
+    .act-btn:active { background: #ff9800; color: #000; }
+
+    /* Velocímetro */
+    #speedo { position: absolute; bottom: 20px; right: 20px; width: 90px; height: 90px; background: rgba(0,0,0,0.8); border: 3px solid #00e5ff; border-radius: 50%; color: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 10; box-shadow: 0 0 15px rgba(0,229,255,0.4); }
+    #speed-val { font-size: 26px; font-weight: bold; color: #00ffcc; line-height: 1; }
+    #speed-unit { font-size: 10px; color: #aaa; margin-top: 2px; }
+
+    /* Botões de Direção */
+    #controls { position: absolute; bottom: 20px; left: 20px; z-index: 10; display: grid; grid-template-columns: repeat(3, 60px); grid-gap: 10px; }
+    .btn { width: 60px; height: 60px; background: rgba(0, 0, 0, 0.6); border: 2px solid #fff; border-radius: 50%; color: #fff; font-size: 22px; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(4px); }
+    .btn:active { background: rgba(0, 229, 255, 0.8); border-color: #00e5ff; transform: scale(0.95); }
+    #btn-up { grid-column: 2; }
+    #btn-left { grid-column: 1; grid-row: 2; }
+    #btn-down { grid-column: 2; grid-row: 2; }
+    #btn-right { grid-column: 3; grid-row: 2; }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+
+  <div id="top-bar">
+    <div class="hud-title">
+      SAVEIRO REBAIXADA BR
+      <span class="hud-sub">Som Automotivo & Neon RGB</span>
+    </div>
+    <div id="music-panel">
+      <label>COLOCAR MÚSICA MP3:</label>
+      <input type="file" id="upload" accept="audio/*">
+    </div>
+  </div>
+
+  <div id="action-btns">
+    <button class="act-btn" id="btn-neon">Mudar Neon RGB</button>
+    <button class="act-btn" id="btn-camera">Trocar Câmera</button>
+  </div>
+
+  <div id="speedo">
+    <span id="speed-val">0</span>
+    <span id="speed-unit">KM/H</span>
+  </div>
+
+  <div id="controls">
+    <div class="btn" id="btn-up">▲</div>
+    <div class="btn" id="btn-left">◄</div>
+    <div class="btn" id="btn-down">▼</div>
+    <div class="btn" id="btn-right">►</div>
+  </div>
+
+  <audio id="audio-player" crossOrigin="anonymous"></audio>
+
+  <script>
+    // 1. CENA E AMBIENTE
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x5ca0e6);
+    scene.fog = new THREE.FogExp2(0x5ca0e6, 0.007);
+
+    const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+    let cameraMode = 0; // 0: Trás, 1: Som Frontal, 2: Lateral
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    document.body.appendChild(renderer.domElement);
+
+    const sun = new THREE.DirectionalLight(0xffffff, 1.5);
+    sun.position.set(50, 70, 30);
+    sun.castShadow = true;
+    sun.shadow.mapSize.width = 2048;
+    sun.shadow.mapSize.height = 2048;
+    scene.add(sun);
+    scene.add(new THREE.AmbientLight(0xffffff, 0.65));
+
+    // 2. MAPA DETALHADO (CIDADE COM POSTES E ÁRVORES)
+    const grass = new THREE.Mesh(new THREE.PlaneGeometry(600, 600), new THREE.MeshStandardMaterial({ color: 0x4e8d2b, roughness: 0.9 }));
+    grass.rotation.x = -Math.PI / 2;
+    grass.receiveShadow = true;
+    scene.add(grass);
+
+    // Asfalto
+    const road = new THREE.Mesh(new THREE.PlaneGeometry(16, 600), new THREE.MeshStandardMaterial({ color: 0x222225, roughness: 0.8 }));
+    road.rotation.x = -Math.PI / 2;
+    road.position.y = 0.02;
+    road.receiveShadow = true;
+    scene.add(road);
+
+    // Calçadas
+    [-8.8, 8.8].forEach(x => {
+      const sidewalk = new THREE.Mesh(new THREE.BoxGeometry(1.6, 0.25, 600), new THREE.MeshStandardMaterial({ color: 0xbfbfbf, roughness: 0.6 }));
+      sidewalk.position.set(x, 0.12, 0);
+      sidewalk.receiveShadow = true;
+      scene.add(sidewalk);
+    });
+
+    // Linhas na estrada
+    for(let z = -280; z < 280; z += 12) {
+      const line = new THREE.Mesh(new THREE.PlaneGeometry(0.3, 6), new THREE.MeshBasicMaterial({ color: 0xffcc00 }));
+      line.rotation.x = -Math.PI / 2;
+      line.position.set(0, 0.03, z);
+      scene.add(line);
+    }
+
+    // Postes de Luz e Árvores nas laterais
+    for(let z = -250; z <= 250; z += 40) {
+      // Postes
+      const pole = new THREE.Mesh(new THREE.CylinderGeometry(0.08, 0.08, 6), new THREE.MeshStandardMaterial({ color: 0x555555 }));
+      pole.position.set(-9.2, 3, z);
+      scene.add(pole);
+
+      // Árvores
+      const trunk = new THREE.Mesh(new THREE.CylinderGeometry(0.2, 0.3, 2), new THREE.MeshStandardMaterial({ color: 0x5a3d28 }));
+      trunk.position.set(11, 1, z + 15);
+      const leaves = new THREE.Mesh(new THREE.DodecahedronGeometry(1.8), new THREE.MeshStandardMaterial({ color: 0x2e7d32, roughness: 0.8 }));
+      leaves.position.set(11, 2.8, z + 15);
+      scene.add(trunk);
+      scene.add(leaves);
+
+      // Casas Coloridas
+      const house1 = new THREE.Mesh(new THREE.BoxGeometry(12, 7, 20), new THREE.MeshStandardMaterial({ color: Math.random() > 0.5 ? 0x2196f3 : 0xff9800 }));
+      house1.position.set(-18, 3.5, z);
+      scene.add(house1);
+
+      const house2 = new THREE.Mesh(new THREE.BoxGeometry(12, 7, 20), new THREE.MeshStandardMaterial({ color: Math.random() > 0.5 ? 0xe91e63 : 0x4caf50 }));
+      house2.position.set(18, 3.5, z + 12);
+      scene.add(house2);
+    }
+
+    // 3. PICAÇÃO SAVEIRO COM PAREDÃO DE SOM MSVOLKS COMPLETO
+    const car = new THREE.Group();
+    scene.add(car);
+
+    // Materiais
+    const paintMat = new THREE.MeshStandardMaterial({ color: 0x001133, roughness: 0.2, metalness: 0.85 }); // Azul Escuro Metálico
+    const darkMat = new THREE.MeshStandardMaterial({ color: 0x111111, roughness: 0.7 });
+    const chromeMat = new THREE.MeshStandardMaterial({ color: 0xeeeeee, metalness: 0.95, roughness: 0.05 });
+    const yellowMat = new THREE.MeshStandardMaterial({ color: 0xffcc00, metalness: 0.4, roughness: 0.3 });
+
+    // Corpo da Picape
+    const bodyGroup = new THREE.Group();
+    const bodyBase = new THREE.Mesh(new THREE.BoxGeometry(2.1, 0.55, 4.3), paintMat);
+    bodyBase.position.y = 0.32; // Rebaixado
+    bodyBase.castShadow = true;
+    bodyGroup.add(bodyBase);
+
+    // Cabine
+    const cabin = new THREE.Mesh(new THREE.BoxGeometry(1.85, 0.65, 1.7), new THREE.MeshPhysicalMaterial({ color: 0x111111, metalness: 0.8, roughness: 0.1, transmission: 0.8, transparent: true }));
+    cabin.position.set(0, 0.88, 0.6);
+    bodyGroup.add(cabin);
+
+    // Luz Neon RGB Debaixo do Carro
+    const neonLight = new THREE.PointLight(0x00e5ff, 3, 6);
+    neonLight.position.set(0, 0.1, 0);
+    car.add(neonLight);
+
+    // PAREDÃO DE SOM MSVOLKS (Caçamba)
+    const wallGroup = new THREE.Group();
+    wallGroup.position.set(0, 0.92, -0.95);
+
+    // Moldura Amarela MSVOLKS
+    const wallFrame = new THREE.Mesh(new THREE.BoxGeometry(2.0, 1.25, 1.1), yellowMat);
+    wallFrame.castShadow = true;
+    wallGroup.add(wallFrame);
+
+    // Matriz de Subwoofers que reagem ao Grave
+    const speakers = [];
+    for(let c = 0; c < 5; c++) {
+      for(let r = 0; r < 4; r++) {
+        const spkGroup = new THREE.Group();
+        
+        const rim = new THREE.Mesh(new THREE.TorusGeometry(0.14, 0.02, 16, 24), chromeMat);
+        spkGroup.add(rim);
+
+        const cone = new THREE.Mesh(new THREE.ConeGeometry(0.13, 0.08, 24), darkMat);
+        cone.rotation.x = Math.PI / 2;
+        spkGroup.add(cone);
+
+        spkGroup.position.set(-0.7 + (c * 0.35), -0.42 + (r * 0.28), -0.56);
+        wallGroup.add(spkGroup);
+        speakers.push(cone);
+      }
+    }
+
+    // Cornetas na Parte Superior do Paredão
+    for(let c = 0; c < 6; c++) {
+      const horn = new THREE.Mesh(new THREE.CylinderGeometry(0.08, 0.04, 0.12, 16), chromeMat);
+      horn.rotation.x = Math.PI / 2;
+      horn.position.set(-0.75 + (c * 0.30), 0.52, -0.56);
+      wallGroup.add(horn);
+    }
+
+    bodyGroup.add(wallGroup);
+
+    // Portas Laterais Abertas com Módulos de Som (Igual ao vídeo REB)
+    [-1.08, 1.08].forEach(xSide => {
+      const door = new THREE.Group();
+      door.position.set(xSide, 0.65, 0.5);
+
+      const doorPanel = new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.6, 1.1), paintMat);
+      door.add(doorPanel);
+
+      // Mini falantes nas portas
+      for(let i = -0.3; i <= 0.3; i += 0.3) {
+        const miniSpk = new THREE.Mesh(new THREE.TorusGeometry(0.09, 0.015, 12, 20), chromeMat);
+        miniSpk.rotation.y = Math.PI / 2;
+        miniSpk.position.set(xSide > 0 ? 0.06 : -0.06, 0, i);
+        door.add(miniSpk);
+      }
+
+      door.rotation.y = xSide > 0 ? 0.45 : -0.45; // Mantém portas levemente abertas mostrando o som
+      bodyGroup.add(door);
+    });
+
+    car.add(bodyGroup);
+
+    // Rodas
+    const wheels = [];
+    const wheelPositions = [[-1.1, 0.28, 1.25], [1.1, 0.28, 1.25], [-1.1, 0.28, -1.25], [1.1, 0.28, -1.25]];
+    wheelPositions.forEach(pos => {
+      const w = new THREE.Group();
+      const tire = new THREE.Mesh(new THREE.CylinderGeometry(0.31, 0.31, 0.28, 32), darkMat);
+      tire.rotation.z = Math.PI / 2;
+      tire.castShadow = true;
+      w.add(tire);
+
+      const rim = new THREE.Mesh(new THREE.TorusGeometry(0.2, 0.04, 16, 24), chromeMat);
+      rim.rotation.y = Math.PI / 2;
+      w.add(rim);
+
+      w.position.set(...pos);
+      car.add(w);
+      wheels.push(w);
+    });
+
+    // 4. ÁUDIO & VISUALIZADOR DE GRAVE
+    let audioCtx, analyser, dataArray;
+    const upload = document.getElementById('upload');
+    const audioPlayer = document.getElementById('audio-player');
+
+    upload.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        audioPlayer.src = URL.createObjectURL(file);
+        audioPlayer.play();
+
+        if (!audioCtx) {
+          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+          analyser = audioCtx.createAnalyser();
+          const source = audioCtx.createMediaElementSource(audioPlayer);
+          source.connect(analyser);
+          analyser.connect(audioCtx.destination);
+          analyser.fftSize = 64;
+          dataArray = new Uint8Array(analyser.frequencyBinCount);
+        }
+      }
+    });
+
+    // Botões de Interação
+    const neonColors = [0x00e5ff, 0xff0055, 0x00ff66, 0xffcc00, 0x9c27b0];
+    let neonIdx = 0;
+    document.getElementById('btn-neon').addEventListener('click', () => {
+      neonIdx = (neonIdx + 1) % neonColors.length;
+      neonLight.color.setHex(neonColors[neonIdx]);
+    });
+
+    document.getElementById('btn-camera').addEventListener('click', () => {
+      cameraMode = (cameraMode + 1) % 3;
+    });
+
+    // 5. CONTROLES E FÍSICA DE MOVIMENTO
+    let speed = 0, angle = 0;
+    const keys = { up: false, down: false, left: false, right: false };
+
+    function bindBtn(id, key) {
+      const el = document.getElementById(id);
+      const start = (e) => { e.preventDefault(); keys[key] = true; };
+      const end = (e) => { e.preventDefault(); keys[key] = false; };
+      el.addEventListener('touchstart', start); el.addEventListener('touchend', end);
+      el.addEventListener('mousedown', start); el.addEventListener('mouseup', end);
+    }
+    bindBtn('btn-up', 'up'); bindBtn('btn-down', 'down');
+    bindBtn('btn-left', 'left'); bindBtn('btn-right', 'right');
+
+    const speedVal = document.getElementById('speed-val');
+
+    // 6. LOOP DE ANIMAÇÃO
+    function animate() {
+      requestAnimationFrame(animate);
+
+      if (keys.up) speed = Math.min(speed + 0.006, 0.22);
+      else if (keys.down) speed = Math.max(speed - 0.006, -0.08);
+      else speed *= 0.96;
+
+      if (keys.left) angle += 0.035;
+      if (keys.right) angle -= 0.035;
+
+      car.rotation.y = angle;
+      car.position.x += Math.sin(angle) * speed;
+      car.position.z += Math.cos(angle) * speed;
+
+      wheels.forEach(w => w.rotation.x += speed * 3);
+      speedVal.innerText = Math.round(Math.abs(speed) * 450);
+
+      // Posição da Câmera
+      if (cameraMode === 0) {
+        // Trás padrão
+        camera.position.x = car.position.x - Math.sin(angle) * 6.5;
+        camera.position.z = car.position.z - Math.cos(angle) * 6.5;
+        camera.position.y = car.position.y + 2.3;
+        camera.lookAt(car.position.x, car.position.y + 0.6, car.position.z);
+      } else if (cameraMode === 1) {
+        // Focada no Paredão de Som
+        camera.position.x = car.position.x - Math.sin(angle) * 3.5;
+        camera.position.z = car.position.z - Math.cos(angle) * 3.5;
+        camera.position.y = car.position.y + 1.2;
+        camera.lookAt(car.position.x, car.position.y + 0.9, car.position.z);
+      } else {
+        // Visão Lateral da Porta
+        camera.position.x = car.position.x + Math.cos(angle) * 4.5;
+        camera.position.z = car.position.z - Math.sin(angle) * 4.5;
+        camera.position.y = car.position.y + 1.5;
+        camera.lookAt(car.position.x, car.position.y + 0.7, car.position.z);
+      }
+
+      // BATIDA DO GRAVE DA MÚSICA (Audio Visualizer)
+      if (analyser && dataArray) {
+        analyser.getByteFrequencyData(dataArray);
+        const bass = dataArray[1] / 255;
+
+        // Subwoofers a tremer
+        speakers.forEach(spk => {
+          spk.scale.set(1 + bass * 0.45, 1 + bass * 0.7, 1 + bass * 0.45);
+        });
+
+        // Efeito Suspensão a Ar (O carro todo pula e quica com o som!)
+        bodyGroup.position.y = bass * 0.08;
+        neonLight.intensity = 2 + bass * 8;
+      }
+
+      renderer.render(scene, camera);
+    }
+    animate();
+
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+  </script>
+</body>
+</html>
